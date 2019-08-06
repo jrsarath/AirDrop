@@ -19,6 +19,7 @@ import joinMatch from './joinMatch.js';
 export class Upcoming extends Component {
     constructor() {
         super();
+        
         this.state = {
             matches: store.getState().upcoming,
             status: store.getState().upcoming.length == 0 ? false : 1
@@ -28,29 +29,36 @@ export class Upcoming extends Component {
         fetch(config.domain + "api/matches.php", {
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                "Accept-Encoding": "gzip, deflate",
+                'Content-Type': 'application/json'
             }),
-            body: "action=get_upcoming"
+            body: JSON.stringify({action: "get_upcoming"})
         })
             .then((response) => response.json())
-            .then((responseText) => {
-                console.log(responseText);
+            .then((resJson) => {
+                console.log('Fetched');
                 if (store.getState().upcoming.length == 0) {
                     this.setState({
-                        matches: responseText,
+                        matches: resJson,
                         status: 1
                     });
                 }
-                store.dispatch(GetUpcoming(responseText));
+                store.dispatch(GetUpcoming(resJson));
             })
             .catch((error) => {
                 console.error(error);
                 ToastAndroid.show('Error Updating Match list', ToastAndroid.LONG);
             });
+        
+        store.subscribe(() => {
+            this.setState({
+                matches: store.getState().upcoming
+            });
+        });
     }
     render() {
         let Match = this.state.matches.map((match, index) => {
-            //console.log(match);
             return (
                 <MatchCard
                     key={index}

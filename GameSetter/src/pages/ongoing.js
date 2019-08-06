@@ -30,29 +30,36 @@ export class Ongoing extends Component {
         fetch(config.domain + "api/matches.php", {
             method: 'POST',
             headers: new Headers({
-                'Content-Type': 'application/x-www-form-urlencoded',
+                'Accept': 'application/json',
+                "Accept-Encoding": "gzip, deflate",
+                'Content-Type': 'application/json'
             }),
-            body: "action=get_ongoing"
+            body: JSON.stringify({action: "get_ongoing"})
         })
             .then((response) => response.json())
-            .then((responseText) => {
-                console.log(responseText);
+            .then((resJson) => {
+                console.log('Fetched');
                 if (store.getState().upcoming.length == 0) {
                     this.setState({
-                        matches: responseText,
+                        matches: resJson,
                         status: 1
                     });
                 }
-                store.dispatch(GetOngoing(responseText));
+                store.dispatch(GetOngoing(resJson));
             })
             .catch((error) => {
                 console.error(error);
                 ToastAndroid.show('Error Updating Match list', ToastAndroid.LONG);
             });
+        
+        store.subscribe(() => {
+            this.setState({
+                matches: store.getState().ongoing
+            });
+        });
     }
     render() {
         let Match = this.state.matches.map((match, index) => {
-            //console.log(match);
             return (
                 <MatchCard
                     key={index}

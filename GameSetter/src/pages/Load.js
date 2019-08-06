@@ -10,7 +10,6 @@ export default class authLoader extends Component {
         this._bootstrapAuth();
     }
     _bootstrapAuth(){
-        console.log(store.getState().user);
         store.getState().user == null ? this.props.navigation.navigate('Login') : this.props.navigation.navigate('App');
     }
     render() {

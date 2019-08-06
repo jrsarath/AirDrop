@@ -6,8 +6,7 @@ export default class Header extends Component {
     render(){
         return(
             <View style={styles.header}>
-                <Image style={styles.icon} source={require('../images/icon.png')} />
-                <Title styleName='bold'>{this.props.text}</Title>
+                <Image style={styles.icon} source={require('../images/logo-white.png')} />
             </View>
         );
     }
@@ -16,19 +15,18 @@ export default class Header extends Component {
 const styles = StyleSheet.create({
     header: {
         height: 55,
+        width: '100%',
         backgroundColor: '#fff',
         shadowOpacity: 0.30,
         shadowRadius: 10,
         elevation: 4,
         flexDirection: 'row',
-        alignContent: 'center',
         alignItems: 'center',
     },
     icon: {
-        width: 35,
         height: 35,
+        width: 160,
         resizeMode: 'contain',
-        marginRight: 20,
-        marginLeft: 20
+        marginLeft: 20,
     }
 });

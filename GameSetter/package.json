@@ -26,7 +26,6 @@
     "react-navigation-material-bottom-tabs": "^1.0.0",
     "react-redux": "^7.1.0",
     "redux": "^4.0.4",
-    "redux-logger": "^3.0.6",
     "redux-persist": "^5.10.0"
   },
   "devDependencies": {
@@ -38,7 +37,8 @@
     "jest": "24.8.0",
     "jetifier": "^1.6.3",
     "metro-react-native-babel-preset": "0.54.1",
-    "react-test-renderer": "16.8.6"
+    "react-test-renderer": "16.8.6",
+    "redux-logger": "^3.0.6"
   },
   "jest": {
     "preset": "react-native"

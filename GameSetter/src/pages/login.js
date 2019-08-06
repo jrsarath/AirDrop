@@ -47,9 +47,15 @@ export default class Login extends Component {
             fetch(config.domain+"api/user.php", {
                 method: 'POST',
                 headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json',
+                    "Accept-Encoding": "gzip, deflate",
+                    'Content-Type': 'application/json'
                 }),
-                body: "action=login&email="+this.state.inputEmail+"&password="+md5(this.state.inputPass)
+                body: JSON.stringify({
+                    action: "login",
+                    email: this.state.inputEmail,
+                    password: md5(this.state.inputPass)
+                })
             })
                 .then((response) => response.text())
                 .then((responseText) => {

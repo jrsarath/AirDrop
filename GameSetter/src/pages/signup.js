@@ -28,15 +28,24 @@ export default class Signup extends Component {
             fetch(config.domain+"api/user.php", {
                 method: 'POST',
                 headers: new Headers({
-                    'Content-Type': 'application/x-www-form-urlencoded',
+                    'Accept': 'application/json',
+                    "Accept-Encoding": "gzip, deflate",
+                    'Content-Type': 'application/json'
                 }),
-                body: "action=signup&email="+this.state.inputEmail+"&name="+this.state.inputName+"&phone="+this.state.inputPhone+"&password="+md5(this.state.inputPass)+"&gamertag="+this.state.inputGamertag
+                body: JSON.stringify({
+                    action: "signup",
+                    email: this.state.inputEmail,
+                    name: this.state.inputName,
+                    phone: this.state.inputPhone,
+                    gamertag: this.state.inputGamertag,
+                    password: md5(this.state.inputPass)
+                })
             })
                 .then((response) => response.text())
                 .then((responseText) => {
                     console.log(responseText);
                     if (responseText == 'success'){
-                        ToastAndroid.show('Welcome to GAME SETTER '+this.state.inputName, ToastAndroid.LONG);
+                        ToastAndroid.show('Welcome '+this.state.inputName+' to GAME SETTER', ToastAndroid.LONG);
                         this.props.navigation.navigate('Login');
                     } else if(responseText == 'false') {
                         ToastAndroid.show('Account already exists', ToastAndroid.LONG);
