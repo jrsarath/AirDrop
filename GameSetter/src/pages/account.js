@@ -7,6 +7,7 @@ import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationB
 // CUSTOM COMPONENT
 import Header from '../component/header';
 // REDUX 
+var md5 = require('js-md5');
 import config from '../config/config.js'
 import { GetOngoing } from '../redux/Actions/Actions';
 import { store } from '../redux/Store';
@@ -16,8 +17,9 @@ export default class AccountScreen extends Component {
         super();
         this.state = {
             name: null,
-            number: null,
+            phone: null,
             gamertag: null,
+            oldPassword: null,
             password: null,
             newPassword: null
         }
@@ -37,11 +39,12 @@ export default class AccountScreen extends Component {
         })
             .then((response) => response.json())
             .then((resJson) => {
-                console.log(resJson);
+                console.log('Fetched');
                 this.setState({
                     name: resJson.name,
-                    number: resJson.phone,
-                    gamertag: resJson.gamertag
+                    phone: resJson.phone,
+                    gamertag: resJson.gamertag,
+                    oldPassword: resJson.password
                 })
             })
             .catch((error) => {
@@ -49,11 +52,83 @@ export default class AccountScreen extends Component {
                 ToastAndroid.show('Error Fetching Profile', ToastAndroid.LONG);
             });
     }
+    updateProfile(){
+        if (this.state.name != null && this.state.phone != null && this.state.gamertag != null) {
+            fetch(config.domain + "api/user.php", {
+                    method: 'POST',
+                    headers: new Headers({
+                        'Accept': 'application/json',
+                        "Accept-Encoding": "gzip, deflate",
+                        'Content-Type': 'application/json'
+                    }),
+                    body: JSON.stringify({
+                        action: "update_profile",
+                        user: store.getState().user,
+                        name: this.state.name,
+                        phone: this.state.phone,
+                        gamertag: this.state.gamertag
+                    })
+                })
+                .then((response) => response.json())
+                .then((resJson) => {
+                    if (resJson.status == 'success') {
+                        ToastAndroid.show('Profile Updated Successfully  ', ToastAndroid.LONG);
+                    } else {
+                        ToastAndroid.show('Error Updating Profile', ToastAndroid.LONG);
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                    ToastAndroid.show('Error Updating Profile', ToastAndroid.LONG);
+                });
+        } else {
+            ToastAndroid.show('Please Enter All Info', ToastAndroid.LONG);
+        }
+    }
+    updatePassword(){
+        if (this.state.password != null && this.state.newPassword != null) {
+            if (this.state.oldPassword = md5(this.state.password)) {
+                fetch(config.domain + "api/user.php", {
+                    method: 'POST',
+                    headers: new Headers({
+                        'Accept': 'application/json',
+                        "Accept-Encoding": "gzip, deflate",
+                        'Content-Type': 'application/json'
+                    }),
+                    body: JSON.stringify({
+                        action: "update_password",
+                        user: store.getState().user,
+                        password: md5(this.state.newPassword)
+                    })
+                })
+                    .then((response) => response.json())
+                    .then((resJson) => {
+                        if (resJson.status == 'success') {
+                            ToastAndroid.show('Password Updated Successfully  ', ToastAndroid.LONG);
+                            this.setState({
+                                password: null,
+                                newPassword: null
+                            })
+                        } else {
+                            ToastAndroid.show('Error Updating Password', ToastAndroid.LONG);
+                        }
+                    })
+                    .catch((error) => {
+                        console.error(error);
+                        ToastAndroid.show('Error Updating Password', ToastAndroid.LONG);
+                    });
+            } else {
+                ToastAndroid.show('Your Old & New Password Doesnt Match', ToastAndroid.LONG);
+            }
+        } else {
+            ToastAndroid.show('Please enter Both Old & New Password', ToastAndroid.LONG);
+        }
+    }
     render() {
         return(
-            <Screen>
+            <Screen style={{backgroundColor: '#fff'}}>
                 <Header text='Game Setter' />
-                <View style={styles.base}>
+                <ScrollView>
                     <View style={styles.container}>
                         <View style={styles.textCon}>
                             <Title style={{color:'#f44336'}}>Profile</Title>
@@ -66,9 +141,9 @@ export default class AccountScreen extends Component {
                             placeholder='Your Name'
                         />
                         <TextInput
-                            value={this.state.number}
+                            value={this.state.phone}
                             style={styles.input}
-                            onChangeText={(text) => this.setState({ number: text })}
+                            onChangeText={(text) => this.setState({ phone: text })}
                             placeholder='Your Paytm Number'
                         />
                         <TextInput
@@ -77,6 +152,14 @@ export default class AccountScreen extends Component {
                             onChangeText={(text) => this.setState({ gamertag: text })}
                             placeholder='Your PUBGM username'
                         />
+                        <TouchableOpacity style={styles.button} onPress={() => this.updateProfile()}>
+                            <Text style={{ color: '#fff', fontSize: 18 }}>Update Profile</Text>
+                        </TouchableOpacity>
+                        
+                        <View style={styles.textCon}>
+                            <Title style={{color:'#f44336'}}>Update your Password</Title>
+                            <Subtitle style={{color:'#4a4a4a'}}>Always keep your password Strong and Safe</Subtitle>
+                        </View>
                         <TextInput
                             value={this.state.password}
                             secureTextEntry={true}
@@ -91,8 +174,24 @@ export default class AccountScreen extends Component {
                             onChangeText={(text) => this.setState({ newPassword: text })}
                             placeholder='New Password'
                         />
+                        <TouchableOpacity style={styles.button} onPress={() => this.updatePassword()}>
+                            <Text style={{ color: '#fff', fontSize: 18 }}>Update Password</Text>
+                        </TouchableOpacity>
+                        <View style={styles.textCon}>
+                            <Title style={{color:'#f44336'}}>Support</Title>
+                            <Subtitle style={{color:'#4a4a4a'}}>
+                                Support Info
+                            </Subtitle>
+                        </View>
+                        <View style={styles.textCon}>
+                            <Title style={{color:'#f44336'}}>Terms</Title>
+                            <Subtitle style={{color:'#4a4a4a'}}>
+                                Support Info
+                            </Subtitle>
+                        </View>
                     </View>
-                </View>
+                    
+                </ScrollView>
             </Screen>
         );
     }
@@ -107,13 +206,12 @@ const styles = StyleSheet.create({
         backgroundColor: '#fff'
     },
     textCon: {
-        paddingHorizontal: 20,
-        paddingVertical: 10
+        padding: 20,
+        paddingBottom:10
     },  
     container: {
         height: '100%',
-        width: '100%',
-        marginTop: 10
+        width: '100%'
     },
     input: {
         shadowColor: "#000",
@@ -128,7 +226,8 @@ const styles = StyleSheet.create({
         marginHorizontal: 20,
         marginBottom: 15,
         backgroundColor: '#fff',
-        padding: 13,
+        paddingVertical: 11,
+        paddingHorizontal: 15
     },
     button: {
         height: 50,

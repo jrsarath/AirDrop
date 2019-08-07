@@ -13,12 +13,9 @@ import config from '../config/config.js'
 import { GetOngoing } from '../redux/Actions/Actions';
 import { store } from '../redux/Store';
 // PAGES
-import UpcomingScreen from './upcoming'
-import WalletScreen from './wallet'
-import AccountScreen from './account'
-import matchDetails from './matchDetails.js';
+import matchDetails from './matchDetails';
 
-export class Ongoing extends Component {
+export class OngoingView extends Component {
     constructor() {
         super();
         this.state = {
@@ -94,98 +91,10 @@ export class Ongoing extends Component {
         );
     }
 }
-
-export const OngoingScreen = createStackNavigator({
-    Ongoing: { screen: Ongoing },
+export default OngoingScreen = createStackNavigator({
+    Ongoing: { screen: OngoingView },
     MatchDetails: { screen: matchDetails }
   },{
     initialRouteName: "Ongoing",
     headerMode: 'none'
-});
-
-export default Ongoing = createBottomTabNavigator({
-        Ongoing: {
-            screen: OngoingScreen,
-            navigationOptions: {
-                tabBarIcon: ({ tintColor, focused }: any) => (
-                    <MyIcon color={tintColor} name="clock" size={28} config={IcomoonConfig} />
-                ),
-            }
-        },
-        Matches: {
-            screen: UpcomingScreen,
-            navigationOptions: {
-                tabBarIcon: ({ tintColor, focused }: any) => (
-                    <MyIcon color={tintColor} name="console" size={28} config={IcomoonConfig} />
-                ),
-            }
-        },
-        Wallet: {
-            screen: WalletScreen,
-            navigationOptions: {
-                tabBarIcon: ({ tintColor, focused }: any) => (
-                    <MyIcon color={tintColor} name="wallet" size={28} config={IcomoonConfig} />
-                ),
-            }
-        },
-        Account: {
-            screen: AccountScreen,
-            navigationOptions: {
-                tabBarIcon: ({ tintColor, focused }: any) => (
-                    <MyIcon color={tintColor} name="man" size={28} config={IcomoonConfig} />
-                ),
-            }
-        }
-    },{
-        defaultNavigationOptions: ({ navigation }) => ({
-            tabBarLabel: ({ focused }) => {
-                const { routeName } = navigation.state;
-                switch (routeName) {
-                    case "Ongoing":
-                        return focused ? (
-                            <Text style={styles.activeTabText}>Ongoing</Text>
-                        ) : null;
-                        break;
-                    case "Matches":
-                        return focused ? (
-                            <Text style={styles.activeTabText}>Play</Text>
-                        ) : null;
-                        break;
-                    case "Wallet":
-                        return focused ? (
-                            <Text style={styles.activeTabText}>Wallet</Text>
-                        ) : null;
-                        break;
-                    case "Account":
-                        return focused ? (
-                            <Text style={styles.activeTabText}>Account</Text>
-                        ) : null;
-                        break;
-                    default:
-                        return null;
-                        break;
-                }
-            }
-        }),
-        tabBarOptions: {
-            activeTintColor: '#f44336',
-            inactiveTintColor: 'gray',
-            style: {
-                height: 60,
-                paddingVertical:10
-            },
-            iconStyle: {
-                padding:0
-            }
-        },
-    }
-);
-
-const styles= StyleSheet.create({
-    activeTabText: {
-        color: '#f44336',
-        textAlign: 'center',
-        marginTop: 5,
-        fontSize: 12,
-    }
 });

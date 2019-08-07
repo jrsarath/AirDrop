@@ -1,4 +1,6 @@
 rootProject.name = 'GameSetter'
+include ':@philly25_react-native-paytm'
+project(':@philly25_react-native-paytm').projectDir = new File(rootProject.projectDir, '../node_modules/@philly25/react-native-paytm/android')
 include ':react-native-google-signin', ':app'
 project(':react-native-google-signin').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-google-signin/android')
 include ':react-native-splash-screen'

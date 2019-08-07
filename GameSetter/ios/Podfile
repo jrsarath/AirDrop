@@ -36,6 +36,8 @@ target 'GameSetter' do
 
   pod 'react-native-splash-screen', :path => '../node_modules/react-native-splash-screen'
 
+  pod 'RNPayTm', :path => '../node_modules/@philly25/react-native-paytm'
+
   target 'GameSetterTests' do
     inherit! :search_paths
     # Pods for testing

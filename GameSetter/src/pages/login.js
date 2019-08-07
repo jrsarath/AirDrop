@@ -57,14 +57,14 @@ export default class Login extends Component {
                     password: md5(this.state.inputPass)
                 })
             })
-                .then((response) => response.text())
+                .then((response) => response.json())
                 .then((responseText) => {
                     console.log(responseText);
-                    if (responseText == 'success'){
+                    if (responseText.status == 'success'){
                         store.dispatch(SignIn(this.state.inputEmail));
                         ToastAndroid.show('Welcome Back to GAME SETTER', ToastAndroid.LONG);
                         this.props.navigation.navigate('App');
-                    } else if (responseText == 'false') {
+                    } else if (responseText.status == 'false') {
                         ToastAndroid.show('Check your Email & Password', ToastAndroid.LONG);
                     } else {
                         ToastAndroid.show('Sorry, something went wrong. Contact Support', ToastAndroid.LONG);
@@ -128,16 +128,10 @@ export default class Login extends Component {
                             disabled={this.state.isSigninInProgress} />
                     </View>
                     <View style={styles.forgot}>
-                        <TouchableOpacity 
-                            style={styles.forgotbtn}
-                            onPress={() => this.props.navigation.navigate('Signup')}
-                        >
+                        <TouchableOpacity style={styles.forgotbtn} onPress={() => this.props.navigation.navigate('Signup')}>
                             <Subtitle style={styles.textWhite}>New Account</Subtitle>
                         </TouchableOpacity>
-                        <TouchableOpacity
-                            style={styles.forgotbtn}
-                            onPress={() => this.props.navigation.navigate('Forgot')}
-                        >
+                        <TouchableOpacity style={styles.forgotbtn} onPress={() => this.props.navigation.navigate('Forgot')}>
                             <Subtitle style={styles.textWhite}>Forgot Password</Subtitle>
                         </TouchableOpacity>
                     </View>
@@ -214,6 +208,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         backgroundColor: '#fff',
         padding: 13,
+        paddingHorizontal: 15
     },
     button: {
         height: 45,

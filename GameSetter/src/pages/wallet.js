@@ -2,18 +2,115 @@ import React, { Component } from 'react';
 import MyIcon from "react-native-custom-icon";
 import IcomoonConfig from '../assets/icomoon/selection.json';
 import { createBottomTabNavigator, createAppContainer, createMaterialTopTabNavigator } from 'react-navigation';
-import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, ScrollView, TextInput, ToastAndroid, ImageBackground, Platform, DeviceEventEmitter, NativeModules, NativeEventEmitter, Alert } from 'react-native';
 import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
 // CUSTOM COMPONENT
 import Header from '../component/header';
+// REDUX
+import config from '../config/config.js'
+import { GetOngoing } from '../redux/Actions/Actions';
+import { store } from '../redux/Store';
+// PAYTM 
+import paytm from '@philly25/react-native-paytm';
+const paytmConfig = {
+    MID: 'XROaMe66551837117344',
+    WEBSITE: 'https://gamesetter.in',
+    CHANNEL_ID: 'WAP',
+    INDUSTRY_TYPE_ID: 'Retail',
+    CALLBACK_URL: 'https://securegw.paytm.in/theia/paytmCallback?ORDER_ID='
+};
 
 export class addMoney extends Component {
     constructor(){
         super();
+        this.emitter = null;
         this.state = {
-            addMoney: null
+            addMoney: null,
+            order_id: null,
         }
     }
+    componentDidMount() {
+        paytmEvent = new NativeEventEmitter(NativeModules.RNPayTm);
+        paytmEvent.addListener('PayTMResponse', this._handlePaytmResponse);
+    }
+    componentWillUnmount() {
+        if (paytmEvent) {
+            paytmEvent.removeListener('PayTMResponse', this._handlePaytmResponse);
+            paytmEvent = null;
+        }
+    }
+    startPayment(){
+        fetch(config.domain + "api/payment.php", {
+            method: 'POST',
+            headers: new Headers({
+                'Accept': 'application/json',
+                "Accept-Encoding": "gzip, deflate",
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                action: "paymentRequest",
+                user: store.getState().user,
+                amount: this.state.addMoney
+            })
+        })
+            .then((response) => response.json())
+            .then((data) => {
+                console.log('Fetched');
+                this.setState({order_id: data.ORDER_ID});
+                var details = {
+                    mode: 'Staging',
+                    ORDER_ID: data.ORDER_ID,
+                    MID: data.MID,
+                    INDUSTRY_TYPE_ID: data.INDUSTRY_TYPE_ID, //Prod
+                    WEBSITE: data.WEBSITE, //prod
+                    CHANNEL_ID: data.CHANNEL_ID,
+                    TXN_AMOUNT: data.TXN_AMOUNT,
+                    EMAIL: data.EMAIL,
+                    MOBILE_NO: data.MOBILE_NO,
+                    CUST_ID: data.CUST_ID,
+                    CHECKSUMHASH: data.CHECKSUM,
+                    CALLBACK_URL: data.CALLBACK_URL,
+                };
+                paytm.startPayment(details);
+            })
+            .catch((error) => {
+                console.error(error);
+                Alert.alert('Error', 'Unable to initiate transaction, please try again');
+            });
+    }
+    _handlePaytmResponse = (resp) => {
+        const { STATUS, status, response } = resp;
+        if (STATUS && STATUS === 'TXN_SUCCESS') {
+            fetch(config.domain + "api/payment.php", {
+                method: 'POST',
+                headers: new Headers({
+                    'Accept': 'application/json',
+                    "Accept-Encoding": "gzip, deflate",
+                    'Content-Type': 'application/json'
+                }),
+                body: JSON.stringify({
+                    action: "verifyPayment",
+                    order_id: this.state.order_id,
+                    user: store.getState().user
+                })
+            })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status == "success") {
+                        Alert.alert('Transaction successful', 'We have added money to your account, Enjoy playing');
+                    } else {
+                        Alert.alert('Failed', 'Unable to complete transaction, please check your bills. In case of any query you can contact us');
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                    Alert.alert('Error', 'Unable to complete transaction, please check your bills. In case of any query you can contact us');
+                });
+        } else {
+            Alert.alert('Error', 'Unable to complete transaction, please check your bills. In case of any query you can contact us');
+        }
+    };
+
     render(){
         return(
             <View style={styles.container}>
@@ -23,7 +120,7 @@ export class addMoney extends Component {
                     onChangeText={(text) => this.setState({ addMoney: text })}
                     placeholder='Amount to Add'
                 />
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={styles.button} onPress={() => this.startPayment()}>
                     <Text style={{color: '#fff',fontSize: 18}}>Add Money</Text>
                 </TouchableOpacity>
             </View>
@@ -33,9 +130,20 @@ export class addMoney extends Component {
 export class withdrawMoney extends Component {
     constructor(){
         super();
+        this.emitter = null;
         this.state = {
             withdrawMoney: null,
             withdrawNumber: null,
+        }
+    }
+    componentDidMount() {
+        paytmEvent = new NativeEventEmitter(NativeModules.RNPayTm);
+        paytmEvent.addListener('PayTMResponse', this._handlePaytmResponse);
+    }
+    componentWillUnmount() {
+        if (paytmEvent) {
+            paytmEvent.removeListener('PayTMResponse', this._handlePaytmResponse);
+            paytmEvent = null;
         }
     }
     render() {
@@ -75,13 +183,19 @@ const tab = createMaterialTopTabNavigator({
 export const Tabs = createAppContainer(tab);
 
 export default class WalletScreen extends Component {
+    constructor(){
+        super();
+        this.state = {
+            balance: '0'
+        }
+    }
     render() {
         return(
             <Screen>
                 <Header text='Game Setter' />
                 <View style={styles.header}>
                     <Image style={styles.icon} source={require('../images/wallet.png')} />
-                    <Text style={styles.moneyText}>₹ 1400</Text>
+                    <Text style={styles.moneyText}>₹ {this.state.balance}</Text>
                 </View>
                 <Tabs />
             </Screen>
@@ -128,6 +242,7 @@ const styles = StyleSheet.create({
         marginBottom: 20,
         backgroundColor: '#fff',
         padding: 13,
+        paddingHorizontal: 15
     },
     button: {
         height: 50,

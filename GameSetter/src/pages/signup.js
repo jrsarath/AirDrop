@@ -41,10 +41,10 @@ export default class Signup extends Component {
                     password: md5(this.state.inputPass)
                 })
             })
-                .then((response) => response.text())
+                .then((response) => response.json())
                 .then((responseText) => {
                     console.log(responseText);
-                    if (responseText == 'success'){
+                    if (responseText.status == 'success'){
                         ToastAndroid.show('Welcome '+this.state.inputName+' to GAME SETTER', ToastAndroid.LONG);
                         this.props.navigation.navigate('Login');
                     } else if(responseText == 'false') {
@@ -193,6 +193,7 @@ const styles = StyleSheet.create({
         marginBottom: 17,
         backgroundColor: '#fff',
         padding: 12,
+        paddingHorizontal: 15
     },
     button: {
         height: 48,

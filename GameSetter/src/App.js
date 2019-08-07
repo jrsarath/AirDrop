@@ -8,18 +8,15 @@ import { PersistGate } from 'redux-persist/integration/react';
 import { persistor, store } from './redux/Store';
 import { persistStore } from 'redux-persist'
 // PAGES 
-import Ongoing from './pages/ongoing';
+import MainApp from './pages/MainApp';
 import authLoader from './pages/Load';
 import Login from './pages/login';
 import Signup from './pages/signup';
 import Forgot from './pages/forgot';
-import Splash from './pages/splash';
 import Loading from './component/loader';
 
 // Disable yellowbox
 console.disableYellowBox = true;
-
-window.store = store;
 
 const Stack = createStackNavigator({
     Login: { screen: Login },
@@ -32,7 +29,7 @@ const Stack = createStackNavigator({
 const Switch = createSwitchNavigator({
     Auth: { screen: Stack },
     Load: { screen: authLoader },
-    App: { screen: Ongoing }
+    App: { screen: MainApp }
   },{
     initialRouteName: "Load",
     headerMode: 'none'
