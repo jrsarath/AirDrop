@@ -172,6 +172,7 @@
       }
     }
     // PAYMENT STUFF
+    // PAYTM SPECIFIC
     function generatePaymentRequest($amount, $email){
       $user = $this->get_user($email);
       $uid_email = $email;
@@ -240,6 +241,14 @@
       }
 
     }
+    function checkNull($value){
+        if ($value == null) {
+            return '';
+        } else {
+            return $value;
+        }
+    }
+
     function get_wallet($user){
       if ($res = mysqli_query($this->db, "SELECT * FROM wallet WHERE user='$user'")){
         $row = mysqli_fetch_assoc($res);
