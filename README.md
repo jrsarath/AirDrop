@@ -8,7 +8,7 @@ Hit me up anytime for Small customizations on this project<br>
 If you found this project helpfull then buy me a cup of coffee :coffee::coffee: at https://www.instamojo.com/@jrsarath
 
 Feel free to Contribute to this project
-Feel free to open a issue for Suggestions, Feedbacks & Bugs
+Feel free to open a issue for Suggestions, Feature Request, Feedbacks & Bugs
 ## Documentions will be published soon
 Made with :heart: in Kolkata
 
