@@ -1,0 +1,19 @@
+{
+    "logs": [
+        {
+            "outputFile": "G:\\App_Production\\Game Setter\\GameSetter\\android\\app\\build\\intermediates\\incremental\\mergeDebugResources\\merged.dir\\values-fb-rLL\\values-fb-rLL.xml",
+            "map": [
+                {
+                    "source": "C:\\Users\\Jrsarath\\.gradle\\caches\\transforms-2\\files-2.1\\4846c1ac6a7e103bb8f9923dd2a9f386\\res\\values-fb-rLL\\values-fb-rLL.xml",
+                    "from": {
+                        "startLines": "2,3,4,5,6,7,8,9",
+                        "startColumns": "4,4,4,4,4,4,4,4",
+                        "startOffsets": "55,109,190,269,340,419,475,534",
+                        "endColumns": "53,80,78,70,78,55,58,73",
+                        "endOffsets": "104,185,264,335,414,470,529,603"
+                    }
+                }
+            ]
+        }
+    ]
+}

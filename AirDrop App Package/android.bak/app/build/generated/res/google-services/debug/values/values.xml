@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="default_web_client_id" translatable="false">763888761267-9n6qt97jrpoh63td5h64odcq03j7q4m7.apps.googleusercontent.com</string>
+    <string name="firebase_database_url" translatable="false">https://gamesetter-pubg.firebaseio.com</string>
+    <string name="gcm_defaultSenderId" translatable="false">763888761267</string>
+    <string name="google_api_key" translatable="false">AIzaSyAd0a3yKfncp0AlOTabtPolxdaMrh22txQ</string>
+    <string name="google_app_id" translatable="false">1:763888761267:android:9d7ea26df3dc8169</string>
+    <string name="google_crash_reporting_api_key" translatable="false">AIzaSyAd0a3yKfncp0AlOTabtPolxdaMrh22txQ</string>
+    <string name="google_storage_bucket" translatable="false">gamesetter-pubg.appspot.com</string>
+    <string name="project_id" translatable="false">gamesetter-pubg</string>
+</resources>
