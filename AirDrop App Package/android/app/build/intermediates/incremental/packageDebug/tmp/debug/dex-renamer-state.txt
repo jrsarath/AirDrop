@@ -1,0 +1,4 @@
+#Sat Aug 10 21:44:21 IST 2019
+base.0=G\:\\App_Production\\Game Setter\\AirDrop App Package\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
+path.0=classes.dex
+renamed.0=classes.dex
