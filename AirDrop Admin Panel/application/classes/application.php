@@ -1,7 +1,7 @@
 <?php
   /**
    * FULL APPLICATION CONTROLLER
-   * GAMESETTER PRODUCTIONS
+   * AIRDROP - A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION
    * Copyright © 2019, JR Sarath - Noobs Labs
    * GNU GENERAL PUBLIC LICENSE Version 3
    */
@@ -239,16 +239,16 @@
           return array('status' =>  'failed' );
         } else {
           error_log("MYSQL ERROR: ".mysqli_error($this->db));
-        } 
+        }
       }
-      
+
     }
     function get_wallet($user){
       if ($res = mysqli_query($this->db, "SELECT * FROM wallet WHERE user='$user'")){
         $row = mysqli_fetch_assoc($res);
         return array('balance' =>  $row["balance"]);
       }
-            
+
     }
   }
 
