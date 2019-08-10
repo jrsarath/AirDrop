@@ -6,7 +6,7 @@ export default class Loading extends Component {
         return(
             <View style={{flex:1, width: '100%',backgroundColor: '#fff', alignContent: 'center', alignItems: 'center', alignSelf: 'center', justifyContent: 'center'}}>
                 <Image source={require('../images/running.gif')} style={{width:'50%',height: '50%',resizeMode: 'contain'}} />
-                <Text style={{fontSize:18}}>Loading the Arena..</Text>
+                <Text style={{fontSize:18}}>{this.props.text}</Text>
             </View>
         );
     }

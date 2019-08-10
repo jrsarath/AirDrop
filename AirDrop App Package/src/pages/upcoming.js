@@ -83,7 +83,7 @@ export class Upcoming extends Component {
             return(
                 <Screen>
                     <Header text='Game Setter' />
-                    <Loading />
+                    <Loading text='Enemies Ahead'/>
                 </Screen>
             );
         }

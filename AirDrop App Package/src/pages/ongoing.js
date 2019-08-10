@@ -81,7 +81,7 @@ export class OngoingView extends Component {
             return (
                 <Screen>
                     <Header text='Game Setter' />
-                    <Loading />
+                    <Loading text='Prepare for the Battle' />
                 </Screen>
             );
         }

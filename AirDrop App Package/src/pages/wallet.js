@@ -2,10 +2,11 @@ import React, { Component } from 'react';
 import MyIcon from "react-native-custom-icon";
 import IcomoonConfig from '../assets/icomoon/selection.json';
 import { createBottomTabNavigator, createAppContainer, createMaterialTopTabNavigator } from 'react-navigation';
-import { StyleSheet, TouchableOpacity, View, ScrollView, TextInput, ToastAndroid, ImageBackground, Platform, DeviceEventEmitter, NativeModules, NativeEventEmitter, Alert } from 'react-native';
+import { StyleSheet, TouchableOpacity, View, ScrollView, TextInput, ToastAndroid, ImageBackground, Platform, DeviceEventEmitter, NativeModules, NativeEventEmitter, Alert, Picker } from 'react-native';
 import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
 // CUSTOM COMPONENT
 import Header from '../component/header';
+import Loading from '../component/loader';
 // REDUX
 import config from '../config/config.js'
 import { GetWallet } from '../redux/Actions/Actions';
@@ -139,7 +140,7 @@ export class withdrawMoney extends Component {
         this.emitter = null;
         this.state = {
             withdrawMoney: null,
-            withdrawNumber: null,
+            withdrawMethod: null,
         }
     }
     componentDidMount() {
@@ -155,12 +156,16 @@ export class withdrawMoney extends Component {
     render() {
         return (
             <View style={styles.container}>
-                <TextInput
-                    value={this.state.addMoney}
-                    style={styles.input}
-                    onChangeText={(text) => this.setState({ withdrawMoney: text })}
-                    placeholder='Paytm Number'
-                />
+                <View style={[styles.input, {padding: 4}]}>
+                    <Picker
+                        selectedValue={this.state.withdrawMethod}
+                        onValueChange={(itemValue, itemIndex) => this.setState({withdrawMethod: itemValue})}
+                    >
+                        <Picker.Item label="Paytm" value="paytm" />
+                        <Picker.Item label="Google Pay" value="googlepay" />
+                        <Picker.Item label="Amazon Pay" value="amazonpay"/>
+                    </Picker>
+                </View>
                 <TextInput
                     value={this.state.addMoney}
                     style={styles.input}
@@ -195,7 +200,8 @@ export default class WalletScreen extends Component {
     constructor(){
         super();
         this.state = {
-            balance: 0
+            balance: 0,
+            loading: true,
         }
     }
     
@@ -225,6 +231,9 @@ export default class WalletScreen extends Component {
         })
         .then((response) => response.json())
         .then((data) => {
+            this.setState({
+                loading: false,
+            });
             store.dispatch(GetWallet(data.balance));
         })
         .catch((error) => {
@@ -233,6 +242,14 @@ export default class WalletScreen extends Component {
         });
     }
     render() {
+        if (this.state.loading){
+            return(
+                <Screen>
+                    <Header text='Game Setter' />
+                    <Loading text='Refreshing Wallet' />
+                </Screen>
+            );
+        }
         return(
             <Screen>
                 <Header text='Game Setter' />
@@ -273,6 +290,7 @@ const styles = StyleSheet.create({
     },
     input: {
         shadowColor: "#000",
+        overflow: 'hidden',
         shadowOffset: {
             width: 0,
             height: 4,

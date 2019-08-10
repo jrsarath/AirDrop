@@ -43,7 +43,7 @@ export default class App extends Component {
   render() {
     return (
       <Provider store={store}>
-        <PersistGate loading={<Loading/>} persistor={persistor}>
+        <PersistGate loading={<Loading text='Loading the Arena'/>} persistor={persistor}>
           <RootView />
         </PersistGate>
       </Provider>

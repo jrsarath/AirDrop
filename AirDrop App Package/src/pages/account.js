@@ -6,6 +6,7 @@ import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndi
 import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
 // CUSTOM COMPONENT
 import Header from '../component/header';
+import Loading from '../component/loader';
 // REDUX 
 var md5 = require('js-md5');
 import config from '../config/config.js'
@@ -16,6 +17,7 @@ export default class AccountScreen extends Component {
     constructor(){
         super();
         this.state = {
+            loading: true,
             name: null,
             gamertag: null,
             phone: null,
@@ -53,6 +55,7 @@ export default class AccountScreen extends Component {
                 console.log('Fetched');
                 console.log(resJson);
                 this.setState({
+                    loading: false,
                     name: resJson.name,
                     phone: resJson.phone,
                     googlepay: resJson.googlepay,
