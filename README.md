@@ -1,6 +1,6 @@
 # AirDrop
-A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION
-First of all It's open-source, I'll highly appreciate if you use this for non-commercial purposes
+A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION<br>
+First of all It's open-source, I'll highly appreciate if you use this for non-commercial purposes<br>
 Growing E-Sports organizations are the Future of Gaming/E-Sports Industry, <br>
 they were the primary reason for this project, Specially Indian E-Sports Industry was focused while working on this project
 
