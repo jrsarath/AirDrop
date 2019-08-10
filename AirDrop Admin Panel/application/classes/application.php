@@ -13,20 +13,17 @@
     public $db;
     public $dbHelper;
     public $version = "1.0";
-    public $PAYTM_ENV = "TEST";
-    public $PAYTM_MID;
-    public $PAYTM_MKEY;
-    private $PAYTM_STATUS_QUERY_URL;
-    private $PAYTM_TXN_URL;
+    public $PAY_ENV_TEST = true;
+    public $PAY_MID;
+    public $PAY_MKEY;
+
     function __construct(){
       $database = new DB();
       $this->db = $database->connect();
       $this->dbHelper = $database;
-      // PAYTM CONFIGS
-      $this->PAYTM_ENV == "TEST" ? $this->PAYTM_MID = 'XROaMe66551837117344': $this->PAYTM_MID = 'XfgwUQ17065414337143';
-      $this->PAYTM_ENV == "TEST" ? $this->PAYTM_MKEY = '&rcVOG82!pP_E_JZ': $this->PAYTM_MKEY = null;
-      $this->PAYTM_ENV == "TEST" ? $this->PAYTM_STATUS_QUERY_URL = 'https://securegw-stage.paytm.in/merchant-status/getTxnStatus': $this->PAYTM_STATUS_QUERY_URL = 'https://securegw.paytm.in/merchant-status/getTxnStatus';
-      $this->PAYTM_ENV == "TEST" ? $this->PAYTM_TXN_URL = 'https://securegw-stage.paytm.in/theia/processTransaction': $this->PAYTM_TXN_URL = 'https://securegw.paytm.in/theia/processTransaction';
+      // PAYMENT GATEWAY CONFIGS
+      $this->PAY_ENV_TEST == true ? $this->PAY_MID = 'MfaUR5to': $this->PAY_MID = 'MfaUR5to'; // PAYU
+      $this->PAY_ENV_TEST == true ? $this->PAY_MKEY = '9KfDBmH40i': $this->PAY_MKEY = '9KfDBmH40i'; // PAYU
     }
     function list_users($type){
       if ($row = mysqli_query($this->db, "SELECT * FROM users")){

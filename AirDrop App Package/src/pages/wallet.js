@@ -13,8 +13,10 @@ import { store } from '../redux/Store';
 // PAYU
 import paytm from '@philly25/react-native-paytm';
 import PayuMoney from 'react-native-payumoney';
-let id = "XXXXX"; // PAYU Merchant ID here
-let key = "XXXXX"; // PAYU Key Here
+let sandbox = true;
+let id = sandbox == true ? "MfaUR5to": "MfaUR5to"; // PAYU Merchant ID here
+let key = sandbox == true ? "9KfDBmH40i" : "9KfDBmH40i"; // PAYU Key Here
+
 
 // ADD MONEY TAB
 export class addMoney extends Component {

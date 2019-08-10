@@ -1,0 +1,21 @@
+<form method="POST" action="https://secure.payu.com/api/v2_1/orders" id="payu-payment-form" class="">
+<input type="hidden" name="continueUrl" value="http://localhost/" />
+<input type="hidden" name="notifyUrl" value="http://localhost/" />
+<input type="hidden" name="customerIp" value="127.0.0.1" />
+<input type="hidden" name="merchantPosId" value="45654" />
+<input type="hidden" name="description" value="New order" />
+<input type="hidden" name="currencyCode" value="PLN" />
+<input type="hidden" name="totalAmount" value="1000" />
+<input type="hidden" name="extOrderId" value="1342" />
+<input type="hidden" name="validityTime" value="48000" />
+<input type="hidden" name="products[0].name" value="Product1" />
+<input type="hidden" name="products[0].unitPrice" value="1000" />
+<input type="hidden" name="products[0].quantity" value="1" />
+<input type="hidden" name="paymentMethods[0].type" value="PBL" />
+<input type="hidden" name="buyer.email" value="dd@ddd.pl" />
+<input type="hidden" name="buyer.phone" value="123123123" />
+<input type="hidden" name="buyer.firstName" value="Jan" />
+<input type="hidden" name="buyer.lastName" value="Kowalski" />
+<input type="hidden" name="buyer.language" value="pl_PL" />
+<input type="hidden" name="buyer.nIN" value="123456" />
+<input type="hidden" name="OpenPayu-Signature" value="sender=145227;algorithm=SHA-256;signature=ca4bfe95e849e154bdf4c90b78791d90e342fe1669cec7874c1619635bbf1127" /><button type="submit" formtarget="_blank" id="" class=""></button></form>
