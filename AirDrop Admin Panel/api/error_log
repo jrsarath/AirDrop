@@ -1,1 +1,39 @@
-\
+[11-Aug-2019 11:03:02 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 260
+[11-Aug-2019 11:03:02 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 261
+[11-Aug-2019 11:03:02 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 262
+[11-Aug-2019 11:03:02 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 263
+[11-Aug-2019 11:03:02 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 264
+[11-Aug-2019 11:03:39 Etc/GMT] Wallet: Transaction failed for - jrsarath@outlook.com
+[11-Aug-2019 11:29:31 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 260
+[11-Aug-2019 11:29:31 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 261
+[11-Aug-2019 11:29:31 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 262
+[11-Aug-2019 11:29:31 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 263
+[11-Aug-2019 11:29:31 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 264
+[11-Aug-2019 11:30:25 Etc/GMT] Wallet: Balance Update for - jrsarath@outlook.com
+[11-Aug-2019 11:33:51 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 260
+[11-Aug-2019 11:33:51 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 261
+[11-Aug-2019 11:33:51 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 262
+[11-Aug-2019 11:33:51 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 263
+[11-Aug-2019 11:33:51 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 264
+[11-Aug-2019 11:34:39 Etc/GMT] Wallet: Balance Update for - jrsarath@outlook.com
+[11-Aug-2019 11:35:05 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 260
+[11-Aug-2019 11:35:05 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 261
+[11-Aug-2019 11:35:05 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 262
+[11-Aug-2019 11:35:05 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 263
+[11-Aug-2019 11:35:05 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 264
+[11-Aug-2019 11:35:59 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 260
+[11-Aug-2019 11:35:59 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 261
+[11-Aug-2019 11:35:59 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 262
+[11-Aug-2019 11:35:59 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 263
+[11-Aug-2019 11:35:59 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 264
+[11-Aug-2019 11:36:26 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 260
+[11-Aug-2019 11:36:26 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 261
+[11-Aug-2019 11:36:26 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 262
+[11-Aug-2019 11:36:26 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 263
+[11-Aug-2019 11:36:26 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 264
+[11-Aug-2019 19:30:32 Etc/GMT] PHP Parse error:  syntax error, unexpected 'default' (T_DEFAULT), expecting ',' or ';' in /home/gamesetter/public_html/manage/api/matches.php on line 17
+[11-Aug-2019 19:39:10 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 260
+[11-Aug-2019 19:39:10 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 261
+[11-Aug-2019 19:39:10 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 262
+[11-Aug-2019 19:39:10 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 263
+[11-Aug-2019 19:39:10 Etc/GMT] PHP Notice:  Undefined variable: data in /home/gamesetter/public_html/manage/application/classes/application.php on line 264

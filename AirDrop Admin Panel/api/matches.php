@@ -12,6 +12,9 @@
             case "get_ongoing":
                 echo json_encode($app->get_ongoing_matches('1'));
                 break;
+            case "join_match":
+                echo json_encode($app->join_match($data['match_id'], $data['user']));
+                break;
             default:
                 header('HTTP/1.0 403 Forbidden');
         }

@@ -241,6 +241,12 @@
                                 <input type="text" name="matchtime" class="form-control" placeholder="Match Time - 10:50 PM" required>
                              </div>
                         </div>
+                        <div class="col-12">
+                             <div class="form-group">
+                                <label>Rules*</label>
+                                <textarea class="form-control" name="rule" rows="4" maxlength="140" required>Keep it short and simple, There is a limit of 140 Letters</textarea>
+                             </div>
+                        </div>
                         <div class="col-12 mb-5 mt-3">
                             <input type="submit" class="btn btn-success btn-block" name="submit">
                         </div>

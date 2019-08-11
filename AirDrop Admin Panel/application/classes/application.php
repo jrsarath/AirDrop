@@ -90,8 +90,8 @@
       }
     }
     function add_match(){
-      if (mysqli_query($this->db, "INSERT INTO matches(map,type,livelink,matchtype,roomid,roompassword,banner,totalplayer,totalplayerjoined,entryfee,winprice,perkill,matchstatus,matchschedule)
-                                               VALUES('".$_POST['map']."','".$_POST['viewMode']."','".$_POST['livelink']."','".$_POST['matchtype']."','".$_POST['roomid']."','".$_POST['roompassword']."','".$_POST['banner']."','".$_POST['totalplayer']."','".$_POST['totalplayerjoined']."','".$_POST['entryfee']."','".$_POST['winprice']."','".$_POST['perkill']."','".$_POST['matchstatus']."','".$_POST['matchdate']." ".$_POST['matchtime']."')")) {
+      if (mysqli_query($this->db, "INSERT INTO matches(map,type,livelink,matchtype,roomid,roompassword,banner,totalplayer,totalplayerjoined,entryfee,winprice,perkill,matchstatus,matchschedule,rule)
+                                               VALUES('".$_POST['map']."','".$_POST['viewMode']."','".$_POST['livelink']."','".$_POST['matchtype']."','".$_POST['roomid']."','".$_POST['roompassword']."','".$_POST['banner']."','".$_POST['totalplayer']."','".$_POST['totalplayerjoined']."','".$_POST['entryfee']."','".$_POST['winprice']."','".$_POST['perkill']."','".$_POST['matchstatus']."','".$_POST['matchdate']." ".$_POST['matchtime']."','".$_POST['rule']."')")) {
         return 'success';
       } else {
         error_log('SQL Error: '.mysqli_error($this->db));
@@ -274,8 +274,8 @@
                   'amount' => $amount,
                   'cust_id' => $uid,
                   'productId' => $productId,
-                  'success_url' => "https://gamesetter.in/api/payment.php?action=payucallback&response=success",
-                  'failed_url' => "https://gamesetter.in/api/payment.php?action=payucallback&response=failed",
+                  'success_url' => "https://manage.gamesetter.in/api/payment.php?action=payucallback&response=success",
+                  'failed_url' => "https://manage.gamesetter.in/api/payment.php?action=payucallback&response=failed",
                   'hash' => $hash,
                   'raw' => $payhash_str
                 );
@@ -294,7 +294,29 @@
               return $value;
           }
       }
-
+      function update_transaction($ORDERID, $STATUS, $AMOUNT, $user){
+          $d = date('Y-m-d G:i:s');
+          $res = mysqli_fetch_assoc(mysqli_query($this->db, "SELECT * FROM transactions WHERE id='$ORDERID'"));
+          if ($STATUS == 'SUCCESS'){
+            if (mysqli_query($this->db, "UPDATE transactions SET status='SUCCESS' WHERE id='$ORDERID'")) {
+              $amount = +$AMOUNT;
+              if ($res = mysqli_query($this->db, "UPDATE wallet SET balance=balance+$amount, last_updated='$d' WHERE user='$user'")) {
+                error_log('Wallet: Balance Update for - '.$user);
+              } else {
+                error_log("MYSQL ERROR: ".mysqli_error($this->db));
+              }
+            } else {
+              error_log("MYSQL ERROR: ".mysqli_error($this->db));
+            }
+          } else {
+            if (mysqli_query($this->db, "UPDATE transactions SET status='FAILED' WHERE id='$ORDERID'")) {
+              error_log('Wallet: Transaction failed for - '.$user);
+            } else {
+              error_log("MYSQL ERROR: ".mysqli_error($this->db));
+            }
+          }
+      }
+      
     function get_wallet($user){
       if ($res = mysqli_query($this->db, "SELECT * FROM wallet WHERE user='$user'")){
         $row = mysqli_fetch_assoc($res);

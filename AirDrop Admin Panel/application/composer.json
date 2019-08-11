@@ -1,6 +1,5 @@
 {
     "require": {
-        "kreait/firebase-php": "4.18",
-        "openpayu/openpayu": "^2.2"
+        "kreait/firebase-php": "4.18"
     }
 }
