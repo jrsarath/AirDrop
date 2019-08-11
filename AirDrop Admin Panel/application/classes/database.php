@@ -12,9 +12,9 @@
 
     function connect() {
       $db_host = "localhost";
-      $db_name = "gamesetter_v2";
-      $db_user = "global";
-      $db_pass = "global";
+      $db_name = "gamesett_data";
+      $db_user = "gamesett_gameset";
+      $db_pass = "jVs4KM0A!8-o";
       //$db = mysqli_connect($db_host, $db_user, $db_pass, $db_name);
 
       if (!$db = mysqli_connect($db_host, $db_user, $db_pass, $db_name)){

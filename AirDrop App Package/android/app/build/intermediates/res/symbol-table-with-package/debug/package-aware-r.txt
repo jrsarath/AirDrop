@@ -2818,6 +2818,7 @@ style OtpEditTextStyle
 style PauseDialog
 style PauseDialogAnimation
 style PayU_AppTheme_Base
+style PayU_Red
 style PayUAppTheme
 style PayUAppThemedefault
 style Payumoney_AppTheme_Base

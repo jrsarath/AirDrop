@@ -25,6 +25,7 @@ export default class AccountScreen extends Component {
             bankHolder: null,
             bankName:null,
             bankIfsc:null,
+            paytm: null,
             googlepay: null,
             amazonpay: null,
             oldPassword: null,
@@ -58,6 +59,7 @@ export default class AccountScreen extends Component {
                     loading: false,
                     name: resJson.name,
                     phone: resJson.phone,
+                    paytm: resJson.paytm,
                     googlepay: resJson.googlepay,
                     amazonpay: resJson.amazonpay,
                     gamertag: resJson.gamertag,
@@ -85,6 +87,7 @@ export default class AccountScreen extends Component {
                         gamertag: this.state.gamertag,
                         phone: this.state.phone,
                         bank: this.state.bank+","+this.state.bankHolder+","+this.state.bankName+","+this.state.bankIfsc,
+                        paytm: this.state.paytm,
                         googlepay: this.state.googlepay,
                         amazonpay: this.state.amazonpay
                     })
@@ -161,6 +164,13 @@ export default class AccountScreen extends Component {
                             onChangeText={(text) => this.setState({ name: text })}
                             placeholder='Your Name'
                         />
+                        <Text style={styles.label}>Phone Number (10 Digit)</Text>
+                        <TextInput
+                            value={this.state.phone}
+                            style={styles.input}
+                            onChangeText={(text) => this.setState({ phone: text })}
+                            placeholder='Your Phone Number'
+                        />
                         <Text style={styles.label}>PUBGM Username</Text>
                         <TextInput
                             value={this.state.gamertag}
@@ -170,9 +180,9 @@ export default class AccountScreen extends Component {
                         />
                         <Text style={styles.label}>Paytm Number (10 Digit)</Text>
                         <TextInput
-                            value={this.state.phone}
+                            value={this.state.paytm}
                             style={styles.input}
-                            onChangeText={(text) => this.setState({ phone: text })}
+                            onChangeText={(text) => this.setState({ paytm: text })}
                             placeholder='Your Paytm Number'
                         />
                         <Text style={styles.label}>Google Pay Number (10 Digit)</Text>

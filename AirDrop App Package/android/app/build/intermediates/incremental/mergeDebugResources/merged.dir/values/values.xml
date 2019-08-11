@@ -2674,6 +2674,13 @@
              text in the Toolbar, in the Theme.AppCompat.Light theme:  -->
         <item name="android:textColorPrimaryInverse">@android:color/white</item>
     </style>
+    <style name="PayU.Red" parent="PayumoneyAppTheme">
+        <item name="colorPrimary">#f44336</item>
+        <item name="colorPrimaryDark">#c62828</item>
+        <item name="colorAccent">#f44336</item>
+        <item name="colorButtonNormal">#f44336</item>
+        <item name="actionMenuTextColor">#fff</item>
+    </style>
     <style name="PayUAppTheme" parent="PayU.AppTheme.Base">
         <item name="android:windowBackground">@android:color/white</item>
         <item name="windowActionBar">false</item>

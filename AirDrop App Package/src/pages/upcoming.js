@@ -76,6 +76,7 @@ export class Upcoming extends Component {
                     version={match.type}
                     map={match.map}
                     id={match.id}
+                    data={match}
                 />
             );
         });

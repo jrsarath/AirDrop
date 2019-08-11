@@ -11,7 +11,7 @@
             case "widthdraw";
                 break;
             case 'paymentRequest':
-                $response = $app->generatePaymentRequest($data["amount"],$data["user"]);
+                $response = $app->generatePayUHash($data["amount"],$data["user"]);
                 echo json_encode($response);
                 break;
             case 'verifyPayment':

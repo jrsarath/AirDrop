@@ -15,8 +15,8 @@ import { store } from '../redux/Store';
 import paytm from '@philly25/react-native-paytm';
 import PayuMoney from 'react-native-payumoney';
 let sandbox = true;
-let id = sandbox == true ? "MfaUR5to": "MfaUR5to"; // PAYU Merchant ID here
-let key = sandbox == true ? "9KfDBmH40i" : "9KfDBmH40i"; // PAYU Key Here
+let PAY_MID = sandbox == true ? "4934580":"6775713"; // PAYU Merchant ID here
+let PAY_MKEY = sandbox == true ? "rjQUPktU":"MfaUR5to"; // PAYU Key Here
 
 
 // ADD MONEY TAB
@@ -29,21 +29,62 @@ export class addMoney extends Component {
             order_id: null,
         }
     }
-    componentDidMount() {
-        // PAYTM EVENTS
-        paytmEvent = new NativeEventEmitter(NativeModules.RNPayTm);
-        paytmEvent.addListener('PayTMResponse', this._handlePaytmResponse);
-    }
-    componentWillUnmount() {
-        // PAYTM EVENTS
-        if (paytmEvent) {
-            paytmEvent.removeListener('PayTMResponse', this._handlePaytmResponse);
-            paytmEvent = null;
-        }
-    }
-
+    
     // INITIATE PAYTM PAYMENT
     startPayment(){
+        if (this.state.addMoney != null){
+            fetch(config.domain + "api/payment.php", {
+                    method: 'POST',
+                    headers: new Headers({
+                        'Accept': 'application/json',
+                        "Accept-Encoding": "gzip, deflate",
+                        'Content-Type': 'application/json'
+                    }),
+                    body: JSON.stringify({
+                        action: "paymentRequest",
+                        user: store.getState().user,
+                        amount: this.state.addMoney
+                    })
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    console.log(data);
+                    this.setState({
+                        order_id: data.order_id
+                    });
+                    let options = {
+                        amount: parseFloat(data.amount),
+                        txid: data.order_id,
+                        productId: data.productId,
+                        name: data.name,
+                        email: data.email,
+                        phone: data.phone,
+                        id: PAY_MID,
+                        key: PAY_MKEY,
+                        surl: data.success_url,
+                        furl: data.failed_url,
+                        sandbox: sandbox,
+                        hash: data.hash
+                    };
+                    console.log(options);
+                    PayuMoney.pay(options).then((d) => {
+                        this._getWalletBalance();
+                    }).catch(e => {
+                        console.log(e); //In case of failture
+                        Alert.alert('Error', 'Unable to complete transaction, please check your bills. In case of any query you can contact us');
+                    });
+                })
+                .catch((error) => {
+                    console.error(error);
+                    Alert.alert('Error', 'Unable to initiate transaction, please try again');
+                });
+        } else {
+            ToastAndroid.show('Please enter Amount', ToastAndroid.LONG);
+        }
+    }
+    // GET WALLET BALANCE
+    _getWalletBalance(){
+        ToastAndroid.show('Updating Wallet Balance', ToastAndroid.SHORT);
         fetch(config.domain + "api/payment.php", {
             method: 'POST',
             headers: new Headers({
@@ -52,69 +93,22 @@ export class addMoney extends Component {
                 'Content-Type': 'application/json'
             }),
             body: JSON.stringify({
-                action: "paymentRequest",
-                user: store.getState().user,
-                amount: this.state.addMoney
+                action: "getWallet",
+                user: store.getState().user
             })
+
         })
-            .then((response) => response.json())
-            .then((data) => {
-                console.log('Fetched');
-                this.setState({order_id: data.ORDER_ID});
-                var details = {
-                    mode: 'Staging',
-                    ORDER_ID: data.ORDER_ID,
-                    MID: data.MID,
-                    INDUSTRY_TYPE_ID: data.INDUSTRY_TYPE_ID, //Prod
-                    WEBSITE: data.WEBSITE, //prod
-                    CHANNEL_ID: data.CHANNEL_ID,
-                    TXN_AMOUNT: data.TXN_AMOUNT,
-                    EMAIL: data.EMAIL,
-                    MOBILE_NO: data.MOBILE_NO,
-                    CUST_ID: data.CUST_ID,
-                    CHECKSUMHASH: data.CHECKSUM,
-                    CALLBACK_URL: data.CALLBACK_URL,
-                };
-                paytm.startPayment(details);
-            })
-            .catch((error) => {
-                console.error(error);
-                Alert.alert('Error', 'Unable to initiate transaction, please try again');
+        .then((response) => response.json())
+        .then((data) => {
+            this.setState({
+                loading: false,
             });
-    }
-    // HANDLE PAYTM CALLBACKS AND VERIFY, UPDATE USERS WALLET
-    _handlePaytmResponse = (resp) => {
-        const { STATUS, status, response } = resp;
-        if (STATUS && STATUS === 'TXN_SUCCESS') {
-            fetch(config.domain + "api/payment.php", {
-                method: 'POST',
-                headers: new Headers({
-                    'Accept': 'application/json',
-                    "Accept-Encoding": "gzip, deflate",
-                    'Content-Type': 'application/json'
-                }),
-                body: JSON.stringify({
-                    action: "verifyPayment",
-                    order_id: this.state.order_id,
-                    user: store.getState().user
-                })
-            })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.status == "success") {
-                        store.dispatch(GetWallet(data.balance));
-                        Alert.alert('Transaction successful', 'We have added money to your account, Enjoy playing');
-                    } else {
-                        Alert.alert('Failed', 'Unable to complete transaction, please check your bills. In case of any query you can contact us');
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
-                    Alert.alert('Error', 'Unable to complete transaction, please check your bills. In case of any query you can contact us');
-                });
-        } else {
-            Alert.alert('Error', 'Unable to complete transaction, please check your bills. In case of any query you can contact us');
-        }
+            store.dispatch(GetWallet(data.balance));
+        })
+        .catch((error) => {
+            console.error(error);
+            ToastAndroid.show('Error Fetching Wallet & Balance', ToastAndroid.LONG);
+        });
     }
     render(){
         return(
@@ -216,6 +210,9 @@ export default class WalletScreen extends Component {
         })
     }
     _getWalletBalance(){
+        if (this.state.loading == false) {
+            ToastAndroid.show('Updating Wallet Balance', ToastAndroid.SHORT);
+        }
         fetch(config.domain + "api/payment.php", {
             method: 'POST',
             headers: new Headers({

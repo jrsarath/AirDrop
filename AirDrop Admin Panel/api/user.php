@@ -7,7 +7,7 @@
         $data = json_decode(file_get_contents('php://input'), true);
         switch ($data["action"]) {
             case "signup":
-                if ($app->signup($data["email"],$data["name"],$data["password"],$data["gamertag"]) == true){
+                if ($app->signup($data["email"],$data["name"],$data["password"],$data["gamertag"],$data['phone']) == true){
                     echo json_encode(array('status' =>  'success' ));
                 } else {
                     echo json_encode(array('status' =>  'false' ));
@@ -30,7 +30,7 @@
                 echo json_encode($app->get_user($data["user"]));
                 break;
             case "update_profile":
-                $return = $app->update_user($data["user"],$data["name"],$data["gamertag"],$data["phone"],$data["bank"],$data["googlepay"],$data["amazonpay"]);           
+                $return = $app->update_user($data["user"],$data["name"],$data["gamertag"],$data["bank"],$data["paytm"],$data["googlepay"],$data["amazonpay"]);           
                 if ($return == true){
                     echo json_encode(array('status' =>  'success' ));
                 } else {

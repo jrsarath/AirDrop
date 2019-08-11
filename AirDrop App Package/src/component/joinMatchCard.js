@@ -47,7 +47,7 @@ class MatchCard extends Component {
                         </View>
                     </View>
                     <View style={styles.buttons}>
-                        <TouchableOpacity style={styles.btnJoin} onPress={() => this.props.navigation.navigate('joinMatch')} >
+                        <TouchableOpacity style={styles.btnJoin} onPress={() => this.props.navigation.navigate('joinMatch', { data: this.props.data })} >
                             <Text style={styles.textJoin}>JOIN</Text>
                         </TouchableOpacity>                        
                     </View>
