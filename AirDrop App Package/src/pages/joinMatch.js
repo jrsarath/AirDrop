@@ -30,42 +30,34 @@ export default class joinMatch extends Component {
                     </View>
                     <View style={styles.headerCon}>
                         <View style={{flexDirection: 'row'}}>
-                            <Image source={require('../images/deadline.png')} style={{width:50,height:50,resizeMode:'contain'}}/>
+                            <Image source={require('../images/circular-clock.png')} style={{width:50,height:50,resizeMode:'contain'}}/>
                             <View style={{marginLeft:10}}>
                                 <Title style={{color: '#fff'}}>{time}</Title>
                                 <Title style={{color: '#fff',fontSize:15}}>{date}</Title>
                             </View>
                         </View>
                         <View style={{flexDirection: 'row',marginTop: 15}}>
-                                <Title style={{color: '#fff',fontSize:19}}>Entry Fee:  ₹ {data.entryfee}</Title>
+                                <Title style={{color: '#fff',fontSize:19}}>{data.totalplayerjoined}/{data.totalplayer} Joined</Title>
                         </View>
                     </View>
                     
                 </ImageBackground>
                 <View style={styles.container}>
                     <View style={styles.grid}>
-                        <Image source={require('../images/army.png')} style={styles.imgIcon}/>
-                        <Text style={styles.gridText}>TYPE: {data.matchtype}</Text>
+                        <Title style={styles.subText}>Match Details:</Title>
+                        <Title style={styles.gridText}>Type: {data.matchtype}</Title>
+                        <Title style={styles.gridText}>Mode: {data.type}</Title>
+                        <Title style={styles.gridText}>Map: {data.map}</Title>
                     </View>
                     <View style={styles.grid}>
-                        <Image source={require('../images/goal.png')} style={styles.imgIcon}/>
-                        <Text style={styles.gridText}>MODE: {data.type}</Text>
+                        <Title style={styles.subText}>Prize Details:</Title>
+                        <Title style={styles.gridText}>Per Kill: ₹{data.perkill} </Title>
+                        <Title style={styles.gridText}>Win: ₹{data.winprice}</Title>
+                        <Title style={styles.gridText}>Entry Fee: ₹{data.winprice}</Title>
                     </View>
-                    <View style={styles.grid}>
-                        <Image source={require('../images/money.png')} style={styles.imgIcon}/>
-                        <Text style={styles.gridText}>₹{data.perkill} PER KILL</Text>
-                    </View>
-                    <View style={styles.grid}>
-                        <Image source={require('../images/trophy.png')} style={styles.imgIcon}/>
-                        <Text style={styles.gridText}>₹{data.winprice} FOR WIN</Text>
-                    </View>
-                    <View style={styles.grid}>
-                        <Image source={require('../images/forest.png')} style={styles.imgIcon}/>
-                        <Text style={styles.gridText}>MAP: {data.map}</Text>
-                    </View>
-                    <View style={styles.grid}>
-                        <Image source={require('../images/group.png')} style={styles.imgIcon}/>
-                        <Text style={styles.gridText}>{data.totalplayerjoined}/{data.totalplayer} JOINED</Text>
+                    <View syle={styles.grid}>
+                        <Title style={styles.subText}>Rules:</Title>
+                        <Text style={{marginHorizontal: 20,color: '#212121'}}>{data.rule}</Text>
                     </View>
                 </View>
                 <TouchableOpacity style={styles.button} onPress={() => this.joinMatch(data.id)}>
@@ -117,14 +109,11 @@ const styles = StyleSheet.create({
         height: '55%',
         backgroundColor: '#fff',
         flexDirection: 'row',
-        flexWrap: "wrap"
+        flexWrap: "wrap",
+        paddingVertical:20
     },
     grid: {
-        height: '50%',
-        width: '33.3333333333%',
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center',
+        width: '50%',
     },
     imgIcon: {
         width:40,
@@ -133,8 +122,17 @@ const styles = StyleSheet.create({
     },
     gridText: {
         color: '#212121',
-        marginTop:10
-    },  
+        width: '100%',
+        marginVertical: 3,
+        marginHorizontal: 20,
+        fontSize: 15
+    },
+    subText: {
+        width: '100%',
+        marginVertical: 3,
+        marginHorizontal: 20,
+        color: '#f44336'
+    },
     button: {
         bottom: 0,
         color: '#ffffff',
