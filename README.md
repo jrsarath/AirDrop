@@ -12,11 +12,13 @@ Feel free to open a issue for Suggestions, Feature Request, Feedbacks & Bugs
 
 Made with :heart: in Kolkata
 
-# Documentions will be published soon
+# Documentions
 
 ### Setup Android App
 
-## LICENSE
+### Setup Admin Panel
+
+# LICENSE
 MIT License
 
 Copyright (c) 2019 jrsarath
