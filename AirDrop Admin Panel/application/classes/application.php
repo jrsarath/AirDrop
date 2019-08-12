@@ -53,8 +53,8 @@
                           <i class="fas fa-ellipsis-v"></i>
                         </a>
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                          <a class="dropdown-item" href="#"><i class="fas fa-key"></i> Reset Password</a>
-                          <!--a class="dropdown-item" href="#"><i class="fas fa-ban"></i> Disable Account</a-->
+                          <!--a class="dropdown-item" href="#"><i class="fas fa-key"></i> Reset Password</a>
+                          <a class="dropdown-item" href="#"><i class="fas fa-ban"></i> Disable Account</a-->
                           <a class="dropdown-item text-danger" href="#"><i class="far fa-trash-alt"></i> Delete Account</a>
                         </div>
                       </div>
@@ -91,6 +91,24 @@
                         </div>
                       </div>
                     </td>
+                  </tr>
+                ';
+            }
+        }
+      }
+      function transactions(){
+        if ($row = mysqli_query($this->db, "SELECT * FROM transactions")){
+          while ($mt = mysqli_fetch_assoc($row)) {
+                $date = explode(" ", $mt["date"])[0];
+                $date = date_create($date);
+                echo '
+                  <tr>
+                    <th scope="row">'.$mt["id"].'</th>
+                    <td>₹ '.$mt["amount"].'</td>
+                    <td>'.$mt["user"].'</td>
+                    <td>'.$mt["type"].'</td>
+                    <td>'.$mt["status"].'</td>
+                    <td>'.date_format($date,"d M Y").'</td>
                   </tr>
                 ';
             }

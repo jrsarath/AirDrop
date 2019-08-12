@@ -174,12 +174,12 @@
     background-repeat: no-repeat;
     background-position: 0 0;
     position: absolute;
-    width: 428px;
+    /*width: 428px;
     height: 123px;
     margin-left: -214px;
     margin-top: -61.5px;
     top: 50%;
-    left: 50%
+    left: 50%*/
 }
 @media all and (-webkit-min-device-pixel-ratio: 1.5),
 (min--moz-device-pixel-ratio: 1.5),
@@ -187,11 +187,11 @@
 (min-device-pixel-ratio: 1.5),
 (min-resolution: 138dpi),
 (min-resolution: 1.5dppx) {
-    .dropzone .dz-default.dz-message {
+    /*.dropzone .dz-default.dz-message {
         -webkit-background-size: 428px 406px;
         -moz-background-size: 428px 406px;
         background-size: 428px 406px
-    }
+    }*/
 }
 .dropzone .dz-default.dz-message span {
     display: none
@@ -444,7 +444,12 @@
     cursor: pointer;
 }
 .dropzone .dz-default.dz-message {
-    display: table
+    display: flex;
+    justify-content: center;
+    align-content: center;
+    align-items: center;
+    height: 100%;
+    width: 100%;
 }
 .dropzone .dz-default.dz-message span {
     color: #5e72e4;

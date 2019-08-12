@@ -7,8 +7,8 @@
       </div>
     </div>
     <div class="col-xl-6">
-      <div class="copyright text-right text-muted">
-        &copy; <?php echo date('Y'); ?> <a href="https://jrsarath.me" class="font-weight-bold ml-1" target="_blank">Jr Sarath</a>
+      <div class="copyright text-center text-xl-right text-muted">
+        &copy; <?php echo date('Y'); ?> <a href="https://myideology.in" class="font-weight-bold ml-1" target="_blank">MY IDEOLOGY</a>
       </div>
       <!--ul class="nav nav-footer justify-content-center justify-content-xl-end">
         <li class="nav-item">
