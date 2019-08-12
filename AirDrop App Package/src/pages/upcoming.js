@@ -19,10 +19,10 @@ import joinMatch from './joinMatch.js';
 export class Upcoming extends Component {
     constructor() {
         super();
-        
         this.state = {
             matches: store.getState().upcoming,
-            status: store.getState().upcoming.length == 0 ? false : 1
+            status: store.getState().upcoming.length == 0 ? false : 1,
+            noMatches: store.getState().upcoming.length == 0 ? true : false,
         }
     }
     componentDidMount(){
@@ -31,7 +31,8 @@ export class Upcoming extends Component {
         });        
         store.subscribe(() => {
             this.setState({
-                matches: store.getState().upcoming
+                matches: store.getState().upcoming,
+                noMatches: store.getState().upcoming.length == 0 ? true : false,
             });
         });
     }
@@ -48,11 +49,18 @@ export class Upcoming extends Component {
             .then((response) => response.json())
             .then((resJson) => {
                 console.log('Fetched');
-                if (store.getState().upcoming.length == 0) {
+                if (resJson.length == 0) {
                     this.setState({
-                        matches: resJson,
-                        status: 1
+                        status: 1,
                     });
+                } else {
+                    if (store.getState().upcoming.length == 0) {
+                        this.setState({
+                            matches: resJson,
+                            status: 1,
+                            noMatches: false,
+                        });
+                    }
                 }
                 store.dispatch(GetUpcoming(resJson));
             })
@@ -62,24 +70,17 @@ export class Upcoming extends Component {
             });
     }
     render() {
-        let Match = this.state.matches.map((match, index) => {
-            return (
-                <MatchCard
-                    key={index}
-                    image={{uri: match.banner, isStatic: true}}
-                    matchName={'Match '+match.id}
-                    time={match.matchschedule}
-                    winPrize={match.winprice}
-                    perKill={match.perkill}
-                    entryFee={match.entryfee}
-                    type={match.matchtype}
-                    version={match.type}
-                    map={match.map}
-                    id={match.id}
-                    data={match}
-                />
-            );
-        });
+        if (this.state.noMatches == true ) {
+            return(
+                <Screen>
+                    <Header text='Game Setter' />
+                    <View style={{flex:1, width: '100%',backgroundColor: '#fff', alignContent: 'center', alignItems: 'center', alignSelf: 'center', justifyContent: 'center'}}>
+                        <Image source={require('../images/pubg-character-helmet.png')} style={{width:'50%',height: '50%',resizeMode: 'contain'}} />
+                        <Text style={{fontSize:18}}>No Matches Available</Text>
+                    </View>
+                </Screen>
+            )
+        }
         if (!this.state.status) {
             return(
                 <Screen>
@@ -88,6 +89,14 @@ export class Upcoming extends Component {
                 </Screen>
             );
         }
+        let Match = this.state.matches.map((match, index) => {
+            return (
+                <MatchCard
+                    key={index}
+                    data={match}
+                />
+            );
+        });
         return (
             <Screen>
                 <Header text='Game Setter' />

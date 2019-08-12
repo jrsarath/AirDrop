@@ -1,4 +1,6 @@
 rootProject.name = 'GameSetter'
+include ':@astrocoders_react-native-selectable-text'
+project(':@astrocoders_react-native-selectable-text').projectDir = new File(rootProject.projectDir, '../node_modules/@astrocoders/react-native-selectable-text/android')
 include ':react-native-payumoney'
 project(':react-native-payumoney').projectDir = new File(rootProject.projectDir, '../node_modules/react-native-payumoney/android')
 include ':@philly25_react-native-paytm'

@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../node_modules/@astrocoders/react-native-selectable-text/android/@astrocoders_react-native-selectable-text.iml" filepath="$PROJECT_DIR$/../node_modules/@astrocoders/react-native-selectable-text/android/@astrocoders_react-native-selectable-text.iml" />
       <module fileurl="file://$PROJECT_DIR$/../node_modules/@philly25/react-native-paytm/android/@philly25_react-native-paytm.iml" filepath="$PROJECT_DIR$/../node_modules/@philly25/react-native-paytm/android/@philly25_react-native-paytm.iml" />
       <module fileurl="file://$PROJECT_DIR$/GameSetter.iml" filepath="$PROJECT_DIR$/GameSetter.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />

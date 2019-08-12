@@ -10,10 +10,13 @@
                 echo json_encode($app->get_upcoming_matches());
                 break;
             case "get_ongoing":
-                echo json_encode($app->get_ongoing_matches('1'));
+                echo json_encode($app->get_ongoing_matches($data["user"]));
                 break;
             case "join_match":
                 echo json_encode($app->join_match($data['match_id'], $data['user']));
+                break;
+            case "join_status":
+                echo json_encode($app->join_status($data['match_id'], $data['user']));
                 break;
             default:
                 header('HTTP/1.0 403 Forbidden');

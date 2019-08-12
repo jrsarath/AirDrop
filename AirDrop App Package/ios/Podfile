@@ -38,6 +38,8 @@ target 'GameSetter' do
 
   pod 'RNPayTm', :path => '../node_modules/@philly25/react-native-paytm'
 
+  pod 'react-native-selectable-text', :path => '../node_modules/@astrocoders/react-native-selectable-text'
+
   target 'GameSetterTests' do
     inherit! :search_paths
     # Pods for testing

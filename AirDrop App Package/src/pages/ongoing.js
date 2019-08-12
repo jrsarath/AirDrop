@@ -20,7 +20,8 @@ export class OngoingView extends Component {
         super();
         this.state = {
             matches: store.getState().ongoing,
-            status: store.getState().ongoing.length == 0 ? false : 1
+            status: store.getState().ongoing.length == 0 ? false : 1,
+            noMatches: store.getState().ongoing.length == 0 ? true : false,
         }
     }
     componentDidMount() {
@@ -29,7 +30,8 @@ export class OngoingView extends Component {
         });
         store.subscribe(() => {
             this.setState({
-                matches: store.getState().ongoing
+                matches: store.getState().ongoing,
+                noMatches: store.getState().ongoing.length == 0 ? true : false,
             });
         });
     }
@@ -41,16 +43,27 @@ export class OngoingView extends Component {
                 "Accept-Encoding": "gzip, deflate",
                 'Content-Type': 'application/json'
             }),
-            body: JSON.stringify({action: "get_ongoing"})
+            body: JSON.stringify({
+                action: "get_ongoing",
+                user: store.getState().user
+            })
         })
             .then((response) => response.json())
             .then((resJson) => {
                 console.log('Fetched');
-                if (store.getState().upcoming.length == 0) {
+                console.log(resJson.length == 0);
+                if (resJson.length == 0) {
                     this.setState({
-                        matches: resJson,
-                        status: 1
+                        status: 1,
                     });
+                } else {
+                    if (store.getState().ongoing.length == 0) {
+                        this.setState({
+                            matches: resJson,
+                            status: 1,
+                            noMatches:false,
+                        });
+                    }
                 }
                 store.dispatch(GetOngoing(resJson));
             })
@@ -60,23 +73,17 @@ export class OngoingView extends Component {
             });
     }
     render() {
-        let Match = this.state.matches.map((match, index) => {
-            return (
-                <MatchCard
-                    key={index}
-                    image={{ uri: match.banner, isStatic: true }}
-                    matchName={'Match ' + match.id}
-                    time={match.matchschedule}
-                    winPrize={match.winprice}
-                    perKill={match.perkill}
-                    entryFee={match.entryfee}
-                    type={match.matchtype}
-                    version={match.type}
-                    map={match.map}
-                    id={match.id}
-                />
-            );
-        });
+        if (this.state.noMatches == true ) {
+            return(
+                <Screen>
+                    <Header text='Game Setter' />
+                    <View style={{flex:1, width: '100%',backgroundColor: '#fff', alignContent: 'center', alignItems: 'center', alignSelf: 'center', justifyContent: 'center'}}>
+                        <Image source={require('../images/pubg-character-helmet.png')} style={{width:'50%',height: '50%',resizeMode: 'contain'}} />
+                        <Text style={{fontSize:18}}>No Matches Available</Text>
+                    </View>
+                </Screen>
+            )
+        }
         if (!this.state.status) {
             return (
                 <Screen>
@@ -85,6 +92,14 @@ export class OngoingView extends Component {
                 </Screen>
             );
         }
+        let Match = this.state.matches.map((match, index) => {
+                return (
+                    <MatchCard
+                        key={index}
+                        data={match}
+                    />
+                );
+        });
         return (
             <Screen>
                 <Header text='Game Setter' />

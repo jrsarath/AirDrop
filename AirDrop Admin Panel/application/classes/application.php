@@ -99,6 +99,7 @@
     }
 
     // API FUNCTIONS
+    // USER API
     function login($email, $password){
       $e = $this->dbHelper->sqlSafeValue($email);
       $p = $this->dbHelper->sqlSafeValue($password);
@@ -132,28 +133,6 @@
         return false;
       }
     }
-    function get_upcoming_matches(){
-      if ($row = mysqli_query($this->db, "SELECT * FROM matches WHERE matchstatus='Upcoming'")) {
-        $array = array();
-        while ($res = mysqli_fetch_assoc($row)){
-          $array[] = $res;
-        }
-        return $array;
-      } else {
-        error_log("MYSQL ERROR: ".mysqli_error($this->db));
-      }
-    }
-    function get_ongoing_matches($id){
-      if ($row = mysqli_query($this->db, "SELECT * FROM matches WHERE matchstatus='Ongoing'")) {
-        $array = array();
-        while ($res = mysqli_fetch_assoc($row)){
-          $array[] = $res;
-        }
-        return $array;
-      } else {
-        error_log("MYSQL ERROR: ".mysqli_error($this->db));
-      }
-    }
     function get_user($email){
       if ($row = mysqli_query($this->db, "SELECT * FROM users WHERE email='$email'")) {
         $user = mysqli_fetch_assoc($row);
@@ -177,7 +156,8 @@
         error_log("MYSQL ERROR: ".mysqli_error($this->db));
       }
     }
-    // WALLET
+
+    // WALLET API
       // PAYTM SPECIFIC
       function generatePaymentRequest($amount, $email){
         $user = $this->get_user($email);
@@ -323,6 +303,65 @@
         return array('balance' =>  $row["balance"]);
       }
 
+    }
+
+    // MATCHES API
+    function get_upcoming_matches(){
+      if ($row = mysqli_query($this->db, "SELECT * FROM matches WHERE matchstatus='Upcoming'")) {
+        $array = array();
+        while ($res = mysqli_fetch_assoc($row)){
+          $array[] = $res;
+        }
+        return $array;
+      } else {
+        error_log("MYSQL ERROR: ".mysqli_error($this->db));
+      }
+    }
+    function get_ongoing_matches($id){
+      if ($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$id'")){
+        $array = array();
+        while ($row = mysqli_fetch_assoc($res)){
+          $match_id = $row["match_id"];
+          if ($row_match = mysqli_query($this->db, "SELECT * FROM matches WHERE matchstatus='Ongoing' AND id='$match_id'")) {
+            while ($res_match = mysqli_fetch_assoc($row_match)){
+              $array[] = $res_match;
+            }
+          } else {
+            error_log("MYSQL ERROR: ".mysqli_error($this->db));
+          }
+        }
+        return $array;
+      } else {
+        error_log("MYSQL ERROR: ".mysqli_error($this->db));
+      }
+    }
+    function join_match($id, $user){
+      if($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$user' AND match_id='$id'")){
+        if (mysqli_num_rows($res) == 0) {
+          if (mysqli_query($this->db, "INSERT INTO join_match(match_id,user) VALUES('$id','$user')")) {
+            mysqli_query($this->db, "UPDATE matches SET totalplayerjoined=totalplayerjoined+1 WHERE id='$id'");
+            return array("status" => 'success');
+          } else {
+            error_log("MYSQL ERROR: ".mysqli_error($this->db)); 
+          }
+        } else {
+          return array("status" => 'duplicate');
+        }
+      } else {
+        error_log("MYSQL ERROR: ".mysqli_error($this->db));
+      }
+    }
+
+    function join_status($id, $user){
+      if($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$user' AND match_id='$id'")){
+        if (mysqli_num_rows($res) > 0) {
+          return array("status" => 'joined');
+        } else {
+          return array("status" => 'not-joined');
+        }
+      } else {
+        error_log("MYSQL ERROR: ".mysqli_error($this->db));
+      }
     }
   }
 

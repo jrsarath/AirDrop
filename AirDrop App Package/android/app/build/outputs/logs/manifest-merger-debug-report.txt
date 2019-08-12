@@ -5,6 +5,7 @@ INJECTED from G:\App_Production\Game Setter\AirDrop App Package\android\app\src\
 INJECTED from G:\App_Production\Game Setter\AirDrop App Package\android\app\src\main\AndroidManifest.xml:1:1-26:12
 INJECTED from G:\App_Production\Game Setter\AirDrop App Package\android\app\src\main\AndroidManifest.xml:1:1-26:12
 MERGED from G:\App_Production\Game Setter\AirDrop App Package\android\app\src\main\AndroidManifest.xml:1:1-26:12
+MERGED from [:@astrocoders_react-native-selectable-text] G:\App_Production\Game Setter\AirDrop App Package\node_modules\@astrocoders\react-native-selectable-text\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-11:12
 MERGED from [:react-native-payumoney] G:\App_Production\Game Setter\AirDrop App Package\node_modules\react-native-payumoney\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-15:12
 MERGED from [:@philly25_react-native-paytm] G:\App_Production\Game Setter\AirDrop App Package\node_modules\@philly25\react-native-paytm\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:2:1-21:12
 MERGED from [com.facebook.fresco:animated-gif:2.0.0] C:\Users\Jrsarath\.gradle\caches\transforms-2\files-2.1\333d6b65ef5ac874e6edd3244f5f4f2f\AndroidManifest.xml:2:1-9:12
@@ -263,6 +264,8 @@ uses-sdk
 INJECTED from G:\App_Production\Game Setter\AirDrop App Package\android\app\src\main\AndroidManifest.xml reason: use-sdk injection requested
 INJECTED from G:\App_Production\Game Setter\AirDrop App Package\android\app\src\main\AndroidManifest.xml
 INJECTED from G:\App_Production\Game Setter\AirDrop App Package\android\app\src\main\AndroidManifest.xml
+MERGED from [:@astrocoders_react-native-selectable-text] G:\App_Production\Game Setter\AirDrop App Package\node_modules\@astrocoders\react-native-selectable-text\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
+MERGED from [:@astrocoders_react-native-selectable-text] G:\App_Production\Game Setter\AirDrop App Package\node_modules\@astrocoders\react-native-selectable-text\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-payumoney] G:\App_Production\Game Setter\AirDrop App Package\node_modules\react-native-payumoney\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:react-native-payumoney] G:\App_Production\Game Setter\AirDrop App Package\node_modules\react-native-payumoney\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41
 MERGED from [:@philly25_react-native-paytm] G:\App_Production\Game Setter\AirDrop App Package\node_modules\@philly25\react-native-paytm\android\build\intermediates\library_manifest\debug\AndroidManifest.xml:7:5-9:41

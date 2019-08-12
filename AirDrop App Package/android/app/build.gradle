@@ -122,6 +122,7 @@ android {
 }
 
 dependencies {
+    implementation project(':@astrocoders_react-native-selectable-text')
     implementation project(':react-native-payumoney')
     implementation project(':@philly25_react-native-paytm')
     // your app's other dependencies

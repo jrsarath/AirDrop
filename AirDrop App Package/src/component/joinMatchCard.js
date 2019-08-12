@@ -7,43 +7,44 @@ import { Row, Title, Text, Subtitle, Caption, Button, Screen, NavigationBar } fr
 
 class MatchCard extends Component {
     render() {
+        const formatteddate = this.props.data.matchschedule.split(' ')[1]+this.props.data.matchschedule.split(' ')[2]+" "+this.props.data.matchschedule.split(' ')[0].split("/")[1]+"/"+this.props.data.matchschedule.split(' ')[0].split("/")[0]+"/"+this.props.data.matchschedule.split(' ')[0].split("/")[2];
         return (
             <View style={styles.card}>
-                <Image source={this.props.image} style={styles.featured} />
+                <Image source={{uri: this.props.data.banner}} style={styles.featured} />
                 <View style={styles.content}>
                     <View style={styles.header}>
                         <View style={{marginRight: 20}}>
                             <Image source={require('../images/target.png')} style={styles.icon} />
                         </View>
                         <View style={{marginTop:5}}>
-                            <Title>{this.props.matchName}</Title>
-                            <Subtitle>Time: {this.props.time}</Subtitle>
+                            <Title>Match #{this.props.data.id}</Title>
+                            <Subtitle>Time: {formatteddate}</Subtitle>
                         </View>
                     </View>
                     <View style={styles.info}>
                         <View style={styles.grid}>
                             <Text style={styles.text}>WIN PRIZE</Text>
-                            <Text style={styles.data}>{this.props.winPrize}</Text>
+                            <Text style={styles.data}>{this.props.data.winprice}</Text>
                         </View>
                         <View style={styles.grid}>
                             <Text style={styles.text}>PER KILL</Text>
-                            <Text style={styles.data}>{this.props.perKill}</Text>
+                            <Text style={styles.data}>{this.props.data.perkill}</Text>
                         </View>
                         <View style={styles.grid}>
                             <Text style={styles.text}>ENTRY FEE</Text>
-                            <Text style={styles.data}>{this.props.entryFee}</Text>
+                            <Text style={styles.data}>{this.props.data.entryfee}</Text>
                         </View>
                         <View style={styles.grid}>
                             <Text style={styles.text}>TYPE</Text>
-                            <Text style={styles.data}>{this.props.type}</Text>
+                            <Text style={styles.data}>{this.props.data.matchtype}</Text>
                         </View>
                         <View style={styles.grid}>
                             <Text style={styles.text}>VERSION</Text>
-                            <Text style={styles.data}>{this.props.version}</Text>
+                            <Text style={styles.data}>{this.props.data.type}</Text>
                         </View>
                         <View style={styles.grid}>
                             <Text style={styles.text}>MAP</Text>
-                            <Text style={styles.data}>{this.props.map}</Text>
+                            <Text style={styles.data}>{this.props.data.map}</Text>
                         </View>
                     </View>
                     <View style={styles.buttons}>
