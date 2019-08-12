@@ -73,6 +73,14 @@ export class OngoingView extends Component {
             });
     }
     render() {
+        if (!this.state.status) {
+            return (
+                <Screen>
+                    <Header text='Game Setter' />
+                    <Loading text='Prepare for the Battle' />
+                </Screen>
+            );
+        }
         if (this.state.noMatches == true ) {
             return(
                 <Screen>
@@ -83,14 +91,6 @@ export class OngoingView extends Component {
                     </View>
                 </Screen>
             )
-        }
-        if (!this.state.status) {
-            return (
-                <Screen>
-                    <Header text='Game Setter' />
-                    <Loading text='Prepare for the Battle' />
-                </Screen>
-            );
         }
         let Match = this.state.matches.map((match, index) => {
                 return (

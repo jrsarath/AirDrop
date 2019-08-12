@@ -134,7 +134,7 @@ export class withdrawMoney extends Component {
         this.emitter = null;
         this.state = {
             withdrawAmount: null,
-            withdrawMethod: null,
+            withdrawMethod: 'paytm',
             color: store.getState().wallet <= 0 ? '#bdbdbd' : '#f44336',
             action: store.getState().wallet <= 0 ? null : () => this._withdrawMoney()
         }

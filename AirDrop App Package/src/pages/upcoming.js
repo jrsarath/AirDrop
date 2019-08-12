@@ -70,7 +70,15 @@ export class Upcoming extends Component {
             });
     }
     render() {
-        if (this.state.noMatches == true ) {
+        if (!this.state.status) {
+            return(
+                <Screen>
+                    <Header text='Game Setter' />
+                    <Loading text='Enemies Ahead'/>
+                </Screen>
+            );
+        }
+        if (this.state.noMatches == true) {
             return(
                 <Screen>
                     <Header text='Game Setter' />
@@ -81,14 +89,7 @@ export class Upcoming extends Component {
                 </Screen>
             )
         }
-        if (!this.state.status) {
-            return(
-                <Screen>
-                    <Header text='Game Setter' />
-                    <Loading text='Enemies Ahead'/>
-                </Screen>
-            );
-        }
+        
         let Match = this.state.matches.map((match, index) => {
             return (
                 <MatchCard
