@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import {createSwitchNavigator, createStackNavigator,createAppContainer} from 'react-navigation';
 // COMPONENTS
-import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground, Linking, Alert } from 'react-native';
-import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
+import { StatusBar, Text, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground, Linking, Alert, Clipboard } from 'react-native';
+import { Row, Title,  Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
 import Icon from 'react-native-vector-icons/Feather';
 
 export default class matchDetails extends Component {
@@ -29,7 +29,7 @@ export default class matchDetails extends Component {
                         <TouchableOpacity style={styles.icon} onPress={() => this.props.navigation.goBack()}>
                             <Icon name="arrow-left" color='#fff' size={25}/>
                         </TouchableOpacity>
-                        <Title styleName='bold' style={{color: '#fff'}}>Join Match #{data.id}</Title>
+                        <Title styleName='bold' style={{color: '#fff'}}>Match Details #{data.id}</Title>
                     </View>
                     <View style={styles.headerCon}>
                         <View style={{flexDirection: 'row'}}>
@@ -56,12 +56,12 @@ export default class matchDetails extends Component {
                         <Title style={styles.subText}>Prize Details:</Title>
                         <Title style={styles.gridText}>Per Kill: ₹{data.perkill} </Title>
                         <Title style={styles.gridText}>Win: ₹{data.winprice}</Title>
-                        <Title style={styles.gridText}>Entry Fee: ₹{data.winprice}</Title>
+                        <Title style={styles.gridText}>Entry Fee: ₹{data.entryfee}</Title>
                     </View>
                     <View syle={styles.grid}>
                         <Title style={styles.subText}>Room ID & Password:</Title>
-                        <Text selectable={true} style={{marginHorizontal: 20,marginVertical:5,color: '#212121'}}>Room ID: {data.roomid}</Text>
-                        <Text selectable={true} style={{marginHorizontal: 20,marginVertical:5,color: '#212121'}}>Password: {data.roompassword}</Text>
+                        <Text selectable={true} style={{marginHorizontal: 20,marginVertical:5,color: '#212121'}} onPress={() => {Clipboard.setString(data.roomid); ToastAndroid.show('Room ID Copied!', ToastAndroid.SHORT);}}>Room ID: {data.roomid}</Text>
+                        <Text selectable={true} style={{marginHorizontal: 20,marginVertical:5,color: '#212121'}} onPress={() => {Clipboard.setString(data.roompassword); ToastAndroid.show('Room Password Copied!', ToastAndroid.SHORT);}}>Password: {data.roompassword}</Text>
                     </View>
                 </View>
                 <View style={styles.btnCon}>

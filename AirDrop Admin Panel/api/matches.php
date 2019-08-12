@@ -13,7 +13,7 @@
                 echo json_encode($app->get_ongoing_matches($data["user"]));
                 break;
             case "join_match":
-                echo json_encode($app->join_match($data['match_id'], $data['user']));
+                echo json_encode($app->join_match($data['match_id'], $data['user'], $data["entryfee"]));
                 break;
             case "join_status":
                 echo json_encode($app->join_status($data['match_id'], $data['user']));

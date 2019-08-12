@@ -1,6 +1,6 @@
 <?php
   /**
-   * FULL APPLICATION CONTROLLER
+   * APPLICATIONS CLASS
    * AIRDROP - A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION
    * Copyright © 2019, JR Sarath - Noobs Labs
    * GNU GENERAL PUBLIC LICENSE Version 3
@@ -30,6 +30,13 @@
         $this->PAY_SALT = '9KfDBmH40i';
       }
     }
+
+    /**
+    * INTERNAL APPLICATION FUNCTIONS
+    * AIRDROP - A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION
+    * Copyright © 2019, JR Sarath - Noobs Labs
+    * GNU GENERAL PUBLIC LICENSE Version 3
+    */
     function list_users($type){
       if ($row = mysqli_query($this->db, "SELECT * FROM users")){
         while ($user = mysqli_fetch_assoc($row)) {
@@ -98,7 +105,13 @@
       }
     }
 
-    // API FUNCTIONS
+    /**
+    * REST API CONTROLLER FUNCTIONS
+    * AIRDROP - A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION
+    * Copyright © 2019, JR Sarath - Noobs Labs
+    * GNU GENERAL PUBLIC LICENSE Version 3
+    */
+
     // USER API
     function login($email, $password){
       $e = $this->dbHelper->sqlSafeValue($email);
@@ -335,11 +348,15 @@
         error_log("MYSQL ERROR: ".mysqli_error($this->db));
       }
     }
-    function join_match($id, $user){
+    function join_match($id, $user, $amnt){
       if($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$user' AND match_id='$id'")){
         if (mysqli_num_rows($res) == 0) {
           if (mysqli_query($this->db, "INSERT INTO join_match(match_id,user) VALUES('$id','$user')")) {
             mysqli_query($this->db, "UPDATE matches SET totalplayerjoined=totalplayerjoined+1 WHERE id='$id'");
+            $amount = +$amnt;
+            $order_id = 'MATCH-'.time();
+            mysqli_query($this->db, "UPDATE wallet SET balance=balance-$amount WHERE user='$user'");
+            mysqli_query($this->db, "INSERT INTO transactions(id,amount,user,number,type,status) VALUES('$order_id', '$amount', '$user','null','MATCH-MONEY','SUCCESS')");
             return array("status" => 'success');
           } else {
             error_log("MYSQL ERROR: ".mysqli_error($this->db)); 
@@ -351,7 +368,6 @@
         error_log("MYSQL ERROR: ".mysqli_error($this->db));
       }
     }
-
     function join_status($id, $user){
       if($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$user' AND match_id='$id'")){
         if (mysqli_num_rows($res) > 0) {

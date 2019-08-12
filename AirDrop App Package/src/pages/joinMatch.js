@@ -14,13 +14,14 @@ export default class joinMatch extends Component {
         this.state = {
             button: +this.props.navigation.state.params.data.totalplayer == +this.props.navigation.state.params.data.totalplayerjoined ? "Match Full":"Join Now (" + (+this.props.navigation.state.params.data.totalplayer - +this.props.navigation.state.params.data.totalplayerjoined) + " Left)",
             color: +this.props.navigation.state.params.data.totalplayer == +this.props.navigation.state.params.data.totalplayerjoined ? '#bdbdbd':'#f44336',
-            action: () => +this.props.navigation.state.params.data.totalplayer == +this.props.navigation.state.params.data.totalplayerjoined ? null : this.joinMatch(this.props.navigation.state.params.data.id)
+            action: () => +this.props.navigation.state.params.data.totalplayer == +this.props.navigation.state.params.data.totalplayerjoined ? null : this.joinMatch(this.props.navigation.state.params.data.id, this.props.navigation.state.params.data.entryfee)
         }
     }
     componentDidMount(){
         this._joinStatus();
     }
-    joinMatch(id){
+    joinMatch(id, entry){
+        ToastAndroid.show('Please Wait!', ToastAndroid.SHORT);
         fetch(config.domain + "api/matches.php", {
             method: 'POST',
             headers: new Headers({
@@ -31,7 +32,8 @@ export default class joinMatch extends Component {
             body: JSON.stringify({
                 action: "join_match",
                 user: store.getState().user,
-                match_id: id
+                match_id: id,
+                entryfee: entry
             })
         })
             .then((response) => response.json())
@@ -126,7 +128,7 @@ export default class joinMatch extends Component {
                         <Title style={styles.subText}>Prize Details:</Title>
                         <Title style={styles.gridText}>Per Kill: ₹{data.perkill} </Title>
                         <Title style={styles.gridText}>Win: ₹{data.winprice}</Title>
-                        <Title style={styles.gridText}>Entry Fee: ₹{data.winprice}</Title>
+                        <Title style={styles.gridText}>Entry Fee: ₹{data.entryfee}</Title>
                     </View>
                     <View syle={styles.grid}>
                         <Title style={styles.subText}>Rules:</Title>
