@@ -37,73 +37,73 @@
     * Copyright © 2019, JR Sarath - Noobs Labs
     * GNU GENERAL PUBLIC LICENSE Version 3
     */
-    function list_users($type){
-      if ($row = mysqli_query($this->db, "SELECT * FROM users")){
-        while ($user = mysqli_fetch_assoc($row)) {
-            echo '
-                <tr>
-                  <th scope="row">'.$user["id"].'</th>
-                  <td>'.$user["gamertag"].'</td>
-                  <td>'.$user["email"].'</td>
-                  <td>'.$user["phone"].'</td>
-                  <td>'.$user["name"].'</td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="#"><i class="fas fa-key"></i> Reset Password</a>
-                        <!--a class="dropdown-item" href="#"><i class="fas fa-ban"></i> Disable Account</a-->
-                        <a class="dropdown-item text-danger" href="#"><i class="far fa-trash-alt"></i> Delete Account</a>
+      function list_users($type){
+        if ($row = mysqli_query($this->db, "SELECT * FROM users")){
+          while ($user = mysqli_fetch_assoc($row)) {
+              echo '
+                  <tr>
+                    <th scope="row">'.$user["id"].'</th>
+                    <td>'.$user["gamertag"].'</td>
+                    <td>'.$user["email"].'</td>
+                    <td>'.$user["phone"].'</td>
+                    <td>'.$user["name"].'</td>
+                    <td class="text-right">
+                      <div class="dropdown">
+                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a class="dropdown-item" href="#"><i class="fas fa-key"></i> Reset Password</a>
+                          <!--a class="dropdown-item" href="#"><i class="fas fa-ban"></i> Disable Account</a-->
+                          <a class="dropdown-item text-danger" href="#"><i class="far fa-trash-alt"></i> Delete Account</a>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              ';
+                    </td>
+                  </tr>
+                ';
+          }
         }
       }
-    }
-    function list_matches($type){
-      if ($row = mysqli_query($this->db, "SELECT * FROM matches")){
-        while ($mt = mysqli_fetch_assoc($row)) {
-              echo '
-                <tr>
-                  <th scope="row">'.$mt["id"].'</th>
-                  <td>'.$mt["map"].'</td>
-                  <td>'.$mt["matchtype"].'</td>
-                  <td>'.$mt["entryfee"].'</td>
-                  <td>'.$mt["winprice"].'</td>
-                  <td>'.$mt["perkill"].'</td>
-                  <td>'.$mt["totalplayer"].'</td>
-                  <td>'.$mt["totalplayerjoined"].'</td>
-                  <td>'.$mt["matchstatus"].'</td>
-                  <td>'.$mt["matchschedule"].'</td>
-                  <td class="text-right">
-                    <div class="dropdown">
-                      <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                        <i class="fas fa-ellipsis-v"></i>
-                      </a>
-                      <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
-                        <a class="dropdown-item" href="edit-match.php?match='.$mt["id"].'"><i class="fas fa-pen"></i> Edit Match</a>
-                        <!--a class="dropdown-item" href="#"><i class="fas fa-ban"></i> Disable Account</a-->
-                        <a class="dropdown-item text-danger" href="?del='.$mt["id"].'"><i class="far fa-trash-alt"></i> Delete Match</a>
+      function list_matches($type){
+        if ($row = mysqli_query($this->db, "SELECT * FROM matches")){
+          while ($mt = mysqli_fetch_assoc($row)) {
+                echo '
+                  <tr>
+                    <th scope="row">'.$mt["id"].'</th>
+                    <td>'.$mt["map"].'</td>
+                    <td>'.$mt["matchtype"].'</td>
+                    <td>'.$mt["entryfee"].'</td>
+                    <td>'.$mt["winprice"].'</td>
+                    <td>'.$mt["perkill"].'</td>
+                    <td>'.$mt["totalplayer"].'</td>
+                    <td>'.$mt["totalplayerjoined"].'</td>
+                    <td>'.$mt["matchstatus"].'</td>
+                    <td>'.$mt["matchschedule"].'</td>
+                    <td class="text-right">
+                      <div class="dropdown">
+                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a class="dropdown-item" href="edit-match.php?match='.$mt["id"].'"><i class="fas fa-pen"></i> Edit Match</a>
+                          <!--a class="dropdown-item" href="#"><i class="fas fa-ban"></i> Disable Account</a-->
+                          <a class="dropdown-item text-danger" href="?del='.$mt["id"].'"><i class="far fa-trash-alt"></i> Delete Match</a>
+                        </div>
                       </div>
-                    </div>
-                  </td>
-                </tr>
-              ';
-          }
+                    </td>
+                  </tr>
+                ';
+            }
+        }
       }
-    }
-    function add_match(){
-      if (mysqli_query($this->db, "INSERT INTO matches(map,type,livelink,matchtype,roomid,roompassword,banner,totalplayer,totalplayerjoined,entryfee,winprice,perkill,matchstatus,matchschedule,rule)
-                                               VALUES('".$_POST['map']."','".$_POST['viewMode']."','".$_POST['livelink']."','".$_POST['matchtype']."','".$_POST['roomid']."','".$_POST['roompassword']."','".$_POST['banner']."','".$_POST['totalplayer']."','".$_POST['totalplayerjoined']."','".$_POST['entryfee']."','".$_POST['winprice']."','".$_POST['perkill']."','".$_POST['matchstatus']."','".$_POST['matchdate']." ".$_POST['matchtime']."','".$_POST['rule']."')")) {
-        return 'success';
-      } else {
-        error_log('SQL Error: '.mysqli_error($this->db));
+      function add_match(){
+        if (mysqli_query($this->db, "INSERT INTO matches(map,type,livelink,matchtype,roomid,roompassword,banner,totalplayer,totalplayerjoined,entryfee,winprice,perkill,matchstatus,matchschedule,rule)
+                                                VALUES('".$_POST['map']."','".$_POST['viewMode']."','".$_POST['livelink']."','".$_POST['matchtype']."','".$_POST['roomid']."','".$_POST['roompassword']."','".$_POST['banner']."','".$_POST['totalplayer']."','".$_POST['totalplayerjoined']."','".$_POST['entryfee']."','".$_POST['winprice']."','".$_POST['perkill']."','".$_POST['matchstatus']."','".$_POST['matchdate']." ".$_POST['matchtime']."','".$_POST['rule']."')")) {
+          return 'success';
+        } else {
+          error_log('SQL Error: '.mysqli_error($this->db));
+        }
       }
-    }
 
     /**
     * REST API CONTROLLER FUNCTIONS
@@ -112,65 +112,65 @@
     * GNU GENERAL PUBLIC LICENSE Version 3
     */
 
-    // USER API
-    function login($email, $password){
-      $e = $this->dbHelper->sqlSafeValue($email);
-      $p = $this->dbHelper->sqlSafeValue($password);
-      if ($res = mysqli_query($this->db, "SELECT * FROM users WHERE email='$e' AND password='$p'")) {
-        if (mysqli_num_rows($res) == 1) {
-          $row = mysqli_fetch_assoc($res);
-          return true;
+      // USER API
+      function login($email, $password){
+        $e = $this->dbHelper->sqlSafeValue($email);
+        $p = $this->dbHelper->sqlSafeValue($password);
+        if ($res = mysqli_query($this->db, "SELECT * FROM users WHERE email='$e' AND password='$p'")) {
+          if (mysqli_num_rows($res) == 1) {
+            $row = mysqli_fetch_assoc($res);
+            return true;
+          } else {
+            return false;
+          }
         } else {
-          return false;
+          error_log('SQL Error :'.mysqli_error($this->db));
         }
-      } else {
-        error_log('SQL Error :'.mysqli_error($this->db));
       }
-    }
-    function signup($email,$name,$password,$gamertag,$phone){
-      $e = $this->dbHelper->sqlSafeValue($email);
-      $n = $this->dbHelper->sqlSafeValue($name);
-      $p = $this->dbHelper->sqlSafeValue($password);
-      $g = $this->dbHelper->sqlSafeValue($gamertag);
-      $ph = $this->dbHelper->sqlSafeValue($phone);
-      $d = date('Y-m-d G:i:s');
-      if (mysqli_query($this->db, "INSERT INTO users(email,name,password,gamertag,$phone) VALUES('$e','$n','$p','$g', '$ph')")){
-        if (mysqli_query($this->db, "INSERT INTO wallet(user,balance, last_updated) VALUES('$e','0', '$d')")) {
-          return true;
+      function signup($email,$name,$password,$gamertag,$phone){
+        $e = $this->dbHelper->sqlSafeValue($email);
+        $n = $this->dbHelper->sqlSafeValue($name);
+        $p = $this->dbHelper->sqlSafeValue($password);
+        $g = $this->dbHelper->sqlSafeValue($gamertag);
+        $ph = $this->dbHelper->sqlSafeValue($phone);
+        $d = date('Y-m-d G:i:s');
+        if (mysqli_query($this->db, "INSERT INTO users(email,name,password,gamertag,$phone) VALUES('$e','$n','$p','$g', '$ph')")){
+          if (mysqli_query($this->db, "INSERT INTO wallet(user,balance, last_updated) VALUES('$e','0', '$d')")) {
+            return true;
+          } else {
+            error_log('SQL Error :'.mysqli_error($this->db));
+            return false;
+          }
         } else {
           error_log('SQL Error :'.mysqli_error($this->db));
           return false;
         }
-      } else {
-        error_log('SQL Error :'.mysqli_error($this->db));
-        return false;
       }
-    }
-    function get_user($email){
-      if ($row = mysqli_query($this->db, "SELECT * FROM users WHERE email='$email'")) {
-        $user = mysqli_fetch_assoc($row);
-        return $user;
-      } else {
-        error_log("MYSQL ERROR: ".mysqli_error($this->db));
+      function get_user($email){
+        if ($row = mysqli_query($this->db, "SELECT * FROM users WHERE email='$email'")) {
+          $user = mysqli_fetch_assoc($row);
+          return $user;
+        } else {
+          error_log("MYSQL ERROR: ".mysqli_error($this->db));
+        }
       }
-    }
-    function update_user($email,$name,$gamertag,$bank,$paytm,$googlepay,$amazonpay){
-      $b = serialize($bank);
-      if (mysqli_query($this->db, "UPDATE users SET name='$name',gamertag='$gamertag',bank='$bank',paytm='$paytm',googlepay='$googlepay',amazonpay='$amazonpay' WHERE email='$email'")) {
-        return true;
-      } else {
-        error_log("MYSQL ERROR: ".mysqli_error($this->db));
+      function update_user($email,$name,$gamertag,$bank,$paytm,$googlepay,$amazonpay){
+        $b = serialize($bank);
+        if (mysqli_query($this->db, "UPDATE users SET name='$name',gamertag='$gamertag',bank='$bank',paytm='$paytm',googlepay='$googlepay',amazonpay='$amazonpay' WHERE email='$email'")) {
+          return true;
+        } else {
+          error_log("MYSQL ERROR: ".mysqli_error($this->db));
+        }
       }
-    }
-    function update_password($email, $password){
-      if (mysqli_query($this->db, "UPDATE users SET password='$password' WHERE email='$email'")) {
-        return true;
-      } else {
-        error_log("MYSQL ERROR: ".mysqli_error($this->db));
+      function update_password($email, $password){
+        if (mysqli_query($this->db, "UPDATE users SET password='$password' WHERE email='$email'")) {
+          return true;
+        } else {
+          error_log("MYSQL ERROR: ".mysqli_error($this->db));
+        }
       }
-    }
 
-    // WALLET API
+      // WALLET API
       // PAYTM SPECIFIC
       function generatePaymentRequest($amount, $email){
         $user = $this->get_user($email);
@@ -310,75 +310,75 @@
           }
       }
       
-    function get_wallet($user){
-      if ($res = mysqli_query($this->db, "SELECT * FROM wallet WHERE user='$user'")){
-        $row = mysqli_fetch_assoc($res);
-        return array('balance' =>  $row["balance"]);
-      }
-
-    }
-
-    // MATCHES API
-    function get_upcoming_matches(){
-      if ($row = mysqli_query($this->db, "SELECT * FROM matches WHERE matchstatus='Upcoming'")) {
-        $array = array();
-        while ($res = mysqli_fetch_assoc($row)){
-          $array[] = $res;
+      function get_wallet($user){
+        if ($res = mysqli_query($this->db, "SELECT * FROM wallet WHERE user='$user'")){
+          $row = mysqli_fetch_assoc($res);
+          return array('balance' =>  $row["balance"]);
         }
-        return $array;
-      } else {
-        error_log("MYSQL ERROR: ".mysqli_error($this->db));
+
       }
-    }
-    function get_ongoing_matches($id){
-      if ($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$id'")){
-        $array = array();
-        while ($row = mysqli_fetch_assoc($res)){
-          $match_id = $row["match_id"];
-          if ($row_match = mysqli_query($this->db, "SELECT * FROM matches WHERE matchstatus='Ongoing' AND id='$match_id'")) {
-            while ($res_match = mysqli_fetch_assoc($row_match)){
-              $array[] = $res_match;
+
+      // MATCHES API
+      function get_upcoming_matches(){
+        if ($row = mysqli_query($this->db, "SELECT * FROM matches WHERE matchstatus='Upcoming'")) {
+          $array = array();
+          while ($res = mysqli_fetch_assoc($row)){
+            $array[] = $res;
+          }
+          return $array;
+        } else {
+          error_log("MYSQL ERROR: ".mysqli_error($this->db));
+        }
+      }
+      function get_ongoing_matches($id){
+        if ($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$id'")){
+          $array = array();
+          while ($row = mysqli_fetch_assoc($res)){
+            $match_id = $row["match_id"];
+            if ($row_match = mysqli_query($this->db, "SELECT * FROM matches WHERE matchstatus='Ongoing' AND id='$match_id'")) {
+              while ($res_match = mysqli_fetch_assoc($row_match)){
+                $array[] = $res_match;
+              }
+            } else {
+              error_log("MYSQL ERROR: ".mysqli_error($this->db));
+            }
+          }
+          return $array;
+        } else {
+          error_log("MYSQL ERROR: ".mysqli_error($this->db));
+        }
+      }
+      function join_match($id, $user, $amnt){
+        if($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$user' AND match_id='$id'")){
+          if (mysqli_num_rows($res) == 0) {
+            if (mysqli_query($this->db, "INSERT INTO join_match(match_id,user) VALUES('$id','$user')")) {
+              mysqli_query($this->db, "UPDATE matches SET totalplayerjoined=totalplayerjoined+1 WHERE id='$id'");
+              $amount = +$amnt;
+              $order_id = 'MATCH-'.time();
+              mysqli_query($this->db, "UPDATE wallet SET balance=balance-$amount WHERE user='$user'");
+              mysqli_query($this->db, "INSERT INTO transactions(id,amount,user,number,type,status) VALUES('$order_id', '$amount', '$user','null','MATCH-MONEY','SUCCESS')");
+              return array("status" => 'success');
+            } else {
+              error_log("MYSQL ERROR: ".mysqli_error($this->db)); 
             }
           } else {
-            error_log("MYSQL ERROR: ".mysqli_error($this->db));
+            return array("status" => 'duplicate');
           }
+        } else {
+          error_log("MYSQL ERROR: ".mysqli_error($this->db));
         }
-        return $array;
-      } else {
-        error_log("MYSQL ERROR: ".mysqli_error($this->db));
       }
-    }
-    function join_match($id, $user, $amnt){
-      if($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$user' AND match_id='$id'")){
-        if (mysqli_num_rows($res) == 0) {
-          if (mysqli_query($this->db, "INSERT INTO join_match(match_id,user) VALUES('$id','$user')")) {
-            mysqli_query($this->db, "UPDATE matches SET totalplayerjoined=totalplayerjoined+1 WHERE id='$id'");
-            $amount = +$amnt;
-            $order_id = 'MATCH-'.time();
-            mysqli_query($this->db, "UPDATE wallet SET balance=balance-$amount WHERE user='$user'");
-            mysqli_query($this->db, "INSERT INTO transactions(id,amount,user,number,type,status) VALUES('$order_id', '$amount', '$user','null','MATCH-MONEY','SUCCESS')");
-            return array("status" => 'success');
+      function join_status($id, $user){
+        if($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$user' AND match_id='$id'")){
+          if (mysqli_num_rows($res) > 0) {
+            return array("status" => 'joined');
           } else {
-            error_log("MYSQL ERROR: ".mysqli_error($this->db)); 
+            return array("status" => 'not-joined');
           }
         } else {
-          return array("status" => 'duplicate');
+          error_log("MYSQL ERROR: ".mysqli_error($this->db));
         }
-      } else {
-        error_log("MYSQL ERROR: ".mysqli_error($this->db));
       }
-    }
-    function join_status($id, $user){
-      if($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$user' AND match_id='$id'")){
-        if (mysqli_num_rows($res) > 0) {
-          return array("status" => 'joined');
-        } else {
-          return array("status" => 'not-joined');
-        }
-      } else {
-        error_log("MYSQL ERROR: ".mysqli_error($this->db));
-      }
-    }
   }
 
 ?>

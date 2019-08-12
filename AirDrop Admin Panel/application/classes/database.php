@@ -1,7 +1,10 @@
 <?php
   /**
-   * Database Helper
-   */
+  * DATABASE HELPER
+  * AIRDROP - A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION
+  * Copyright © 2019, JR Sarath - Noobs Labs
+  * GNU GENERAL PUBLIC LICENSE Version 3
+  */
   class DB {
     function sqlSafePost($post) {
       return mysqli_real_escape_string($this->connect(), $_POST[$post]);
