@@ -96,7 +96,7 @@
             }
         }
       }
-      function transactions(){
+      function transactions_requests(){
         if ($row = mysqli_query($this->db, "SELECT * FROM transactions")){
           while ($mt = mysqli_fetch_assoc($row)) {
                 $date = explode(" ", $mt["date"])[0];
@@ -122,7 +122,36 @@
           error_log('SQL Error: '.mysqli_error($this->db));
         }
       }
-
+      function withdraw_requests(){
+        if ($row = mysqli_query($this->db, "SELECT * FROM withdraw")){
+          while ($mt = mysqli_fetch_assoc($row)) {
+                $date = explode(" ", $mt["log_date"])[0];
+                $date = date_create($date);
+                echo '
+                  <tr>
+                    <th scope="row">'.$mt["txnid"].'</th>
+                    <td>₹ '.$mt["amount"].'</td>
+                    <td>'.$mt["user"].'</td>
+                    <td>'.$mt["status"].'</td>
+                    <td>'.$mt["gateway"].'</td>
+                    <td></td>
+                    <td>'.date_format($date,"d M Y").'</td>
+                    <td class="text-right">
+                      <div class="dropdown">
+                        <a class="btn btn-sm btn-icon-only text-light" href="#" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                          <i class="fas fa-ellipsis-v"></i>
+                        </a>
+                        <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
+                          <a class="dropdown-item text-success" href="?approve='.$mt["id"].'"><i class="fas fa-check"></i>Approve withdraw</a>
+                          <a class="dropdown-item text-danger" href="?decline='.$mt["id"].'"><i class="fas fa-times"></i>Decline Withdraw</a>
+                        </div>
+                      </div>
+                    </td>
+                  </tr>
+                ';
+            }
+        }
+      }
     /**
     * REST API CONTROLLER FUNCTIONS
     * AIRDROP - A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION

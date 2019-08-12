@@ -30,7 +30,7 @@
             <div class="card-header border-0">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">All Transactions</h3>
+                  <h3 class="mb-0">Withdraw Requests</h3>
                 </div>
               </div>
             </div>
@@ -42,13 +42,15 @@
                     <th scope="col">TRANSACTION ID</th>
                     <th scope="col">AMOUNT</th>
                     <th scope="col">USER</th>
-                    <th scope="col">TYPE</th>
                     <th scope="col">STATUS</th>
+                    <th scope="col">WITHDRAW METHOD</th>
+                    <th scope="col">WITHDRAW DETAILS</th>
                     <th scope="col">DATE</th>
+                    <th></th>
                   </tr>
                 </thead>
                 <tbody>
-                  <?php $app->transactions_requests(); ?>
+                  <?php $app->withdraw_requests(); ?>
                 </tbody>
               </table>
             </div>

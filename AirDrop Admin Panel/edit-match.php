@@ -2,7 +2,14 @@
  require('application/classes/application.php');
  $app = new App();
  if (isset($_POST["submit"])) {
-    $app->add_match();
+    $app->edit_match();
+ }
+ if (isset($_GET["match"])){
+   $m = $_GET["match"];
+   $res = mysqli_query($app->db, "SELECT * FROM matches WHERE id='$m'");
+   $row = mysqli_fetch_assoc($res);
+ } else {
+   header("location: /matches.php");
  }
 ?>
 <!DOCTYPE html>

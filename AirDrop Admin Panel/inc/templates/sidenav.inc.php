@@ -44,7 +44,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="transactions.php">
+          <a class="nav-link" href="withdraw.php">
             <i class="fas fa-money-bill-wave text-primary"></i> Withdraw Requests
           </a>
         </li>
