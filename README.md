@@ -11,7 +11,8 @@ Feel free to Contribute to this project
 Feel free to open a issue for Suggestions, Feature Request, Feedbacks & Bugs
 
 Made with :heart: in Kolkata
-## Documentions will be published soon
+
+# Documentions will be published soon
 
 ### Setup Android App
 
