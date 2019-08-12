@@ -1,4 +1,10 @@
 <?php
+    /**
+    * PAYMENTS API ENDPOINT V1.0
+    * AIRDROP - A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION
+    * Copyright © 2019, JR Sarath - Noobs Labs
+    * GNU GENERAL PUBLIC LICENSE Version 3
+    */
     header('Content-Type: application/json');
     require $_SERVER["DOCUMENT_ROOT"].'/application/classes/application.php';
     $app = new App();
