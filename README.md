@@ -1,10 +1,10 @@
 ## AirDrop
-A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION<br>
-First of all It's open-source, I'll highly appreciate if you use this for non-commercial purposes<br>
-Growing E-Sports organizations are the Future of Gaming/E-Sports Industry, <br>
+**A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION**  
+First of all It's open-source, I'll highly appreciate if you use this for non-commercial purposes  
+Growing E-Sports organizations are the Future of Gaming/E-Sports Industry,  
 they were the primary reason for this project, Specially Indian E-Sports Industry was focused while working on this project
 
-Hit me up anytime for Small customizations on this project<br>
+Hit me up anytime for Small customizations on this project  
 If you found this project helpfull then buy me a cup of coffee :coffee::coffee: at https://www.instamojo.com/@jrsarath
 
 Feel free to Contribute to this project
@@ -18,7 +18,7 @@ Made with :heart: in Kolkata
 
 ### Setup Admin Panel
 
-## LICENSE
+## License
 MIT License
 
 Copyright (c) 2019 jrsarath
