@@ -39,7 +39,7 @@
             <div class="card-header mb-5">
               <div class="row align-items-center">
                 <div class="col">
-                  <h3 class="mb-0">Edit Match <? echo $_GET["match"]?></h3>
+                  <h3 class="mb-0">Edit Match #<? echo $_GET["match"]?></h3>
                 </div>
               </div>
             </div>
@@ -49,19 +49,19 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Room ID (Optional)</label>
-                                <input type="text" name='roomid' class="form-control" placeholder="Room ID">
+                                <input type="text" name='roomid' class="form-control" placeholder="Room ID" value='<? echo $row["roomid"]?>'>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Room Password (Optional)</label>
-                                <input type="text" name='roompassword' class="form-control" placeholder="Room Password">
+                                <input type="text" name='roompassword' class="form-control" placeholder="Room Password" value='<? echo $row["roompassword"]?>'>
                             </div>
                         </div>
                         <div class="col-12">
                             <div class="form-group">
                                 <label>Youtube Live Link (Optional)</label>
-                                <input type="text" name='livelink' class="form-control" placeholder="Youtube Link of the live Stream">
+                                <input type="text" name='livelink' class="form-control" placeholder="Youtube Link of the live Stream" value='<? echo $row["livelink"]?>'>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -97,32 +97,32 @@
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Total Player*</label>
-                                <input type="text" name='totalplayer' class="form-control" placeholder="Total Player" required>
+                                <input type="text" name='totalplayer' class="form-control" placeholder="Total Player" value='<? echo $row["totalplayer"]?>' required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Total Player Joined*</label>
-                                <input type="text" name='totalplayerjoined' class="form-control" placeholder="Total Player Joined" required>
+                                <input type="text" name='totalplayerjoined' class="form-control" placeholder="Total Player Joined" value='<? echo $row["totalplayerjoined"]?>' required>
                             </div>
                         </div>
 
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Entry Fee*</label>
-                                <input type="text" name='entryfee' class="form-control" placeholder="Entry Fee" required>
+                                <input type="text" name='entryfee' class="form-control" placeholder="Entry Fee" value='<? echo $row["entryfee"]?>' required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Win Price*</label>
-                                <input type="text" name='winprice' class="form-control" placeholder="Win Price" required>
+                                <input type="text" name='winprice' class="form-control" placeholder="Win Price" value='<? echo $row["winprice"]?>' required>
                             </div>
                         </div>
                         <div class="col-md-6">
                             <div class="form-group">
                                 <label>Per Kill*</label>
-                                <input type="text" name='perkill' class="form-control" placeholder="Per Kill" required>
+                                <input type="text" name='perkill' class="form-control" placeholder="Per Kill" value='<? echo $row["perkill"]?>' required>
                             </div>
                         </div>
                         <div class="col-md-6">
@@ -142,20 +142,20 @@
                                     <div class="input-group-prepend">
                                         <span class="input-group-text"><i class="ni ni-calendar-grid-58"></i></span>
                                     </div>
-                                    <input type="text" name="matchdate" class="form-control datepicker" placeholder="Match Date" required>
+                                    <input type="text" name="matchdate" class="form-control datepicker" placeholder="Match Date" value='<? echo explode(' ', $row["matchschedule"])[0] ?>' required>
                                 </div>
                              </div>
                         </div>
                         <div class="col-md-6">
                              <div class="form-group">
                                 <label>Match Time*</label>
-                                <input type="text" name="matchtime" class="form-control" placeholder="Match Time - 10:50 PM" required>
+                                <input type="text" name="matchtime" class="form-control" placeholder="Match Time - 10:50 PM" value='<? echo explode(' ', $row["matchschedule"])[1]." ".explode(' ', $row["matchschedule"])[2] ?>' required>
                              </div>
                         </div>
                         <div class="col-12">
                              <div class="form-group">
                                 <label>Rules*</label>
-                                <textarea class="form-control" name="rule" rows="4" maxlength="140" required>Keep it short and simple, There is a limit of 140 Letters</textarea>
+                                <textarea class="form-control" name="rule" rows="4" maxlength="140" required><? echo $row["rule"]?></textarea>
                              </div>
                         </div>
                         <div class="col-12 mb-5 mt-3">
