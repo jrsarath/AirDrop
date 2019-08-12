@@ -11,7 +11,6 @@
     "install-release": "adb install android/app/build/outputs/apk/release/app-release.apk"
   },
   "dependencies": {
-    "@astrocoders/react-native-selectable-text": "^1.2.1",
     "@philly25/react-native-paytm": "^1.0.11",
     "@shoutem/ui": "^0.24.1",
     "js-md5": "^0.7.3",

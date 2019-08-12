@@ -332,10 +332,31 @@
         if ($res = mysqli_query($this->db, "SELECT * FROM wallet WHERE user='$user'")){
           $row = mysqli_fetch_assoc($res);
           return array('balance' =>  $row["balance"]);
+        } else {
+          error_log("MYSQL ERROR: ".mysqli_error($this->db));
         }
 
       }
-
+      function withdraw($amount, $user, $gateway){
+        if ($res = mysqli_query($this->db, "SELECT * FROM wallet WHERE user='$user'")){
+          $row = mysqli_fetch_assoc($res);
+          if (+$row["balance"] >= +$amount) {
+            $txn = "WITHD-".time();
+            if (mysqli_query($this->db, "INSERT INTO withdraw(user,amount,gateway,txnid) VALUES('$user', '$amount', '$gateway','$txn')")){
+              $amnt = +$amount;
+              mysqli_query($this->db, "UPDATE wallet SET balance=balance-$amnt WHERE user='$user'");
+              return array('status' =>  'success', 'txnid' => $txn);
+            } else {
+              error_log("MYSQL ERROR: ".mysqli_error($this->db));
+              return array('status' =>  'failed');
+            }
+          } else {
+            return array('status' =>  'not-enough');
+          }
+        } else {
+          error_log("MYSQL ERROR: ".mysqli_error($this->db));
+        }
+      }
       // MATCHES API
       function get_upcoming_matches(){
         if ($row = mysqli_query($this->db, "SELECT * FROM matches WHERE matchstatus='Upcoming'")) {

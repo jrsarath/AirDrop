@@ -133,19 +133,87 @@ export class withdrawMoney extends Component {
         super();
         this.emitter = null;
         this.state = {
-            withdrawMoney: null,
+            withdrawAmount: null,
             withdrawMethod: null,
+            color: store.getState().wallet <= 0 ? '#bdbdbd' : '#f44336',
+            action: store.getState().wallet <= 0 ? null : () => this._withdrawMoney()
         }
     }
-    componentDidMount() {
-        paytmEvent = new NativeEventEmitter(NativeModules.RNPayTm);
-        paytmEvent.addListener('PayTMResponse', this._handlePaytmResponse);
+    componentDidMount(){
+        store.subscribe(() => {
+            this.setState({
+                color: store.getState().wallet <= 0 ? '#bdbdbd' : '#f44336',
+                action: store.getState().wallet <= 0 ? null: () => this._withdrawMoney()
+            })
+        })
     }
-    componentWillUnmount() {
-        if (paytmEvent) {
-            paytmEvent.removeListener('PayTMResponse', this._handlePaytmResponse);
-            paytmEvent = null;
+    _withdrawMoney(){
+        if (this.state.withdrawAmount != null) {
+            if (+store.getState().wallet >= +this.state.withdrawAmount) {
+                fetch(config.domain + "api/payment.php", {
+                    method: 'POST',
+                    headers: new Headers({
+                        'Accept': 'application/json',
+                        "Accept-Encoding": "gzip, deflate",
+                        'Content-Type': 'application/json'
+                    }),
+                    body: JSON.stringify({
+                        action: "withdraw",
+                        user: store.getState().user,
+                        amount: this.state.withdrawAmount,
+                        gateway: this.state.withdrawMethod
+                    })
+
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status == 'success'){
+                        Alert.alert('Request Recieved', 'We got your withdraw request for ₹'+this.state.withdrawAmount+', we will proccess it shortly. \n\nRequest ID: '+ data.txnid);
+                        this._getWalletBalance();
+                    } else if (data.status == 'not-enough') {
+                        Alert.alert('Not enough Balance', 'We could not complete your request. Reach support team if you think this is a mistake');
+                    }else {
+                        ToastAndroid.show('Error submitting request! Try again later', ToastAndroid.LONG);
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                    ToastAndroid.show('Error submitting request! Try again later', ToastAndroid.LONG);
+                });
+            } else {
+                ToastAndroid.show('Not enough Balance!', ToastAndroid.LONG);
+            }
+        } else {
+            ToastAndroid.show('Please enter Amount', ToastAndroid.LONG);
         }
+    }
+    // GET WALLET BALANCE
+    _getWalletBalance(){
+        ToastAndroid.show('Updating Wallet Balance', ToastAndroid.SHORT);
+        fetch(config.domain + "api/payment.php", {
+            method: 'POST',
+            headers: new Headers({
+                'Accept': 'application/json',
+                "Accept-Encoding": "gzip, deflate",
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                action: "getWallet",
+                user: store.getState().user
+            })
+
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            this.setState({
+                loading: false,
+            });
+            store.dispatch(GetWallet(data.balance));
+        })
+        .catch((error) => {
+            console.error(error);
+            ToastAndroid.show('Error Fetching Wallet & Balance', ToastAndroid.LONG);
+        });
     }
     render() {
         return (
@@ -161,12 +229,12 @@ export class withdrawMoney extends Component {
                     </Picker>
                 </View>
                 <TextInput
-                    value={this.state.addMoney}
+                    value={this.state.withdrawAmount}
                     style={styles.input}
-                    onChangeText={(text) => this.setState({ withdrawNumber: text })}
+                    onChangeText={(text) => this.setState({ withdrawAmount: text })}
                     placeholder='Amount to Withdraw'
                 />
-                <TouchableOpacity style={styles.button}>
+                <TouchableOpacity style={[styles.button, {backgroundColor: this.state.color}]} onPress={this.state.action}>
                     <Text style={{ color: '#fff', fontSize: 18 }}>Withdraw Money</Text>
                 </TouchableOpacity>
             </View>

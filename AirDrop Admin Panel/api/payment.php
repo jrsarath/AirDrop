@@ -14,7 +14,9 @@
         switch ($data["action"]) {
             case "add":
                 break;
-            case "widthdraw";
+            case "withdraw";
+                $response = $app->withdraw($data["amount"],$data["user"], $data["gateway"]);
+                echo json_encode($response);
                 break;
             case 'paymentRequest':
                 $response = $app->generatePayUHash($data["amount"],$data["user"]);

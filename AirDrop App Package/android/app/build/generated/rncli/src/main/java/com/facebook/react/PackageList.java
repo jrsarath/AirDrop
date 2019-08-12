@@ -13,8 +13,6 @@ import java.util.ArrayList;
 import com.gamesetter.BuildConfig;
 import com.gamesetter.R;
 
-// @astrocoders/react-native-selectable-text
-import com.astrocoders.selectabletext.RNSelectableTextPackage;
 // @philly25/react-native-paytm
 import com.reactlibrary.RNPayTmPackage;
 // react-native-gesture-handler
@@ -62,7 +60,6 @@ public class PackageList {
   public ArrayList<ReactPackage> getPackages() {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(),
-      new RNSelectableTextPackage(),
       new RNPayTmPackage(),
       new RNGestureHandlerPackage(),
       new RNGoogleSigninPackage(),
