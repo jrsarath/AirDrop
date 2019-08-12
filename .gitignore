@@ -1,5 +1,5 @@
-*/android/app/build
-*/application/vendor
+*/android/app/build/
+*/application/vendor/
 */node_modules/*
 GameSetter.bak/
 .ftpconfig
