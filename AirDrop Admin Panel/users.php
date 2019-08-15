@@ -1,6 +1,13 @@
 <?php
  require('application/classes/application.php');
  $app = new App();
+ if (isset($_GET['delete'])){
+   if (mysqli_query($app->db, "DELETE FROM users WHERE id='".$_GET['delete']."'")){
+      $status = 'deleted';
+   } else {
+     error_log("MYSQLI ERROR: ".mysqli_error($app->db));
+   }
+ }
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,7 +25,17 @@
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
         <div class="header-body">
-          
+            <? 
+              if (!empty($status)){
+                if ($status == 'deleted'){
+                  echo '
+                    <div class="alert alert-danger" role="alert">
+                      <strong>Done!</strong> Account deleted. This can&apos;t be undone
+                    </div>
+                  ';
+                }
+              }
+            ?>
         </div>
       </div>
     </div>

@@ -55,7 +55,7 @@
                         <div class="dropdown-menu dropdown-menu-right dropdown-menu-arrow">
                           <!--a class="dropdown-item" href="#"><i class="fas fa-key"></i> Reset Password</a>
                           <a class="dropdown-item" href="#"><i class="fas fa-ban"></i> Disable Account</a-->
-                          <a class="dropdown-item text-danger" href="#"><i class="far fa-trash-alt"></i> Delete Account</a>
+                          <a class="dropdown-item text-danger" href="?delete='.$user["id"].'"><i class="far fa-trash-alt"></i> Delete Account</a>
                         </div>
                       </div>
                     </td>
@@ -102,7 +102,7 @@
                 $date = explode(" ", $mt["date"])[0];
                 $date = date_create($date);
                 echo '
-                  <tr>
+                  <tr class="'.$mt["status"].'">
                     <th scope="row">'.$mt["id"].'</th>
                     <td>₹ '.$mt["amount"].'</td>
                     <td>'.$mt["user"].'</td>
@@ -128,7 +128,7 @@
                 $date = explode(" ", $mt["log_date"])[0];
                 $date = date_create($date);
                 echo '
-                  <tr>
+                  <tr class="'.$mt["status"].'">
                     <th scope="row">'.$mt["txnid"].'</th>
                     <td>₹ '.$mt["amount"].'</td>
                     <td>'.$mt["user"].'</td>
@@ -181,7 +181,7 @@
         $g = $this->dbHelper->sqlSafeValue($gamertag);
         $ph = $this->dbHelper->sqlSafeValue($phone);
         $d = date('Y-m-d G:i:s');
-        if (mysqli_query($this->db, "INSERT INTO users(email,name,password,gamertag,$phone) VALUES('$e','$n','$p','$g', '$ph')")){
+        if (mysqli_query($this->db, "INSERT INTO users(email,name,password,gamertag,phone) VALUES('$e','$n','$p','$g', '$ph')")){
           if (mysqli_query($this->db, "INSERT INTO wallet(user,balance, last_updated) VALUES('$e','0', '$d')")) {
             return true;
           } else {

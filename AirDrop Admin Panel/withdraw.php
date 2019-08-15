@@ -1,6 +1,25 @@
 <?php
  require('application/classes/application.php');
  $app = new App();
+
+ // MARK WITHDRAW APPROVED
+ if (isset($_GET['approve'])) {
+    if(mysqli_query($app->db, "UPDATE withdraw SET status='SUCCESS' WHERE id='".$_GET['approve']."'")) {
+      $status = 'approved';
+    } else {
+      error_log("MYSQLI ERROR: ".mysqli_error($app->db));
+    }
+  }
+  // DECLINE WITHDRAW AND REFUND
+  if (isset($_GET['decline'])) {
+    if(mysqli_query($app->db, "UPDATE withdraw SET status='FAILED' WHERE id='".$_GET['decline']."'")) {
+      // SEND REFUND
+      
+      $status = 'declined';
+    } else {
+      error_log("MYSQLI ERROR: ".mysqli_error($app->db));
+    }
+  }
 ?>
 <!DOCTYPE html>
 <html>
@@ -18,7 +37,24 @@
     <div class="header bg-gradient-primary pb-8 pt-5 pt-md-8">
       <div class="container-fluid">
         <div class="header-body">
-          
+          <? 
+            if (!empty($status)){
+              if ($status == 'approved'){
+                echo '
+                  <div class="alert alert-success" role="alert">
+                    <strong>Approved!</strong> Withdraw marked as Approved
+                  </div>
+                ';
+              }
+              if ($status == 'declined'){
+                echo '
+                  <div class="alert alert-danger" role="alert">
+                    <strong>Refunded!</strong> Withdraw marked as Declined, Refund sent to wallet.
+                  </div>
+                ';
+              }
+            }
+          ?>
         </div>
       </div>
     </div>

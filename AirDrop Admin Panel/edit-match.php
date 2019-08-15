@@ -15,7 +15,7 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <title>Add Match - Game Setter</title>
+  <title>Edit Match - Game Setter</title>
   <?php require('inc/templates/header.inc.php'); ?>
 </head>
 

@@ -21867,3 +21867,17 @@ html:not([dir='rtl']) .noUi-horizontal .noUi-handle
 
     height: 3px;
 }
+
+/* CUSTOM CSS */
+.SUCCESS {
+    background: rgba(76,175,80,0.2);
+    color: #212121;
+}
+.PENDING {
+    background: rgba(255,235,59,0.2);
+    color: #212121;
+}
+.FAILED {
+    background: rgba(244,67,54,0.2);
+    color: #212121;
+}
