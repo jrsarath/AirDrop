@@ -40,6 +40,10 @@ target 'GameSetter' do
 
   pod 'react-native-selectable-text', :path => '../node_modules/@astrocoders/react-native-selectable-text'
 
+  pod 'react-native-camera', :path => '../node_modules/react-native-camera'
+
+  pod 'RNImgToBase64', :path => '../node_modules/react-native-image-base64'
+
   target 'GameSetterTests' do
     inherit! :search_paths
     # Pods for testing

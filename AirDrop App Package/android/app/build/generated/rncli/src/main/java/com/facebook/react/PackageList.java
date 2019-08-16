@@ -15,10 +15,14 @@ import com.gamesetter.R;
 
 // @philly25/react-native-paytm
 import com.reactlibrary.RNPayTmPackage;
+// react-native-camera
+import org.reactnative.camera.RNCameraPackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-google-signin
 import co.apptailor.googlesignin.RNGoogleSigninPackage;
+// react-native-image-base64
+import fr.snapp.imagebase64.RNImgToBase64Package;
 // react-native-linear-gradient
 import com.BV.LinearGradient.LinearGradientPackage;
 // react-native-payumoney
@@ -61,8 +65,10 @@ public class PackageList {
     return new ArrayList<>(Arrays.<ReactPackage>asList(
       new MainReactPackage(),
       new RNPayTmPackage(),
+      new RNCameraPackage(),
       new RNGestureHandlerPackage(),
       new RNGoogleSigninPackage(),
+      new RNImgToBase64Package(),
       new LinearGradientPackage(),
       new PayumoneyPackage(),
       new SplashScreenReactPackage(),

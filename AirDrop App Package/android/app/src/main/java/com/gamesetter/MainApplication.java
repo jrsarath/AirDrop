@@ -2,11 +2,12 @@ package com.gamesetter;
 
 import android.app.Application;
 import android.util.Log;
-
+import org.reactnative.camera.RNCameraPackage;
 import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
+import fr.snapp.imagebase64.RNImgToBase64Package;
 import superinfotech.suraj.reactnativepayumoney.PayumoneyPackage;
 import com.reactlibrary.RNPayTmPackage;
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
@@ -34,6 +35,7 @@ public class MainApplication extends Application implements ReactApplication {
       List<ReactPackage> packages = new PackageList(this).getPackages();
       // Packages that cannot be autolinked yet can be added manually here, for example:
       // packages.add(new MyReactNativePackage());
+      new RNCameraPackage();
       new SplashScreenReactPackage();
       return packages;
     }

@@ -1,4 +1,5 @@
 */android/app/build/
+*/android/.gradle/
 */application/vendor/
 */node_modules/*
 GameSetter.bak/

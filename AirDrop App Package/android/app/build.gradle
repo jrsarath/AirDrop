@@ -59,6 +59,8 @@ android {
         targetSdkVersion rootProject.ext.targetSdkVersion
         versionCode 1
         versionName "1.0"
+        missingDimensionStrategy 'react-native-camera', 'general'
+        multiDexEnabled true
     }
     splits {
         abi {
@@ -122,6 +124,9 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-image-base64')
+    implementation 'com.android.support:multidex:1.0.3'
+    implementation project(':react-native-camera')
     implementation project(':react-native-payumoney')
     implementation project(':@philly25_react-native-paytm')
     // your app's other dependencies

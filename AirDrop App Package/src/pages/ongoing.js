@@ -51,7 +51,6 @@ export class OngoingView extends Component {
             .then((response) => response.json())
             .then((resJson) => {
                 console.log('Fetched');
-                console.log(resJson.length == 0);
                 if (resJson.length == 0) {
                     this.setState({
                         status: 1,

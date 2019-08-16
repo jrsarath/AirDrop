@@ -1,17 +1,24 @@
 import React, { Component } from 'react';
 import MyIcon from "react-native-custom-icon";
 import IcomoonConfig from '../assets/icomoon/selection.json';
-import { createBottomTabNavigator, createAppContainer, createStackNavigator } from 'react-navigation';
-import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground } from 'react-native';
-import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
+import { createBottomTabNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
+import { StyleSheet, Text, ScrollView, View } from 'react-native';
+import Icon from 'react-native-vector-icons/Feather';
 // PAGES
 import UpcomingScreen from './upcoming';
 import WalletScreen from './wallet';
 import AccountScreen from './account';
 import OngoingScreen from './ongoing';
+import PolicyScreen from './policy';
+import ContactScreen from './contact.js';
+import AboutScreen from './about.js';
+// REDUX
+import config from '../config/config.js'
+import { GetOngoing } from '../redux/Actions/Actions';
+import { store } from '../redux/Store';
 
-
-export default MainApp = createBottomTabNavigator({
+// TAB NAVIGATOR
+export const MainTabs = createBottomTabNavigator({
         Ongoing: {
             screen: OngoingScreen,
         },
@@ -94,8 +101,71 @@ export default MainApp = createBottomTabNavigator({
                 padding:0
             }
         },
-    }
+});
+
+// DRAWER NAVIGATOR
+const DrawerContent = (props) => (
+  <ScrollView>
+    <View style={{flex:1,alignItems:'center',paddingBottom:10,paddingTop:20}}>
+    </View>
+    <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
+      <DrawerItems  {...props} style={{fontSize:15,padding:0}} />
+    </SafeAreaView>
+  </ScrollView>
 );
+
+export default MainApp = createDrawerNavigator({
+    Home: { screen: MainTabs,
+            navigationOptions: {
+              drawerLabel: () => null
+            }},
+    Account: { screen: AccountScreen,
+            navigationOptions: {
+              drawerLabel: 'Account',
+              drawerIcon: ({tintColor, focused}) => (
+                <Icon style={{color: tintColor}} name="user" size={20}/>
+              ),
+            }},
+    Wallet: { screen: WalletScreen,
+            navigationOptions: {
+              drawerLabel: 'Wallet',
+              drawerIcon: ({tintColor, focused}) => (
+                <Icon style={{color: tintColor}} name="credit-card" size={20}/>
+              ),
+            }},
+    About: { screen: AboutScreen,
+            navigationOptions: {
+              drawerLabel: 'About Us',
+              drawerIcon: ({tintColor, focused}) => (
+                <Icon style={{color: tintColor}} name="info" size={20}/>
+              ),
+            }},
+    Contact: { screen: ContactScreen,
+            navigationOptions: {
+              drawerLabel: 'Contact Us',
+              drawerIcon: ({tintColor, focused}) => (
+                <Icon style={{color: tintColor}} name="phone" size={20}/>
+              ),
+            }},
+    Policies: { screen: PolicyScreen,
+            navigationOptions: {
+              drawerLabel: 'Policies',
+              drawerIcon: ({tintColor, focused}) => (
+                <Icon style={{color: tintColor}} name="file-text" size={20}/>
+              ),
+            }},
+ },{
+    initialRouteName: "Home",
+    activeTintColor: '#f44336',
+    inactiveTintColor: 'grey',
+    contentOptions: {
+      labelStyle: {
+        fontSize:15,
+        fontWeight: 'normal'
+      }
+    },
+    contentComponent: DrawerContent
+});
 
 const styles = StyleSheet.create({
     activeTabText: {

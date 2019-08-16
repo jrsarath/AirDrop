@@ -1,16 +1,23 @@
 import React, { Component } from 'react';
 import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground } from 'react-native';
 import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
+import { withNavigation } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Feather';
 
-export default class Header extends Component {
+class Header extends Component {
     render(){
         return(
             <View style={styles.header}>
-                <Image style={styles.icon} source={require('../images/logo-white.png')} />
+                <TouchableOpacity style={styles.drawer} onPress={() => this.props.navigation.toggleDrawer()}>
+                    <Icon name='menu' color='#f44336' size={25}/>
+                </TouchableOpacity>
+                <Image style={styles.logo} source={require('../images/logo-white.png')} />
             </View>
         );
     }
 }
+
+export default withNavigation(Header);
 
 const styles = StyleSheet.create({
     header: {
@@ -22,11 +29,18 @@ const styles = StyleSheet.create({
         elevation: 4,
         flexDirection: 'row',
         alignItems: 'center',
+        alignContent: 'center',
+        justifyContent: 'center'
     },
-    icon: {
-        height: 35,
-        width: 160,
+    logo: {
+        height: 30,
+        width: 137,
         resizeMode: 'contain',
-        marginLeft: 20,
+        alignSelf: 'center',
+    },
+    drawer: {
+        position: 'absolute',
+        marginHorizontal: 15,
+        left:0,
     }
 });
