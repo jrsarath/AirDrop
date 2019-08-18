@@ -44,6 +44,8 @@ target 'GameSetter' do
 
   pod 'RNImgToBase64', :path => '../node_modules/react-native-image-base64'
 
+  pod 'RCTRestart', :path => '../node_modules/react-native-restart'
+
   target 'GameSetterTests' do
     inherit! :search_paths
     # Pods for testing

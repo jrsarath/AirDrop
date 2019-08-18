@@ -124,6 +124,7 @@ android {
 }
 
 dependencies {
+    implementation project(':react-native-restart')
     implementation project(':react-native-image-base64')
     implementation 'com.android.support:multidex:1.0.3'
     implementation project(':react-native-camera')

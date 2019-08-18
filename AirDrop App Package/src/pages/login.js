@@ -4,8 +4,8 @@ import { Row, Title, Heading, Text, Subtitle, Image, Caption, Button, Screen, Na
 // AUTH
 import { GoogleSignin, GoogleSigninButton, statusCodes } from 'react-native-google-signin';
 var md5 = require('js-md5');
-import config from '../config/config.js'
 // REDUX
+import config from '../config/config.js'
 import { SignIn } from '../redux/Actions/Actions';
 import { store } from '../redux/Store';
 

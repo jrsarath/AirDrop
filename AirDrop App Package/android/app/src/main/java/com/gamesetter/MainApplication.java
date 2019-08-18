@@ -7,6 +7,7 @@ import com.facebook.react.PackageList;
 import com.facebook.hermes.reactexecutor.HermesExecutorFactory;
 import com.facebook.react.bridge.JavaScriptExecutorFactory;
 import com.facebook.react.ReactApplication;
+import com.avishayil.rnrestart.ReactNativeRestartPackage;
 import fr.snapp.imagebase64.RNImgToBase64Package;
 import superinfotech.suraj.reactnativepayumoney.PayumoneyPackage;
 import com.reactlibrary.RNPayTmPackage;

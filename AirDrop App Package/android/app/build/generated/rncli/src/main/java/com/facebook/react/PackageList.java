@@ -27,6 +27,8 @@ import fr.snapp.imagebase64.RNImgToBase64Package;
 import com.BV.LinearGradient.LinearGradientPackage;
 // react-native-payumoney
 import superinfotech.suraj.reactnativepayumoney.PayumoneyPackage;
+// react-native-restart
+import com.avishayil.rnrestart.ReactNativeRestartPackage;
 // react-native-splash-screen
 import org.devio.rn.splashscreen.SplashScreenReactPackage;
 // react-native-vector-icons
@@ -71,6 +73,7 @@ public class PackageList {
       new RNImgToBase64Package(),
       new LinearGradientPackage(),
       new PayumoneyPackage(),
+      new ReactNativeRestartPackage(),
       new SplashScreenReactPackage(),
       new VectorIconsPackage()
     ));

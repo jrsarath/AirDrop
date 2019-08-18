@@ -10,8 +10,9 @@ import WalletScreen from './wallet';
 import AccountScreen from './account';
 import OngoingScreen from './ongoing';
 import PolicyScreen from './policy';
-import ContactScreen from './contact.js';
-import AboutScreen from './about.js';
+import ContactScreen from './contact';
+import AboutScreen from './about';
+import LogoutScreen from './logout';
 // REDUX
 import config from '../config/config.js'
 import { GetOngoing } from '../redux/Actions/Actions';
@@ -154,8 +155,15 @@ export default MainApp = createDrawerNavigator({
                 <Icon style={{color: tintColor}} name="file-text" size={20}/>
               ),
             }},
+    Logout: { screen: LogoutScreen,
+            navigationOptions: {
+              drawerLabel: 'Logout',
+              drawerIcon: ({tintColor, focused}) => (
+                <Icon style={{color: tintColor}} name="power" size={20}/>
+              ),
+            }},
  },{
-    initialRouteName: "Home",
+    initialRouteName: "Contact",
     activeTintColor: '#f44336',
     inactiveTintColor: 'grey',
     contentOptions: {
