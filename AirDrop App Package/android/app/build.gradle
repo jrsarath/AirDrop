@@ -124,24 +124,30 @@ android {
 }
 
 dependencies {
+    // MULTIDEX SUPPORT
+    implementation 'com.android.support:multidex:1.0.3'
+    // NODE MODULES
+    implementation project(':react-native-firebase')
     implementation project(':react-native-restart')
     implementation project(':react-native-image-base64')
-    implementation 'com.android.support:multidex:1.0.3'
     implementation project(':react-native-camera')
     implementation project(':react-native-payumoney')
     implementation project(':@philly25_react-native-paytm')
-    // your app's other dependencies
-    //implementation 'com.facebook.fresco:fresco:2.0.0'
-    implementation 'com.facebook.fresco:animated-gif:2.0.0'
-    // NODE MODULES
     implementation project(':react-native-splash-screen')
     implementation project(':react-native-gesture-handler')
     implementation project(':react-native-linear-gradient')
     implementation project(':react-native-vector-icons')
+    // NATIVE MODULES
     implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "com.facebook.react:react-native:+"  // From node_modules
-    implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation "com.facebook.react:react-native:+"
     implementation 'pl.droidsonroids.gif:android-gif-drawable:1.2.17'
+    // FRESCO
+    //implementation 'com.facebook.fresco:fresco:2.0.0'
+    implementation 'com.facebook.fresco:animated-gif:2.0.0'
+    // FIREBASE & GOOGLE
+    implementation 'com.google.firebase:firebase-core:17.0.0'
+    implementation "com.google.android.gms:play-services-base:16.1.0"
+    
     if (enableHermes) {
       def hermesPath = "../../node_modules/hermesvm/android/";
       debugImplementation files(hermesPath + "hermes-debug.aar")

@@ -20,9 +20,11 @@
                 }
                 break;
             case "login":
-                $login = $app->login($data["email"],$data["password"]) == true;
-                if ($login == true){
-                    echo json_encode(array('status' =>  'success' ));
+                $login = $app->login($data["email"],$data["password"]);
+                if ($login){
+                    $data = array('status' =>  'success' );
+                    $data["data"][] = $login;
+                    echo json_encode($data);
                 } elseif ($login == false) {
                     echo json_encode(array('status' =>  'false' ));
                 } else {

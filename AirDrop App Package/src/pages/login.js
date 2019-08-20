@@ -63,7 +63,12 @@ export default class Login extends Component {
                     if (responseText.status == 'success'){
                         store.dispatch(SignIn({
                             email: this.state.inputEmail,
-                            password: md5(this.state.inputPass)
+                            userData: {
+                                name: responseText.data[0].name,
+                                phone: responseText.data[0].phone,
+                                gamertag: responseText.data[0].gamertag
+                            }
+                            //password: md5(this.state.inputPass)
                         }));
                         ToastAndroid.show('Welcome Back to GAME SETTER', ToastAndroid.LONG);
                         this.props.navigation.navigate('App');

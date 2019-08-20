@@ -54,7 +54,13 @@ export default class ContactScreen extends Component {
                     </View>
                     <View style={{margin:20}}>
                         <Title style={{color:'#f44336',marginBottom:5}}>Support Info</Title>
-                        <Subtitle style={{color:'#4a4a4a',lineHeight:20,marginBottom:20}}>If you have any questions or suggestions, do not hesitate to contact us.</Subtitle>
+                        <Subtitle style={{color:'#4a4a4a',lineHeight:20,marginBottom:10}}>If you have any questions or suggestions, do not hesitate to contact us.</Subtitle>
+                        <Subtitle style={{color:'#4a4a4a',lineHeight:20}}>
+                            Address:{"\n"}
+                            Veerannapalya{"\n"}
+                            Nagavara, Bengaluru,{"\n"}
+                            Karnataka 560045{"\n"}
+                        </Subtitle>
                         <TouchableOpacity onPress={() => Linking.openURL("tel:+916361298431")}>
                             <Subtitle style={{color:'#4a4a4a'}}>
                                 Phone: +91 63612 98431

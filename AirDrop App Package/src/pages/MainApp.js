@@ -1,8 +1,9 @@
 import React, { Component } from 'react';
+import { StyleSheet, Text, ScrollView, View, Image } from 'react-native';
+import { Title, Subtitle } from '@shoutem/ui';
 import MyIcon from "react-native-custom-icon";
 import IcomoonConfig from '../assets/icomoon/selection.json';
 import { createBottomTabNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
-import { StyleSheet, Text, ScrollView, View } from 'react-native';
 import Icon from 'react-native-vector-icons/Feather';
 // PAGES
 import UpcomingScreen from './upcoming';
@@ -14,9 +15,8 @@ import ContactScreen from './contact';
 import AboutScreen from './about';
 import LogoutScreen from './logout';
 // REDUX
-import config from '../config/config.js'
-import { GetOngoing } from '../redux/Actions/Actions';
-import { store } from '../redux/Store';
+import { connect } from 'react-redux';
+
 
 // TAB NAVIGATOR
 export const MainTabs = createBottomTabNavigator({
@@ -33,6 +33,7 @@ export const MainTabs = createBottomTabNavigator({
             screen: AccountScreen,
         }
     },{
+        initialRouteName: "Matches",
         defaultNavigationOptions: ({ navigation }) => ({
             tabBarLabel: ({ focused }) => {
                 const { routeName } = navigation.state;
@@ -105,15 +106,35 @@ export const MainTabs = createBottomTabNavigator({
 });
 
 // DRAWER NAVIGATOR
-const DrawerContent = (props) => (
+const DrawerComp = (props) => (
   <ScrollView>
-    <View style={{flex:1,alignItems:'center',paddingBottom:10,paddingTop:20}}>
+    <View style={{flex:1,flexDirection:'row',alignItems:'center',paddingVertical:20,paddingLeft:10}}>
+      <View>
+        <Image source={require('../images/army.png')} style={{width:50,height:50,resizeMode:'contain'}} />
+      </View>
+      <View style={{marginTop:5,marginLeft:20}}>
+        <Title>{props.name}</Title>
+        <Subtitle>+91 {props.phone}</Subtitle>
+      </View>
+    </View>
+    <View style={{marginHorizontal:20,paddingVertical:10,borderBottomColor:'#bdbdbd',borderTopColor:'#bdbdbd',borderBottomWidth:1,borderTopWidth:1,flexDirection: 'row',alignItems:'center'}}>
+      <MyIcon color='#f44336' name="wallet" size={30} config={IcomoonConfig} />
+      <Title style={{marginLeft:20}}>₹ {props.balance}</Title>
     </View>
     <SafeAreaView forceInset={{ top: 'always', horizontal: 'never' }}>
       <DrawerItems  {...props} style={{fontSize:15,padding:0}} />
     </SafeAreaView>
   </ScrollView>
 );
+
+const mapStateToProps = function(state) {
+  return {
+    name: state.userData.name,
+    phone: state.userData.phone,
+    balance: state.wallet
+  }
+}
+const DrawerContent = connect(mapStateToProps)(DrawerComp);
 
 export default MainApp = createDrawerNavigator({
     Home: { screen: MainTabs,
@@ -163,7 +184,7 @@ export default MainApp = createDrawerNavigator({
               ),
             }},
  },{
-    initialRouteName: "Contact",
+    initialRouteName: "Home",
     activeTintColor: '#f44336',
     inactiveTintColor: 'grey',
     contentOptions: {

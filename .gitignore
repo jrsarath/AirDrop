@@ -1,7 +1,8 @@
 */android/app/build/
-*/android/.gradle/
+*/android/.gradle/*
 */application/vendor/
 */node_modules/*
 GameSetter.bak/
 .ftpconfig
 */.ftpconfig
+*.bin

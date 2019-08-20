@@ -19,6 +19,9 @@ import co.apptailor.googlesignin.RNGoogleSigninPackage;
 import com.facebook.react.ReactNativeHost;
 import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
+// FIREBASE
+import io.invertase.firebase.RNFirebasePackage;
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage; 
 
 import java.util.List;
 
@@ -38,6 +41,7 @@ public class MainApplication extends Application implements ReactApplication {
       // packages.add(new MyReactNativePackage());
       new RNCameraPackage();
       new SplashScreenReactPackage();
+      packages.add(new RNFirebaseAnalyticsPackage());
       return packages;
     }
 

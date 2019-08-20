@@ -46,6 +46,8 @@ target 'GameSetter' do
 
   pod 'RCTRestart', :path => '../node_modules/react-native-restart'
 
+  pod 'RNFirebase', :path => '../node_modules/react-native-firebase'
+
   target 'GameSetterTests' do
     inherit! :search_paths
     # Pods for testing

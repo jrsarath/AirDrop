@@ -1,16 +1,14 @@
 import React, { Component } from 'react';
-import MyIcon from "react-native-custom-icon";
-import IcomoonConfig from '../assets/icomoon/selection.json';
 import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground } from 'react-native';
 import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
-import { createStackNavigator, createAppContainer } from 'react-navigation';
+import { createStackNavigator } from 'react-navigation';
 // CUSTOM COMPONENTS
 import MatchCard from '../component/joinMatchCard';
 import Header from '../component/header';
 import Loading from '../component/loader';
 // REDUX 
 import config from '../config/config.js'
-import { GetUpcoming } from '../redux/Actions/Actions';
+import { GetUpcoming,GetWallet } from '../redux/Actions/Actions';
 import { store } from '../redux/Store';
 // PAGES
 import joinMatch from './joinMatch.js';
@@ -26,6 +24,7 @@ export class Upcoming extends Component {
         }
     }
     componentDidMount(){
+        this._getWalletBalance(); // UPDATE WALLET BALANCE ON STORE (DRAWER PURPOSE)
         this.props.navigation.addListener('willFocus', (route) => {
             this._getUpcomingMatches()
         });        
@@ -36,6 +35,28 @@ export class Upcoming extends Component {
             });
         });
     }
+    _getWalletBalance() {
+        fetch(config.domain + "api/payment.php", {
+            method: 'POST',
+            headers: new Headers({
+                'Accept': 'application/json',
+                "Accept-Encoding": "gzip, deflate",
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                action: "getWallet",
+                user: store.getState().user
+            })
+
+            })
+            .then((response) => response.json())
+            .then((data) => {
+            store.dispatch(GetWallet(data.balance));
+            })
+            .catch((error) => {
+            console.error(error);
+            });
+        }
     _getUpcomingMatches(){
         fetch(config.domain + "api/matches.php", {
             method: 'POST',

@@ -10,7 +10,7 @@ import Loading from '../component/loader';
 // REDUX 
 var md5 = require('js-md5');
 import config from '../config/config.js'
-import { GetOngoing } from '../redux/Actions/Actions';
+import { SignIn } from '../redux/Actions/Actions';
 import { store } from '../redux/Store';
 
 export default class AccountScreen extends Component {
@@ -18,6 +18,8 @@ export default class AccountScreen extends Component {
         super();
         this.state = {
             loading: true,
+            btnProfile: 'Update Profile',
+            btnPassword: 'Update Password',
             name: null,
             gamertag: null,
             phone: null,
@@ -72,6 +74,9 @@ export default class AccountScreen extends Component {
             });
     }
     updateProfile(){
+        this.setState({
+            btnProfile: 'Please Wait...'
+        });
         if (this.state.name != null && this.state.gamertag != null) {
             fetch(config.domain + "api/user.php", {
                     method: 'POST',
@@ -96,19 +101,39 @@ export default class AccountScreen extends Component {
                 .then((resJson) => {
                     if (resJson.status == 'success') {
                         ToastAndroid.show('Profile Updated Successfully  ', ToastAndroid.LONG);
+                        store.dispatch(SignIn({
+                            email: store.getState().user,
+                            userData: {
+                                name: this.state.name,
+                                phone: this.state.phone,
+                                gamertag: this.state.gamertag
+                            }
+                        }));
                     } else {
                         ToastAndroid.show('Error Updating Profile', ToastAndroid.LONG);
                     }
+                    this.setState({
+                        btnProfile: 'Update Profile'
+                    });
                 })
                 .catch((error) => {
                     console.error(error);
                     ToastAndroid.show('Error Updating Profile', ToastAndroid.LONG);
+                    this.setState({
+                        btnProfile: 'Try Again'
+                    });
                 });
         } else {
             ToastAndroid.show('Please Enter All Info', ToastAndroid.LONG);
+            this.setState({
+                btnProfile: 'Try Again'
+            });
         }
     }
     updatePassword(){
+        this.setState({
+            btnPassword: 'Please Wait...'
+        });
         if (this.state.password != null && this.state.newPassword != null) {
             if (this.state.oldPassword = md5(this.state.password)) {
                 fetch(config.domain + "api/user.php", {
@@ -135,16 +160,28 @@ export default class AccountScreen extends Component {
                         } else {
                             ToastAndroid.show('Error Updating Password', ToastAndroid.LONG);
                         }
+                        this.setState({
+                            btnPassword: 'Update Password'
+                        });
                     })
                     .catch((error) => {
                         console.error(error);
                         ToastAndroid.show('Error Updating Password', ToastAndroid.LONG);
+                        this.setState({
+                            btnPassword: 'Try Again'
+                        });
                     });
             } else {
                 ToastAndroid.show('Your Old & New Password Doesnt Match', ToastAndroid.LONG);
+                this.setState({
+                    btnPassword: 'Try Again'
+                });
             }
         } else {
             ToastAndroid.show('Please enter Both Old & New Password', ToastAndroid.LONG);
+            this.setState({
+                btnPassword: 'Try Again'
+            });
         }
     }
     render() {
@@ -201,7 +238,7 @@ export default class AccountScreen extends Component {
                         />
 
                         <TouchableOpacity style={styles.button} onPress={() => this.updateProfile()}>
-                            <Text style={{ color: '#fff', fontSize: 18 }}>Update Profile</Text>
+                            <Text style={{ color: '#fff', fontSize: 18 }}>{this.state.btnProfile}</Text>
                         </TouchableOpacity>
                         
                         <View style={styles.textCon}>
@@ -223,7 +260,7 @@ export default class AccountScreen extends Component {
                             placeholder='New Password'
                         />
                         <TouchableOpacity style={styles.button} onPress={() => this.updatePassword()}>
-                            <Text style={{ color: '#fff', fontSize: 18 }}>Update Password</Text>
+                            <Text style={{ color: '#fff', fontSize: 18 }}>{this.state.btnPassword}</Text>
                         </TouchableOpacity>
                         <View style={styles.textCon}>
                             <Title style={{color:'#f44336'}}>Support Info</Title>

@@ -45,7 +45,7 @@ export default class Signup extends Component {
                 .then((responseText) => {
                     console.log(responseText);
                     if (responseText.status == 'success'){
-                        ToastAndroid.show('Welcome '+this.state.inputName+' to GAME SETTER', ToastAndroid.LONG);
+                        ToastAndroid.show('Welcome to GAME SETTER '+this.state.inputName, ToastAndroid.LONG);
                         this.props.navigation.navigate('Login');
                     } else if(responseText == 'false') {
                         ToastAndroid.show('Account already exists', ToastAndroid.LONG);

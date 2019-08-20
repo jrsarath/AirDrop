@@ -40,7 +40,7 @@ const styles = StyleSheet.create({
     },
     drawer: {
         position: 'absolute',
-        marginHorizontal: 15,
+        paddingHorizontal: 15,
         left:0,
     }
 });

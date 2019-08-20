@@ -262,8 +262,8 @@ export default class WalletScreen extends Component {
     constructor(){
         super();
         this.state = {
-            balance: 0,
-            loading: true,
+            balance: store.getState().wallet,
+            loading: false,
         }
     }
     
@@ -279,7 +279,7 @@ export default class WalletScreen extends Component {
     }
     _getWalletBalance(){
         if (this.state.loading == false) {
-            ToastAndroid.show('Updating Wallet Balance', ToastAndroid.SHORT);
+            ToastAndroid.show('Refreshing Wallet', ToastAndroid.SHORT);
         }
         fetch(config.domain + "api/payment.php", {
             method: 'POST',

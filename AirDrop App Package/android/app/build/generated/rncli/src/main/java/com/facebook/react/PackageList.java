@@ -17,6 +17,8 @@ import com.gamesetter.R;
 import com.reactlibrary.RNPayTmPackage;
 // react-native-camera
 import org.reactnative.camera.RNCameraPackage;
+// react-native-firebase
+import io.invertase.firebase.RNFirebasePackage;
 // react-native-gesture-handler
 import com.swmansion.gesturehandler.react.RNGestureHandlerPackage;
 // react-native-google-signin
@@ -68,6 +70,7 @@ public class PackageList {
       new MainReactPackage(),
       new RNPayTmPackage(),
       new RNCameraPackage(),
+      new RNFirebasePackage(),
       new RNGestureHandlerPackage(),
       new RNGoogleSigninPackage(),
       new RNImgToBase64Package(),

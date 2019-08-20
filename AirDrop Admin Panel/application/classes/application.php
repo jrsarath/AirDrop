@@ -166,7 +166,7 @@
         if ($res = mysqli_query($this->db, "SELECT * FROM users WHERE email='$e' AND password='$p'")) {
           if (mysqli_num_rows($res) == 1) {
             $row = mysqli_fetch_assoc($res);
-            return true;
+            return $row;
           } else {
             return false;
           }
