@@ -30,7 +30,7 @@ export default MainApp = createBottomTabNavigator({
             screen: AccountScreen,
         }
     },{
-        initialRouteName: "Account",
+        initialRouteName: "Matches",
         defaultNavigationOptions: ({ navigation }) => ({
             tabBarLabel: ({ focused }) => {
                 const { routeName } = navigation.state;

@@ -190,5 +190,27 @@
     <orderEntry type="module" module-name="react-native-linear-gradient" />
     <orderEntry type="module" module-name="react-native-vector-icons" />
     <orderEntry type="module" module-name="react-native-google-signin" />
+    <orderEntry type="module" module-name="react-native-firebase" />
+    <orderEntry type="module" module-name="react-native-image-base64" />
+    <orderEntry type="module" module-name="react-native-payumoney" />
+    <orderEntry type="module" module-name="react-native-restart" />
+    <orderEntry type="module" module-name="react-native-camera" />
+    <orderEntry type="module" module-name="@philly25_react-native-paytm" />
+    <orderEntry type="module" module-name="react-native-splash-screen" />
+    <orderEntry type="module" module-name="react-native-gesture-handler" />
+    <orderEntry type="module" module-name="react-native-linear-gradient" />
+    <orderEntry type="module" module-name="react-native-vector-icons" />
+    <orderEntry type="module" module-name="react-native-google-signin" />
+    <orderEntry type="module" module-name="react-native-firebase" />
+    <orderEntry type="module" module-name="react-native-image-base64" />
+    <orderEntry type="module" module-name="react-native-payumoney" />
+    <orderEntry type="module" module-name="react-native-restart" />
+    <orderEntry type="module" module-name="react-native-camera" />
+    <orderEntry type="module" module-name="@philly25_react-native-paytm" />
+    <orderEntry type="module" module-name="react-native-splash-screen" />
+    <orderEntry type="module" module-name="react-native-gesture-handler" />
+    <orderEntry type="module" module-name="react-native-linear-gradient" />
+    <orderEntry type="module" module-name="react-native-vector-icons" />
+    <orderEntry type="module" module-name="react-native-google-signin" />
   </component>
 </module>

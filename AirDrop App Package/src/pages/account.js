@@ -189,7 +189,7 @@ const styles = StyleSheet.create({
         elevation: 2,
         marginHorizontal: 15,
         paddingHorizontal: 15,
-        paddingVertical: 5,
+        paddingVertical: 10,
         alignItems: 'center',
         overflow: 'hidden',
         borderRadius: 5,
