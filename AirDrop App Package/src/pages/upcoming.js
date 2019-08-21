@@ -137,11 +137,3 @@ export default UpcomingScreen = createStackNavigator({
     initialRouteName: "Upcoming",
     headerMode: 'none'
 });
-const styles = StyleSheet.create({
-    activeTabText: {
-        color: '#f44336',
-        textAlign: 'center',
-        marginTop: 5,
-        fontSize: 12,
-    }
-});
