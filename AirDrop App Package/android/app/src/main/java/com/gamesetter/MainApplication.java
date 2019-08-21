@@ -21,7 +21,8 @@ import com.facebook.react.ReactPackage;
 import com.facebook.soloader.SoLoader;
 // FIREBASE
 import io.invertase.firebase.RNFirebasePackage;
-import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage; 
+import io.invertase.firebase.analytics.RNFirebaseAnalyticsPackage;
+import io.invertase.firebase.messaging.RNFirebaseMessagingPackage;
 
 import java.util.List;
 
@@ -42,6 +43,7 @@ public class MainApplication extends Application implements ReactApplication {
       new RNCameraPackage();
       new SplashScreenReactPackage();
       packages.add(new RNFirebaseAnalyticsPackage());
+      packages.add(new RNFirebaseMessagingPackage());
       return packages;
     }
 

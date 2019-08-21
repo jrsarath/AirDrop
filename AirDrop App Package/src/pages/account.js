@@ -1,10 +1,9 @@
 import React, { Component } from 'react';
-import MyIcon from "react-native-custom-icon";
-import IcomoonConfig from '../assets/icomoon/selection.json';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground, Linking } from 'react-native';
 import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
 import { createStackNavigator } from 'react-navigation';
+import Icon from 'react-native-vector-icons/Feather';
 // CUSTOM COMPONENT
 import Header from '../component/header';
 import Loading from '../component/loader';
@@ -61,8 +60,12 @@ export class AccountView extends Component{
                         <Subtitle style={{fontSize:13,color: '#10102d', fontWeight: 'bold'}}>Chicken Dinner</Subtitle>
                     </View>
                 </View>
-                <View styles={styles.list}>
-                    
+                <View style={styles.list}>
+                    <View style={styles.listItem}>
+                        <Image style={styles.listIcon} source={require('../images/add-friend.png')}/>
+                        <Text style={styles.listLabel}>Refer & Earn</Text>
+                        <Icon name='chevron-right' size={20} color='#616161' />
+                    </View>
                 </View>
             </ScrollView>
         )
@@ -114,5 +117,25 @@ const styles = StyleSheet.create({
         height:100,
         width:100,
         resizeMode: "contain",
+    },
+    list: {
+        paddingVertical: 15
+    },
+    listItem: {
+        flexDirection: 'row',
+        backgroundColor: '#fff',
+        elevation: 2,
+        marginHorizontal: 10,
+        paddingHorizontal: 15,
+        paddingVertical: 10
+    },
+    listIcon: {
+        resizeMode: 'contain',
+        height: 40,
+        width: 40
+    },
+    listLabel: {
+        color: '#212121',
+        fontWeight: 'bold'
     }
 });
