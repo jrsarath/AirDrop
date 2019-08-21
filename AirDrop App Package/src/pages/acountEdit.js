@@ -10,7 +10,7 @@ import Loading from '../component/loader';
 // REDUX 
 var md5 = require('js-md5');
 import config from '../config/config.js'
-import { GetOngoing } from '../redux/Actions/Actions';
+import { SignIn } from '../redux/Actions/Actions';
 import { store } from '../redux/Store';
 
 export default class AccountEdit extends Component {
@@ -18,6 +18,10 @@ export default class AccountEdit extends Component {
         super();
         this.state = {
             loading: true,
+            btnProfile: 'Update Profile',
+            btnPassword: 'Update Password',
+            btnProfileColor: '#f44336',
+            btnPasswordColor: '#f44336',
             name: null,
             gamertag: null,
             phone: null,
@@ -73,6 +77,10 @@ export default class AccountEdit extends Component {
     }
     updateProfile(){
         if (this.state.name != null && this.state.gamertag != null) {
+            this.setState({
+                btnProfile: 'Please Wait...',
+                btnProfileColor: '#bdbdbd'
+            });
             fetch(config.domain + "api/user.php", {
                     method: 'POST',
                     headers: new Headers({
@@ -96,20 +104,54 @@ export default class AccountEdit extends Component {
                 .then((resJson) => {
                     if (resJson.status == 'success') {
                         ToastAndroid.show('Profile Updated Successfully  ', ToastAndroid.LONG);
+                        this.setState({
+                            btnProfile: 'Done',
+                            btnProfileColor: '#4caf50'
+                        });
+                        setTimeout(() => {
+                            this.setState({
+                                btnProfile: 'Update Profile',
+                                btnProfileColor: '#f44336'
+                            });
+                        }, 3000);
+                        store.dispatch(SignIn({
+                            email: store.getState().user,
+                            userData: {
+                                name: this.state.name,
+                                phone: this.state.phone,
+                                gamertag: this.state.gamertag
+                            }
+                        }));
                     } else {
                         ToastAndroid.show('Error Updating Profile', ToastAndroid.LONG);
+                        this.setState({
+                            btnProfile: 'Try Again',
+                            btnProfileColor: '#f44336'
+                        })
                     }
                 })
                 .catch((error) => {
                     console.error(error);
                     ToastAndroid.show('Error Updating Profile', ToastAndroid.LONG);
+                    this.setState({
+                        btnProfile: 'Try Again',
+
+                    });
                 });
         } else {
             ToastAndroid.show('Please Enter All Info', ToastAndroid.LONG);
+            this.setState({
+                btnProfile: 'Try Again',
+                btnProfileColor: '#f44336',
+            });
         }
     }
     updatePassword(){
         if (this.state.password != null && this.state.newPassword != null) {
+            this.setState({
+                btnPassword: 'Please Wait...',
+                btnPasswordColor: '#bdbdbd'
+            });
             if (this.state.oldPassword = md5(this.state.password)) {
                 fetch(config.domain + "api/user.php", {
                     method: 'POST',
@@ -129,22 +171,44 @@ export default class AccountEdit extends Component {
                         if (resJson.status == 'success') {
                             ToastAndroid.show('Password Updated Successfully  ', ToastAndroid.LONG);
                             this.setState({
-                                password: null,
-                                newPassword: null
-                            })
+                                btnPassword: 'Done',
+                                btnPasswordColor: '#4caf50'
+                            });
+                            setTimeout(() => {
+                                this.setState({
+                                    btnPassword: 'Update Profile',
+                                    btnPasswordColor: '#f44336'
+                                });
+                            }, 3000);
                         } else {
                             ToastAndroid.show('Error Updating Password', ToastAndroid.LONG);
+                            this.setState({
+                                btnPassword: 'Try Again',
+                                btnPasswordColor: '#f444336'
+                            });
                         }
                     })
                     .catch((error) => {
                         console.error(error);
                         ToastAndroid.show('Error Updating Password', ToastAndroid.LONG);
+                        this.setState({
+                            btnPassword: 'Try Again',
+                            btnPasswordColor: '#f444336'
+                        });
                     });
             } else {
                 ToastAndroid.show('Your Old & New Password Doesnt Match', ToastAndroid.LONG);
+                this.setState({
+                    btnPassword: 'Try Again',
+                    btnPasswordColor: '#f444336'
+                });
             }
         } else {
             ToastAndroid.show('Please enter Both Old & New Password', ToastAndroid.LONG);
+            this.setState({
+                btnPassword: 'Try Again',
+                btnPasswordColor: '#f444336'
+            });
         }
     }
     render() {
@@ -200,8 +264,8 @@ export default class AccountEdit extends Component {
                             placeholder = 'Your Amazon Pay ID'
                         />
 
-                        <TouchableOpacity style={styles.button} onPress={() => this.updateProfile()}>
-                            <Text style={{ color: '#fff', fontSize: 18 }}>Update Profile</Text>
+                        <TouchableOpacity style={[styles.button, {backgroundColor: this.state.btnProfileColor}]} onPress={() => this.updateProfile()}>
+                            <Text style={{ color: '#fff', fontSize: 18 }}>{this.state.btnProfile}</Text>
                         </TouchableOpacity>
                         
                         <View style={styles.textCon}>
@@ -222,8 +286,8 @@ export default class AccountEdit extends Component {
                             onChangeText={(text) => this.setState({ newPassword: text })}
                             placeholder='New Password'
                         />
-                        <TouchableOpacity style={styles.button} onPress={() => this.updatePassword()}>
-                            <Text style={{ color: '#fff', fontSize: 18 }}>Update Password</Text>
+                        <TouchableOpacity style={[styles.button, {backgroundColor: this.state.btnPasswordColor}]} onPress={() => this.updatePassword()}>
+                            <Text style={{ color: '#fff', fontSize: 18 }}>{this.state.btnPassword}</Text>
                         </TouchableOpacity>
                         <View style={styles.textCon}>
                             <Title style={{color:'#f44336'}}>Support Info</Title>

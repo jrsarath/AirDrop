@@ -27,12 +27,18 @@ export class addMoney extends Component {
         this.state = {
             addMoney: null,
             order_id: null,
+            text: 'Add Money',
+            color: '#f44336'
         }
     }
     
     // INITIATE PAYTM PAYMENT
     startPayment(){
         if (this.state.addMoney != null){
+            this.setState({
+                text: 'Please Wait...',
+                color: '#bdbdbd'
+            });
             fetch(config.domain + "api/payment.php", {
                     method: 'POST',
                     headers: new Headers({
@@ -69,17 +75,39 @@ export class addMoney extends Component {
                     console.log(options);
                     PayuMoney.pay(options).then((d) => {
                         this._getWalletBalance();
+                        this.setState({
+                            text: 'Done',
+                            color: '#4caf50'
+                        });
+                        setTimeout(() => {
+                            this.setState({
+                                text: 'Add Money',
+                                color: '#f44336'
+                            });
+                        }, 3000);
                     }).catch(e => {
                         console.log(e); //In case of failture
                         Alert.alert('Error', 'Unable to complete transaction, please check your bills. In case of any query you can contact us');
+                        this.setState({
+                            text: 'Try Again',
+                            color: '#f44336'
+                        });
                     });
                 })
                 .catch((error) => {
                     console.error(error);
                     Alert.alert('Error', 'Unable to initiate transaction, please try again');
+                    this.setState({
+                        text: 'Try Again',
+                        color: '#f44336'
+                    });
                 });
         } else {
             ToastAndroid.show('Please enter Amount', ToastAndroid.LONG);
+            this.setState({
+                text: 'Try Again',
+                color: '#f44336'
+            });
         }
     }
     // GET WALLET BALANCE
@@ -119,8 +147,8 @@ export class addMoney extends Component {
                     onChangeText={(text) => this.setState({ addMoney: text })}
                     placeholder='Amount to Add'
                 />
-                <TouchableOpacity style={styles.button} onPress={() => this.startPayment()}>
-                    <Text style={{color: '#fff',fontSize: 18}}>Add Money</Text>
+                <TouchableOpacity style={[styles.button, {backgroundColor: this.state.color}]} onPress={() => this.startPayment()}>
+                    <Text style={{color: '#fff',fontSize: 18}}>{this.state.text}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -272,16 +300,33 @@ export class withdrawMoney extends Component {
         );
     }
 }
+// TRANSACTIONS TAB
+export class Transactions extends Component {
+    render() {
+        return(
+            <ScrollView>
 
+            </ScrollView>
+        )
+    }
+}
 // TAB COMBINED COMPONENET
 const tab = createMaterialTopTabNavigator({
     Add: addMoney,
-    Withdraw: withdrawMoney
+    Withdraw: withdrawMoney,
+    Transactions: Transactions
 },{
     tabBarOptions: {
         style: {
             backgroundColor: '#10102d',
-            color: '#fff'        
+            color: '#fff'  
+        },
+        labelStyle: {
+            fontSize: 12,
+            fontWeight: 'bold'
+        },
+        tabStyle: {
+            paddingHorizontal: 0
         }
     }
 });
