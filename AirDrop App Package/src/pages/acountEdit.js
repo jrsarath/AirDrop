@@ -5,7 +5,7 @@ import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
 import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground, Linking } from 'react-native';
 import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
 // CUSTOM COMPONENT
-import Header from '../component/header';
+import Header from '../component/headerBack';
 import Loading from '../component/loader';
 // REDUX 
 var md5 = require('js-md5');
@@ -214,7 +214,7 @@ export default class AccountEdit extends Component {
     render() {
         return(
             <Screen style={{backgroundColor: '#fff'}}>
-                <Header text='Game Setter' />
+                <Header text='Edit Account' />
                 <ScrollView>
                     <View style={styles.container}>
                         <View style={styles.textCon}>

@@ -1,18 +1,21 @@
 import React, { Component } from 'react';
 import { createBottomTabNavigator, createAppContainer } from 'react-navigation';
-import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground, Linking } from 'react-native';
-import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
+import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground, Linking, Share } from 'react-native';
+import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen } from '@shoutem/ui';
 import { createStackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Feather';
+import RNRestart from 'react-native-restart';
 // CUSTOM COMPONENT
 import Header from '../component/header';
 import Loading from '../component/loader';
 // REDUX 
 var md5 = require('js-md5');
 import config from '../config/config.js'
-import { store } from '../redux/Store';
+import { store, persistor } from '../redux/Store';
 // PAGES
 import AccountEdit from './acountEdit'; 
+import AboutScreen from './about';
+import ContactScreen from './contact';
 
 export class AccountView extends Component{
     constructor(){
@@ -32,49 +35,108 @@ export class AccountView extends Component{
             })
         })
     }
+    _logout() {
+        persistor.purge()
+            .then(RNRestart.Restart());
+    }
+    _share(){
+        Share.share({
+            message: 'Game Setter | Earn some extra cash by playing PUBG, Download Today. \n https://play.google.com/store/apps/details?id=com.tencent.ig',
+            url: 'https://play.google.com/store/apps/details?id=com.tencent.ig' // TO BE CHANGED
+        });
+    }
     render(){
         return(
-            <ScrollView>
+            <Screen>
                 <Header />
-                <View style={styles.header}>
-                    <View style={{marginTop: -40,flexDirection: 'row',alignItems: 'center',justifyContent:'center'}}>
-                        <Image source={require('../images/guy.png')} style={styles.avatar}/>
-                        <View>
-                            <Title style={{fontSize:17,color:'#fff'}}>{this.state.name}</Title>
-                            <Subtitle style={{fontSize:14,color:'#fff'}}>PUBG Username : {this.state.gamertag}</Subtitle>
-                            <Title style={{fontSize:17,color:'#fff'}}>Balance : ₹ {this.state.balance}</Title>
+                <ScrollView>
+                    <View style={styles.header}>
+                        <View style={{marginTop: -40,flexDirection: 'row',alignItems: 'center',justifyContent:'center'}}>
+                            <Image source={require('../images/guy.png')} style={styles.avatar}/>
+                            <View>
+                                <Title style={{fontSize:17,color:'#fff'}}>{this.state.name}</Title>
+                                <Subtitle style={{fontSize:14,color:'#fff'}}>PUBG Username : {this.state.gamertag}</Subtitle>
+                                <Title style={{fontSize:17,color:'#fff'}}>Balance : ₹ {this.state.balance}</Title>
+                            </View>
                         </View>
                     </View>
-                </View>
-                <View style={styles.subHeader}>
-                    <View style={styles.subHeaderItem}>
-                        <Title>0</Title>
-                        <Subtitle style={{fontSize:13,color: '#10102d', fontWeight: 'bold'}}>Match Played</Subtitle>
+                    <View style={styles.subHeader}>
+                        <View style={styles.subHeaderItem}>
+                            <Title>0</Title>
+                            <Subtitle style={{fontSize:13,color: '#10102d', fontWeight: 'bold'}}>Match Played</Subtitle>
+                        </View>
+                        <View style={[styles.subHeaderItem, styles.borderBoth]}>
+                            <Title>₹ 0</Title>
+                            <Subtitle style={{fontSize:13,color: '#10102d', fontWeight: 'bold'}}>Total Earned</Subtitle>
+                        </View>
+                        <View style={styles.subHeaderItem}>
+                            <Title>0</Title>
+                            <Subtitle style={{fontSize:13,color: '#10102d', fontWeight: 'bold'}}>Chicken Dinner</Subtitle>
+                        </View>
                     </View>
-                    <View style={[styles.subHeaderItem, styles.borderBoth]}>
-                        <Title>₹ 0</Title>
-                        <Subtitle style={{fontSize:13,color: '#10102d', fontWeight: 'bold'}}>Total Earned</Subtitle>
+                    <View style={styles.list}>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Refer')} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/add-friend.png')}/>
+                            <Text style={styles.listLabel}>Refer & Earn</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('AccountEdit')} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/settings.png')}/>
+                            <Text style={styles.listLabel}>Upate Account</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Wallet')} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/wallet.png')}/>
+                            <Text style={styles.listLabel}>My wallet</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('About')} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/icon.png')}/>
+                            <Text style={styles.listLabel}>About Us</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => Linking.openURL('https://youtube.com/')} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/youtube.png')}/>
+                            <Text style={styles.listLabel}>Youtube Channel</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => Linking.openURL('https://instagram.com/')} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/instagram.png')}/>
+                            <Text style={styles.listLabel}>Instagram</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => Linking.openURL('https://youtube.com/')} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/question.png')}/>
+                            <Text style={styles.listLabel}>How to Join Game ?</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Support')} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/customer-service.png')}/>
+                            <Text style={styles.listLabel}>Customer Support</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this._share()} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/share.png')}/>
+                            <Text style={styles.listLabel}>Share App</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this._logout()} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/logout.png')}/>
+                            <Text style={styles.listLabel}>Logout</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
                     </View>
-                    <View style={styles.subHeaderItem}>
-                        <Title>0</Title>
-                        <Subtitle style={{fontSize:13,color: '#10102d', fontWeight: 'bold'}}>Chicken Dinner</Subtitle>
-                    </View>
-                </View>
-                <View style={styles.list}>
-                    <View style={styles.listItem}>
-                        <Image style={styles.listIcon} source={require('../images/add-friend.png')}/>
-                        <Text style={styles.listLabel}>Refer & Earn</Text>
-                        <Icon name='chevron-right' size={20} color='#616161' />
-                    </View>
-                </View>
-            </ScrollView>
+                </ScrollView>
+             </Screen>
         )
     }
 }
 
 export default AccountScreen = createStackNavigator({
     Account: { screen: AccountView },
-    AccountEdit: { screen: AccountEdit } 
+    AccountEdit: { screen: AccountEdit },
+    About: { screen: AboutScreen },
+    Support: { screen: ContactScreen }
   },{
     initialRouteName: "Account",
     headerMode: 'none'
@@ -90,7 +152,7 @@ const styles = StyleSheet.create({
         paddingLeft: 15
     },
     subHeader: {
-        marginHorizontal:10,
+        marginHorizontal:15,
         marginTop: -40,
         flexDirection: 'row',
         backgroundColor: '#fff',
@@ -119,23 +181,32 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
     },
     list: {
-        paddingVertical: 15
+        paddingVertical: 10
     },
     listItem: {
         flexDirection: 'row',
         backgroundColor: '#fff',
         elevation: 2,
-        marginHorizontal: 10,
+        marginHorizontal: 15,
         paddingHorizontal: 15,
-        paddingVertical: 10
+        paddingVertical: 5,
+        alignItems: 'center',
+        overflow: 'hidden',
+        borderRadius: 5,
+        marginTop:10
     },
     listIcon: {
         resizeMode: 'contain',
-        height: 40,
-        width: 40
+        height: 35,
+        width: 35
     },
     listLabel: {
         color: '#212121',
-        fontWeight: 'bold'
+        fontWeight: 'bold',
+        marginLeft:20
+    },
+    listIndc: {
+        position: 'absolute',
+        right: 15
     }
 });
