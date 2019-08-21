@@ -103,7 +103,7 @@ export class Upcoming extends Component {
             return(
                 <Screen>
                     <Header text='Game Setter' />
-                    <View style={{flex:1, width: '100%',backgroundColor: '#fff', alignContent: 'center', alignItems: 'center', alignSelf: 'center', justifyContent: 'center'}}>
+                    <View style={{flex:1, width: '100%',backgroundColor: '#10102d', alignContent: 'center', alignItems: 'center', alignSelf: 'center', justifyContent: 'center'}}>
                         <Image source={require('../images/pubg-character-helmet.png')} style={{width:'50%',height: '50%',resizeMode: 'contain'}} />
                         <Text style={{fontSize:18}}>No Matches Available</Text>
                     </View>

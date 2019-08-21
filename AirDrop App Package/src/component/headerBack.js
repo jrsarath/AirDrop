@@ -23,14 +23,10 @@ const styles = StyleSheet.create({
     header: {
         height: 55,
         width: '100%',
-        backgroundColor: '#f44336',
-        shadowOpacity: 0.30,
-        shadowRadius: 10,
-        elevation: 4,
+        backgroundColor: '#10102d',
         flexDirection: 'row',
         alignItems: 'center',
         alignContent: 'center',
-        justifyContent: 'center'
     },
     logo: {
         height: 35,
@@ -39,8 +35,7 @@ const styles = StyleSheet.create({
         alignSelf: 'center',
     },
     drawer: {
-        position: 'absolute',
         paddingHorizontal: 15,
-        left:0,
+        marginRight:10
     }
 });

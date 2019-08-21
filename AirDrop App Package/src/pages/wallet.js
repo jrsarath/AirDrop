@@ -136,6 +136,7 @@ export class withdrawMoney extends Component {
             withdrawAmount: null,
             withdrawMethod: 'paytm',
             color: store.getState().wallet <= 0 ? '#bdbdbd' : '#f44336',
+            text: 'Withdraw',
             action: store.getState().wallet <= 0 ? null : () => this._withdrawMoney()
         }
     }
@@ -149,6 +150,10 @@ export class withdrawMoney extends Component {
     }
     _withdrawMoney(){
         if (this.state.withdrawAmount != null) {
+            this.setState({
+                text: 'Please Wait...',
+                color: '#bdbdbd'
+            });
             if (+store.getState().wallet >= +this.state.withdrawAmount) {
                 fetch(config.domain + "api/payment.php", {
                     method: 'POST',
@@ -170,18 +175,44 @@ export class withdrawMoney extends Component {
                     if (data.status == 'success'){
                         Alert.alert('Request Recieved', 'We got your withdraw request for ₹'+this.state.withdrawAmount+', we will proccess it shortly. \n\nRequest ID: '+ data.txnid);
                         this._getWalletBalance();
+                        this.setState({
+                            text: 'Done',
+                            color: '#4caf50'
+                        });
+                        setTimeout(() => {
+                            this.setState({
+                                text: 'Withdraw',
+                                color: '#f44336'
+                            });
+                        }, 3000);
                     } else if (data.status == 'not-enough') {
                         Alert.alert('Not enough Balance', 'We could not complete your request. Reach support team if you think this is a mistake');
+                        this.setState({
+                            text: 'Try Again',
+                            color: '#f44336'
+                        })
                     }else {
                         ToastAndroid.show('Error submitting request! Try again later', ToastAndroid.LONG);
+                        this.setState({
+                            text: 'Try Again',
+                            color: '#f44336'
+                        })
                     }
                 })
                 .catch((error) => {
                     console.error(error);
                     ToastAndroid.show('Error submitting request! Try again later', ToastAndroid.LONG);
+                    this.setState({
+                        text: 'Try Again',
+                        color: '#f44336'
+                    })
                 });
             } else {
                 ToastAndroid.show('Not enough Balance!', ToastAndroid.LONG);
+                this.setState({
+                    text: 'Try Again',
+                    color: '#f44336'
+                })
             }
         } else {
             ToastAndroid.show('Please enter Amount', ToastAndroid.LONG);
@@ -235,7 +266,7 @@ export class withdrawMoney extends Component {
                     placeholder='Amount to Withdraw'
                 />
                 <TouchableOpacity style={[styles.button, {backgroundColor: this.state.color}]} onPress={this.state.action}>
-                    <Text style={{ color: '#fff', fontSize: 18 }}>Withdraw Money</Text>
+                    <Text style={{ color: '#fff', fontSize: 18 }}>{this.state.text}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -249,7 +280,7 @@ const tab = createMaterialTopTabNavigator({
 },{
     tabBarOptions: {
         style: {
-            backgroundColor: '#23283a',
+            backgroundColor: '#10102d',
             color: '#fff'        
         }
     }
@@ -330,7 +361,7 @@ export default class WalletScreen extends Component {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: '#23283a',
+        backgroundColor: '#10102d',
         height: 150,
         justifyContent: 'center',
         alignItems: 'center',
