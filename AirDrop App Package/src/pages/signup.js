@@ -17,6 +17,7 @@ export default class Signup extends Component {
             inputGamertag: null,
             inputEmail: null,
             inputPass: null,
+            inputReferrer: null,
             button: "Create Account"
         }
     }
@@ -38,7 +39,8 @@ export default class Signup extends Component {
                     name: this.state.inputName,
                     phone: this.state.inputPhone,
                     gamertag: this.state.inputGamertag,
-                    password: md5(this.state.inputPass)
+                    password: md5(this.state.inputPass),
+                    referrer: this.state.inputReferrer
                 })
             })
                 .then((response) => response.json())
@@ -81,14 +83,19 @@ export default class Signup extends Component {
                         </TouchableOpacity>
                         <Title styleName='bold' style={{ color: '#fff' }}>Create a new Account</Title>
                     </View>
-                    <View style={{width: '100%',alignItems: 'center', flexGrow: 1,justifyContent: 'center'}}>
-                        {/*<Heading styleName='h-center' style={styles.title}>CREATE NEW ACCOUNT</Heading>*/}
+                    <ScrollView>
                         <View style={styles.login}>
                             <TextInput
                                 value={this.state.inputName}
                                 style={styles.input}
                                 onChangeText={(text) => this.setState({ inputName: text })}
                                 placeholder='Your Name'
+                            />
+                            <TextInput
+                                value={this.state.inputPhone}
+                                style={styles.input}
+                                onChangeText={(text) => this.setState({ inputPhone: text })}
+                                placeholder='Your Phone Number'
                             />
                             <TextInput
                                 value={this.state.inputEmail}
@@ -103,18 +110,19 @@ export default class Signup extends Component {
                                 placeholder='PUBG-M Username'
                             />
                             <TextInput
-                                value={this.state.inputPhone}
-                                style={styles.input}
-                                onChangeText={(text) => this.setState({ inputPhone: text })}
-                                placeholder='Your Paytm Number'
-                            />
-                            <TextInput
                                 value={this.state.inputPass}
                                 secureTextEntry={true}
                                 style={styles.input}
                                 onChangeText={(text) => this.setState({ inputPass: text })}
                                 placeholder='New Password'
                             />
+                            <TextInput
+                                value={this.state.inputReferrer}
+                                style={styles.input}
+                                onChangeText={(text) => this.setState({ inputReferrer: text })}
+                                placeholder='Refer Code (Optional)'
+                            />
+                            
                             <TouchableOpacity style={styles.button} onPress={() => this.signup()}>
                                 <Text style={{ color: '#fff', fontSize: 18 }}>{this.state.button}</Text>
                             </TouchableOpacity>
@@ -126,7 +134,7 @@ export default class Signup extends Component {
                                 onPress={this.signIn}
                                 disabled={this.state.isSigninInProgress} />
                         </View>
-                    </View>
+                    </ScrollView>
                 </ImageBackground>
             </Screen>
         );

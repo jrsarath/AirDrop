@@ -10,11 +10,8 @@ import Loading from '../component/loader';
 import config from '../config/config.js'
 import { GetUpcoming,GetWallet } from '../redux/Actions/Actions';
 import { store } from '../redux/Store';
-// PAGES
-import joinMatch from './joinMatch.js';
 
-
-export class Upcoming extends Component {
+export default class UpcomingScreen extends Component {
     constructor() {
         super();
         this.state = {
@@ -120,7 +117,7 @@ export class Upcoming extends Component {
             );
         });
         return (
-            <Screen>
+            <Screen style={{backgroundColor: '#10102d'}}>
                 <Header text='Game Setter' />
                 <ScrollView>
                     {Match}
@@ -129,11 +126,3 @@ export class Upcoming extends Component {
         );
     }
 }
-
-export default UpcomingScreen = createStackNavigator({
-    Upcoming: { screen: Upcoming },
-    joinMatch: { screen: joinMatch }
-  },{
-    initialRouteName: "Upcoming",
-    headerMode: 'none'
-});

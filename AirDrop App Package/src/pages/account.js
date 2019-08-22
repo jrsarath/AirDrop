@@ -12,12 +12,8 @@ import Loading from '../component/loader';
 var md5 = require('js-md5');
 import config from '../config/config.js'
 import { store, persistor } from '../redux/Store';
-// PAGES
-import AccountEdit from './acountEdit'; 
-import AboutScreen from './about';
-import ContactScreen from './contact';
 
-export class AccountView extends Component{
+export default class AccountScreen extends Component{
     constructor(){
         super();
         this.state = {
@@ -41,17 +37,28 @@ export class AccountView extends Component{
     }
     _share(){
         Share.share({
-            message: 'Game Setter | Earn some extra cash by playing PUBG, Download Today. \n https://play.google.com/store/apps/details?id=com.tencent.ig',
-            url: 'https://play.google.com/store/apps/details?id=com.tencent.ig' // TO BE CHANGED
+            message: 'Game Setter | Earn some extra cash by playing PUBG, Download Today and get Rs. 10 Bonus \n https://gamesetter.in/Gamesetter.apk',
+            url: 'https://gamesetter.in/Gamesetter.apk' // TO BE CHANGED
         });
     }
     render(){
+        if (store.getState().userData.doctype == null) {
+            console.log('Complete KYC');
+            KYC =   <TouchableOpacity onPress={() => this.props.navigation.navigate('Kyc')} style={styles.listItem}>
+                        <Image style={styles.listIcon} source={require('../images/contract.png')} />
+                        <Text style={styles.listLabel}>Complete KYC</Text>
+                        <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                    </TouchableOpacity>
+        } else {
+            KYC = null;
+        }
+        
         return(
             <Screen>
                 <Header />
                 <ScrollView>
                     <View style={styles.header}>
-                        <View style={{marginTop: -40,flexDirection: 'row',alignItems: 'center',justifyContent:'center'}}>
+                        <View style={{marginTop: -35,flexDirection: 'row',alignItems: 'center',justifyContent:'center'}}>
                             <Image source={require('../images/guy.png')} style={styles.avatar}/>
                             <View>
                                 <Title style={{fontSize:17,color:'#fff'}}>{this.state.name}</Title>
@@ -75,6 +82,7 @@ export class AccountView extends Component{
                         </View>
                     </View>
                     <View style={styles.list}>
+                        {KYC}
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Refer')} style={styles.listItem}>
                             <Image style={styles.listIcon} source={require('../images/add-friend.png')}/>
                             <Text style={styles.listLabel}>Refer & Earn</Text>
@@ -95,12 +103,17 @@ export class AccountView extends Component{
                             <Text style={styles.listLabel}>About Us</Text>
                             <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
                         </TouchableOpacity>
+                        <TouchableOpacity onPress={() => Linking.openURL('https://www.facebook.com/GameSetter-111812706850918')} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/facebook.png')}/>
+                            <Text style={styles.listLabel}>Facebook</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
                         <TouchableOpacity onPress={() => Linking.openURL('https://youtube.com/')} style={styles.listItem}>
                             <Image style={styles.listIcon} source={require('../images/youtube.png')}/>
                             <Text style={styles.listLabel}>Youtube Channel</Text>
                             <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
                         </TouchableOpacity>
-                        <TouchableOpacity onPress={() => Linking.openURL('https://instagram.com/')} style={styles.listItem}>
+                        <TouchableOpacity onPress={() => Linking.openURL('https://www.instagram.com/gamesetter01')} style={styles.listItem}>
                             <Image style={styles.listIcon} source={require('../images/instagram.png')}/>
                             <Text style={styles.listLabel}>Instagram</Text>
                             <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
@@ -108,6 +121,11 @@ export class AccountView extends Component{
                         <TouchableOpacity onPress={() => Linking.openURL('https://youtube.com/')} style={styles.listItem}>
                             <Image style={styles.listIcon} source={require('../images/question.png')}/>
                             <Text style={styles.listLabel}>How to Join Game ?</Text>
+                            <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
+                        </TouchableOpacity>
+                        <TouchableOpacity onPress={() => this.props.navigation.navigate('Policy')} style={styles.listItem}>
+                            <Image style={styles.listIcon} source={require('../images/policy.png')}/>
+                            <Text style={styles.listLabel}>Terms & Conditions</Text>
                             <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
                         </TouchableOpacity>
                         <TouchableOpacity onPress={() => this.props.navigation.navigate('Support')} style={styles.listItem}>
@@ -131,16 +149,6 @@ export class AccountView extends Component{
         )
     }
 }
-
-export default AccountScreen = createStackNavigator({
-    Account: { screen: AccountView },
-    AccountEdit: { screen: AccountEdit },
-    About: { screen: AboutScreen },
-    Support: { screen: ContactScreen }
-  },{
-    initialRouteName: "Account",
-    headerMode: 'none'
-});
 
 const styles = StyleSheet.create({
     header: {
@@ -181,7 +189,8 @@ const styles = StyleSheet.create({
         resizeMode: "contain",
     },
     list: {
-        paddingVertical: 10
+        paddingTop: 0,
+        paddingBottom: 10
     },
     listItem: {
         flexDirection: 'row',

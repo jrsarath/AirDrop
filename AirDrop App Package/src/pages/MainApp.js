@@ -1,9 +1,8 @@
 import React, { Component } from 'react';
 import { StyleSheet, Text, ScrollView, View, Image } from 'react-native';
-import { Title, Subtitle } from '@shoutem/ui';
 import MyIcon from "react-native-custom-icon";
 import IcomoonConfig from '../assets/icomoon/selection.json';
-import { createBottomTabNavigator, createDrawerNavigator, DrawerItems, SafeAreaView } from 'react-navigation';
+import { createBottomTabNavigator, createStackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/FontAwesome';
 // PAGES
 import UpcomingScreen from './upcoming';
@@ -11,9 +10,15 @@ import WalletScreen from './wallet';
 import AccountScreen from './account';
 import OngoingScreen from './ongoing';
 import ReferScreen from './refer';
-
+import AccountEdit from './acountEdit';
+import AboutScreen from './about';
+import ContactScreen from './contact';
+import TermsScreen from './policy';
+import joinMatch from './joinMatch.js';
+import matchDetails from './matchDetails';
+import KycScreen from './kyc.js';
 // TAB NAVIGATOR
-export default MainApp = createBottomTabNavigator({
+export const Tabs = createBottomTabNavigator({
         Refer: {
           screen: ReferScreen,
         },
@@ -111,6 +116,21 @@ export default MainApp = createBottomTabNavigator({
                 padding:0
             }
         },
+});
+
+// STACKS
+export default MainApp = createStackNavigator({
+    Tabs: { screen: Tabs },
+    AccountEdit: { screen: AccountEdit },
+    About: { screen: AboutScreen },
+    Support: { screen: ContactScreen },
+    Policy: { screen: TermsScreen },
+    joinMatch: { screen: joinMatch },
+    MatchDetails: { screen: matchDetails },
+    Kyc: {screen: KycScreen}
+  },{
+    initialRouteName: "Tabs",
+    headerMode: 'none'
 });
 
 const styles = StyleSheet.create({

@@ -1,7 +1,7 @@
 <?php
 session_start();
 // Allowed origins to upload images
-$accepted_origins = array("http://gamesetter", "https://gamesetter");
+$accepted_origins = array("http://manage.gamesetter.in", "https://manage.gamesetter.in");
 
 reset($_FILES);
 $temp = current($_FILES);

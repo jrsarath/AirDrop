@@ -119,7 +119,11 @@ export default class AccountEdit extends Component {
                             userData: {
                                 name: this.state.name,
                                 phone: this.state.phone,
-                                gamertag: this.state.gamertag
+                                gamertag: this.state.gamertag,
+                                refercode: store.getState().userData.refercode,
+                                doctype: store.getState().userData.doctype,
+                                docfront: store.getState().userData.docfront,
+                                docback: store.getState().userData.docback,
                             }
                         }));
                     } else {

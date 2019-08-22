@@ -10,6 +10,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f69c5ee2-1937-4264-b8f9-47b9563a85d5" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/../../.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/../../.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AirDrop Admin Panel/add-match.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../AirDrop Admin Panel/add-match.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AirDrop Admin Panel/application/classes/application.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../AirDrop Admin Panel/application/classes/application.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AirDrop Admin Panel/application/classes/sub-classes/ajax-upload.php" beforeDir="false" afterPath="$PROJECT_DIR$/../../AirDrop Admin Panel/application/classes/sub-classes/ajax-upload.php" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../../AirDrop Admin Panel/assets/js/argon.js" beforeDir="false" afterPath="$PROJECT_DIR$/../../AirDrop Admin Panel/assets/js/argon.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/executionHistory/executionHistory.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/fileHashes/fileHashes.bin" afterDir="false" />
@@ -19,17 +24,19 @@
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/javaCompile.lock" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/5.4.1/javaCompile/taskHistory.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/buildOutputCleanup.lock" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" beforeDir="false" afterPath="$PROJECT_DIR$/.gradle/buildOutputCleanup/outputFiles.bin" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/app/app.iml" beforeDir="false" afterPath="$PROJECT_DIR$/app/app.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/running.gif" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-hdpi/running.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/running.gif" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-mdpi/running.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/running.gif" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xhdpi/running.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/running.gif" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxhdpi/running.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/running.gif" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/drawable-xxxhdpi/running.gif" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/app/src/main/res/layout/launch_screen.xml" beforeDir="false" afterPath="$PROJECT_DIR$/app/src/main/res/layout/launch_screen.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package-lock.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package-lock.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../package.json" beforeDir="false" afterPath="$PROJECT_DIR$/../package.json" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/component/joinMatchCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/component/joinMatchCard.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/component/ongoingMatchCard.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/component/ongoingMatchCard.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/pages/MainApp.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/pages/MainApp.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/../src/pages/account.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/pages/account.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/pages/joinMatch.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/pages/joinMatch.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/pages/matchDetails.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/pages/matchDetails.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/pages/ongoing.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/pages/ongoing.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/pages/policy.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/pages/policy.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/../src/pages/upcoming.js" beforeDir="false" afterPath="$PROJECT_DIR$/../src/pages/upcoming.js" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -40,7 +47,7 @@
   <component name="DefaultGradleProjectSettings">
     <option name="isMigrated" value="true" />
   </component>
-  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_5_API_28" />
+  <component name="ExecutionTargetManager" SELECTED_TARGET="Nexus_28" />
   <component name="ExternalProjectsManager">
     <system id="GRADLE">
       <state>
@@ -75,7 +82,7 @@
         <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/launch_screen.xml">
           <provider editor-type-id="android-designer2" />
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="281">
+            <state relative-caret-position="115">
               <caret line="28" column="42" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="42" />
             </state>
           </provider>
@@ -129,10 +136,10 @@
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-8" />
-    <option name="y" value="-8" />
-    <option name="width" value="1936" />
-    <option name="height" value="1056" />
+    <option name="x" value="1912" />
+    <option name="y" value="296" />
+    <option name="width" value="1382" />
+    <option name="height" value="744" />
   </component>
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="1" id="Add" />
@@ -142,25 +149,12 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="PackagesPane" />
+      <pane id="ProjectPane" />
       <pane id="AndroidView">
         <subPane>
           <expand>
-            <path>
-              <item name="GameSetter" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-            </path>
-            <path>
-              <item name="GameSetter" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-            </path>
-            <path>
-              <item name="GameSetter" type="1abcf292:AndroidViewProjectNode" />
-              <item name="app" type="feadf853:AndroidModuleNode" />
-              <item name="res" type="d4f16f75:AndroidResFolderNode" />
-              <item name="layout" type="ddeffd01:AndroidResFolderTypeNode" />
-            </path>
             <path>
               <item name="GameSetter" type="1abcf292:AndroidViewProjectNode" />
               <item name="Gradle Scripts" type="ae0cef3a:AndroidBuildScriptsGroupNode" />
@@ -169,8 +163,6 @@
           <select />
         </subPane>
       </pane>
-      <pane id="ProjectPane" />
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -287,10 +279,10 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1936" height="1056" extended-state="6" />
+    <frame x="1912" y="296" width="1382" height="744" extended-state="6" />
     <layout>
       <window_info id="Captures" order="0" side_tool="true" weight="0.25" />
-      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.20202559" />
+      <window_info content_ui="combo" id="Project" order="1" visible="true" weight="0.20196672" />
       <window_info id="Structure" order="2" side_tool="true" />
       <window_info id="Favorites" order="3" side_tool="true" />
       <window_info id="Build Variants" order="4" side_tool="true" />
@@ -305,14 +297,14 @@
       <window_info anchor="bottom" id="Terminal" order="4" weight="0.32936078" />
       <window_info anchor="bottom" id="Event Log" order="5" sideWeight="0.50053304" side_tool="true" weight="0.9674973" />
       <window_info anchor="bottom" id="Version Control" order="6" weight="0.32936078" />
-      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.46587217" />
+      <window_info anchor="bottom" id="Build" order="7" visible="true" weight="0.46481177" />
       <window_info anchor="bottom" id="Android Profiler" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Find" order="9" />
       <window_info anchor="right" id="Device File Explorer" order="0" side_tool="true" />
       <window_info anchor="right" id="Capture Analysis" order="1" />
       <window_info anchor="right" id="Gradle" order="2" />
       <window_info anchor="right" id="Theme Preview" order="3" />
-      <window_info active="true" anchor="right" id="Preview" order="4" visible="true" weight="0.4664179" />
+      <window_info active="true" anchor="right" id="Preview" order="4" visible="true" weight="0.46596065" />
       <window_info anchor="right" id="Palette&#9;" order="5" />
       <window_info anchor="right" id="Assistant" order="6" weight="0.32942432" />
     </layout>
@@ -342,13 +334,7 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-534">
-          <caret line="2673" selection-start-line="2673" selection-end-line="2673" />
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/app/build/intermediates/incremental/mergeDebugResources/merged.dir/values/values.xml" />
     <entry file="file://$PROJECT_DIR$/../node_modules/react-native-payumoney/android/src/main/res/layout/loader_layout.xml">
       <provider selected="true" editor-type-id="android-designer2" />
       <provider editor-type-id="text-editor" />
@@ -447,7 +433,7 @@
     <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/launch_screen.xml">
       <provider editor-type-id="android-designer2" />
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="281">
+        <state relative-caret-position="115">
           <caret line="28" column="42" selection-start-line="28" selection-start-column="35" selection-end-line="28" selection-end-column="42" />
         </state>
       </provider>

@@ -4,12 +4,13 @@ import IcomoonConfig from '../assets/icomoon/selection.json';
 import { createBottomTabNavigator, createAppContainer, createMaterialTopTabNavigator } from 'react-navigation';
 import { StyleSheet, TouchableOpacity, View, ScrollView, TextInput, ToastAndroid, ImageBackground, Platform, DeviceEventEmitter, NativeModules, NativeEventEmitter, Alert, Picker } from 'react-native';
 import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
+import Icon from 'react-native-vector-icons/Feather';
 // CUSTOM COMPONENT
 import Header from '../component/header';
 import Loading from '../component/loader';
 // REDUX
 import config from '../config/config.js'
-import { GetWallet } from '../redux/Actions/Actions';
+import { GetWallet, GetTransactions } from '../redux/Actions/Actions';
 import { store } from '../redux/Store';
 // PAYU
 import paytm from '@philly25/react-native-paytm';
@@ -302,10 +303,70 @@ export class withdrawMoney extends Component {
 }
 // TRANSACTIONS TAB
 export class Transactions extends Component {
-    render() {
-        return(
-            <ScrollView>
+    constructor(){
+        super();
+        this.state = {
+            transactions: store.getState().transactions
+        }
+    }
+    componentDidMount() {
+        store.subscribe(() => {
+            this.setState({
+                transactions: store.getState().transactions
+            })
+        });
+        fetch(config.domain + "api/payment.php", {
+            method: 'POST',
+            headers: new Headers({
+                'Accept': 'application/json',
+                "Accept-Encoding": "gzip, deflate",
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                action: "transactions",
+                user: store.getState().user
+            })
 
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            store.dispatch(GetTransactions(data));
+        })
+        .catch((error) => {
+            console.error(error);
+            ToastAndroid.show('Error Fetching Wallet & Balance', ToastAndroid.LONG);
+        });
+    }
+    render() {
+        let TranList = this.state.transactions.map((tr, id) => {
+            if (tr.status == 'SUCCESS') {
+                icon = 'check';
+                iconColor = '#4caf50';
+            } else if (tr.status == 'PENDING') {
+                icon = 'watch';
+                iconColor = '#ffc107';
+            } else {
+                icon = 'x';
+                iconColor = '#f44336';
+            }
+            if (tr.type == 'CREDIT') {
+                iconMode = 'plus-circle';
+                iconModeColor = '#4caf50';
+            } else {
+                iconMode = 'minus-circle';
+                iconModeColor = '#f44336';
+            }
+            return(
+                <View style={styles.tranCon} key={id}>
+                    <Icon name={icon} size={30} color={iconColor}/>
+                    <Text style={{marginLeft:5}}>{tr.id}</Text>
+                    <Icon style={styles.iconRight} name={iconMode} size={30} color={iconModeColor}/>
+                </View>
+            );
+        })
+        return(
+            <ScrollView style={{marginVertical:10}}>
+                {TranList}
             </ScrollView>
         )
     }
@@ -455,5 +516,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#f44336',
         marginHorizontal: 20
+    },
+    tranCon: {
+        borderRadius: 5,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        margin:5,
+        marginHorizontal: 10,
+        padding: 10,
+        elevation: 3
+    },
+    iconRight: {
+        position: 'absolute',
+        right: 10
     }
 });

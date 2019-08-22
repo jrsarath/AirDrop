@@ -116,10 +116,11 @@
       }
       function add_match(){
         if (mysqli_query($this->db, "INSERT INTO matches(map,type,livelink,matchtype,roomid,roompassword,banner,totalplayer,totalplayerjoined,entryfee,winprice,perkill,matchstatus,matchschedule,rule)
-                                                VALUES('".$_POST['map']."','".$_POST['viewMode']."','".$_POST['livelink']."','".$_POST['matchtype']."','".$_POST['roomid']."','".$_POST['roompassword']."','".$_POST['banner']."','".$_POST['totalplayer']."','".$_POST['totalplayerjoined']."','".$_POST['entryfee']."','".$_POST['winprice']."','".$_POST['perkill']."','".$_POST['matchstatus']."','".$_POST['matchdate']." ".$_POST['matchtime']."','".$_POST['rule']."')")) {
-          return 'success';
+                                                VALUES('".$this->dbHelper->sqlSafeValue($_POST['map'])."','".$this->dbHelper->sqlSafeValue($_POST['viewMode'])."','".$this->dbHelper->sqlSafeValue($_POST['livelink'])."','".$this->dbHelper->sqlSafeValue($_POST['matchtype'])."','".$this->dbHelper->sqlSafeValue($_POST['roomid'])."','".$this->dbHelper->sqlSafeValue($_POST['roompassword'])."','".$this->dbHelper->sqlSafeValue($_POST['banner'])."','".$this->dbHelper->sqlSafeValue($_POST['totalplayer'])."','".$this->dbHelper->sqlSafeValue($_POST['totalplayerjoined'])."','".$this->dbHelper->sqlSafeValue($_POST['entryfee'])."','".$this->dbHelper->sqlSafeValue($_POST['winprice'])."','".$this->dbHelper->sqlSafeValue($_POST['perkill'])."','".$this->dbHelper->sqlSafeValue($_POST['matchstatus'])."','".$this->dbHelper->sqlSafeValue($_POST['matchdate'])." ".$this->dbHelper->sqlSafeValue($_POST['matchtime'])."','".$this->dbHelper->sqlSafeValue($_POST['rule'])."')")) {
+          return true;
         } else {
           error_log('SQL Error: '.mysqli_error($this->db));
+          return false;
         }
       }
       function withdraw_requests(){
@@ -174,15 +175,16 @@
           error_log('SQL Error :'.mysqli_error($this->db));
         }
       }
-      function signup($email,$name,$password,$gamertag,$phone){
+      function signup($email,$name,$password,$gamertag,$phone,$ref){
         $e = $this->dbHelper->sqlSafeValue($email);
         $n = $this->dbHelper->sqlSafeValue($name);
         $p = $this->dbHelper->sqlSafeValue($password);
         $g = $this->dbHelper->sqlSafeValue($gamertag);
         $ph = $this->dbHelper->sqlSafeValue($phone);
+        $rc = strtoupper(uniqid());
         $d = date('Y-m-d G:i:s');
-        if (mysqli_query($this->db, "INSERT INTO users(email,name,password,gamertag,phone) VALUES('$e','$n','$p','$g', '$ph')")){
-          if (mysqli_query($this->db, "INSERT INTO wallet(user,balance, last_updated) VALUES('$e','0', '$d')")) {
+        if (mysqli_query($this->db, "INSERT INTO users(email,name,password,gamertag,phone,refercode,referrer) VALUES('$e','$n','$p','$g', '$ph', '$rc','$ref')")){
+          if (mysqli_query($this->db, "INSERT INTO wallet(user,balance, last_updated) VALUES('$e','10', '$d')")) {
             return true;
           } else {
             error_log('SQL Error :'.mysqli_error($this->db));
@@ -292,7 +294,7 @@
         $user = $this->get_user($email);
         $uid = $user["id"];
         $amount = $amnt.".0";
-        $txid = 'ORDER-'.crc32($uid).time();
+        $txid = 'ORDER-'.crc32($uid);
         $productId = "wallet";
         $name = $user["name"];
         $email = $email;
@@ -374,6 +376,7 @@
             if (mysqli_query($this->db, "INSERT INTO withdraw(user,amount,gateway,txnid) VALUES('$user', '$amount', '$gateway','$txn')")){
               $amnt = +$amount;
               mysqli_query($this->db, "UPDATE wallet SET balance=balance-$amnt WHERE user='$user'");
+              mysqli_query($this->db, "INSERT INTO transactions(id, amount, user, number, status, type) VALUES('$txn', '$amount', '$user', 'null', 'PENDING', 'DEBIT')");
               return array('status' =>  'success', 'txnid' => $txn);
             } else {
               error_log("MYSQL ERROR: ".mysqli_error($this->db));
@@ -419,6 +422,12 @@
       function join_match($id, $user, $amnt){
         if($res = mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$user' AND match_id='$id'")){
           if (mysqli_num_rows($res) == 0) {
+            // CREDIT REFERRER IF FIRST MATCH JOINING
+              if (mysqli_num_rows(mysqli_query($this->db, "SELECT * FROM join_match WHERE user='$user'")) == 0) {
+                $userData = $this->get_user($user);
+                $referrer = mysqli_fetch_assoc(mysqli_query($this->db, "SELECT email from users WHERE refercode='".$userData['referrer']."'"));
+                mysqli_query($this->db, "UPDATE wallet SET balance=balance+30 WHERE user='".$referrer['email']."'");
+              }
             if (mysqli_query($this->db, "INSERT INTO join_match(match_id,user) VALUES('$id','$user')")) {
               mysqli_query($this->db, "UPDATE matches SET totalplayerjoined=totalplayerjoined+1 WHERE id='$id'");
               $amount = +$amnt;
@@ -443,6 +452,18 @@
           } else {
             return array("status" => 'not-joined');
           }
+        } else {
+          error_log("MYSQL ERROR: ".mysqli_error($this->db));
+        }
+      }
+
+      function get_user_transactions($user) {
+        if ($row = mysqli_query($this->db, "SELECT * FROM transactions WHERE user='$user'")) {
+          $array = array();
+          while ($res = mysqli_fetch_assoc($row)){
+            $array[] = $res;
+          }
+          return $array;
         } else {
           error_log("MYSQL ERROR: ".mysqli_error($this->db));
         }

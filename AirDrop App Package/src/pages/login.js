@@ -66,7 +66,11 @@ export default class Login extends Component {
                             userData: {
                                 name: responseText.data[0].name,
                                 phone: responseText.data[0].phone,
-                                gamertag: responseText.data[0].gamertag
+                                gamertag: responseText.data[0].gamertag,
+                                refercode: responseText.data[0].refercode,
+                                doctype: responseText.data[0].doctype,
+                                docfront: responseText.data[0].docfront,
+                                docback: responseText.data[0].docback,
                             }
                             //password: md5(this.state.inputPass)
                         }));

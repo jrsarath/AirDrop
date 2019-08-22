@@ -12,10 +12,8 @@ import Loading from '../component/loader';
 import config from '../config/config.js'
 import { GetOngoing } from '../redux/Actions/Actions';
 import { store } from '../redux/Store';
-// PAGES
-import matchDetails from './matchDetails';
 
-export class OngoingView extends Component {
+export default class OngoingScreen extends Component {
     constructor() {
         super();
         this.state = {
@@ -100,7 +98,7 @@ export class OngoingView extends Component {
                 );
         });
         return (
-            <Screen>
+            <Screen style={{backgroundColor: '#10102d'}}>
                 <Header text='Game Setter' />
                 <ScrollView>
                     {Match}
@@ -109,10 +107,3 @@ export class OngoingView extends Component {
         );
     }
 }
-export default OngoingScreen = createStackNavigator({
-    Ongoing: { screen: OngoingView },
-    MatchDetails: { screen: matchDetails }
-  },{
-    initialRouteName: "Ongoing",
-    headerMode: 'none'
-});
