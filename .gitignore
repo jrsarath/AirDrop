@@ -3,6 +3,4 @@
 */application/vendor/
 */node_modules/*
 GameSetter.bak/
-.ftpconfig
 */.ftpconfig
-*.bin

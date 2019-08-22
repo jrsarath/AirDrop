@@ -28,6 +28,10 @@
                 break;
             case 'getWallet':
                 echo json_encode($app->get_wallet($data['user']));
+                break;
+            case 'transactions':
+                echo json_encode($app->get_user_transactions($data['user']));
+                break;
             default;
                 header('HTTP/1.0 403 Forbidden');
                 break;

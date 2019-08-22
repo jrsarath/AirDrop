@@ -27,7 +27,7 @@ var Datepicker = (function() {
 	// Variables
 
 	var $datepicker = $('.datepicker');
-
+	$.fn.datepicker.defaults.format = "dd//mm/yyyy";
 
 	// Methods
 

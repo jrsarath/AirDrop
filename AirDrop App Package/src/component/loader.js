@@ -4,9 +4,9 @@ import {View,Image,Text} from 'react-native';
 export default class Loading extends Component {
     render(){
         return(
-            <View style={{flex:1, width: '100%',backgroundColor: '#fff', alignContent: 'center', alignItems: 'center', alignSelf: 'center', justifyContent: 'center'}}>
+            <View style={{flex:1, width: '100%',backgroundColor: '#10102d', alignContent: 'center', alignItems: 'center', alignSelf: 'center', justifyContent: 'center'}}>
                 <Image source={require('../images/running.gif')} style={{width:'50%',height: '50%',resizeMode: 'contain'}} />
-                <Text style={{fontSize:18}}>{this.props.text}</Text>
+                <Text style={{fontSize:18, color: '#fff'}}>{this.props.text}</Text>
             </View>
         );
     }

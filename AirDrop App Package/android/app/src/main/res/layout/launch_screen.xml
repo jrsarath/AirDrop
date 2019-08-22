@@ -4,20 +4,20 @@
     android:layout_height="fill_parent"
     >
     <LinearLayout
-        android:background="#fff"
+        android:background="#10102d"
         android:layout_height="fill_parent"
         android:layout_width="fill_parent"
         android:gravity="center"
         >
         <ImageView
-            android:layout_width="100dp"
-            android:layout_height="100dp"
+            android:layout_width="130dp"
+            android:layout_height="130dp"
             android:scaleType="fitCenter"
             android:src="@drawable/ic_logo" />
     </LinearLayout>
     <LinearLayout
         android:layout_height="wrap_content"
-        android:background="#fff"
+        android:background="#10102d"
         android:layout_width="fill_parent"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"

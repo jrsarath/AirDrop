@@ -1,4 +1,4 @@
-import { SIGN_IN, GET_UPCOMING, GET_ONGOING, GET_WALLET } from '../Actions/Actions';
+import { SIGN_IN, GET_UPCOMING, GET_ONGOING, GET_WALLET, GET_TRANSACTIONS } from '../Actions/Actions';
 const initialState = {
   user: null,
   userData: [],
@@ -6,6 +6,7 @@ const initialState = {
   upcoming: [],
   ongoing: [],
   wallet: 0,
+  transactions: [],
 };
 
 function rootReducer(state = initialState, action) {
@@ -26,6 +27,10 @@ function rootReducer(state = initialState, action) {
     case GET_WALLET:
       return Object.assign({}, state, {
         wallet: action.payload
+      })
+    case GET_TRANSACTIONS:
+      return Object.assign({}, state, {
+        transactions: action.payload
       })
     default:
       return state

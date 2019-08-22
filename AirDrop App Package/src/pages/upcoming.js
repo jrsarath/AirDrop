@@ -10,11 +10,8 @@ import Loading from '../component/loader';
 import config from '../config/config.js'
 import { GetUpcoming,GetWallet } from '../redux/Actions/Actions';
 import { store } from '../redux/Store';
-// PAGES
-import joinMatch from './joinMatch.js';
 
-
-export class Upcoming extends Component {
+export default class UpcomingScreen extends Component {
     constructor() {
         super();
         this.state = {
@@ -103,7 +100,7 @@ export class Upcoming extends Component {
             return(
                 <Screen>
                     <Header text='Game Setter' />
-                    <View style={{flex:1, width: '100%',backgroundColor: '#fff', alignContent: 'center', alignItems: 'center', alignSelf: 'center', justifyContent: 'center'}}>
+                    <View style={{flex:1, width: '100%',backgroundColor: '#10102d', alignContent: 'center', alignItems: 'center', alignSelf: 'center', justifyContent: 'center'}}>
                         <Image source={require('../images/pubg-character-helmet.png')} style={{width:'50%',height: '50%',resizeMode: 'contain'}} />
                         <Text style={{fontSize:18}}>No Matches Available</Text>
                     </View>
@@ -120,7 +117,7 @@ export class Upcoming extends Component {
             );
         });
         return (
-            <Screen>
+            <Screen style={{backgroundColor: '#10102d'}}>
                 <Header text='Game Setter' />
                 <ScrollView>
                     {Match}
@@ -129,19 +126,3 @@ export class Upcoming extends Component {
         );
     }
 }
-
-export default UpcomingScreen = createStackNavigator({
-    Upcoming: { screen: Upcoming },
-    joinMatch: { screen: joinMatch }
-  },{
-    initialRouteName: "Upcoming",
-    headerMode: 'none'
-});
-const styles = StyleSheet.create({
-    activeTabText: {
-        color: '#f44336',
-        textAlign: 'center',
-        marginTop: 5,
-        fontSize: 12,
-    }
-});

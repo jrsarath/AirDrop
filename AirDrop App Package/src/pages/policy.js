@@ -6,7 +6,7 @@ import { ScrollIntoView, wrapScrollView, wrapScrollViewConfigured } from 'react-
 import Header from '../component/headerBack';
 const CustomScrollView = wrapScrollView(ScrollView);
 
-export default class PolicyScreen extends Component {
+export default class TermsScreen extends Component {
     render() {
         return (
             <Screen>

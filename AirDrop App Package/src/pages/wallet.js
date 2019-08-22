@@ -1,15 +1,16 @@
 import React, { Component } from 'react';
 import MyIcon from "react-native-custom-icon";
 import IcomoonConfig from '../assets/icomoon/selection.json';
-import { createBottomTabNavigator, createAppContainer, createMaterialTopTabNavigator } from 'react-navigation';
+import { withNavigation, createAppContainer, createMaterialTopTabNavigator } from 'react-navigation';
 import { StyleSheet, TouchableOpacity, View, ScrollView, TextInput, ToastAndroid, ImageBackground, Platform, DeviceEventEmitter, NativeModules, NativeEventEmitter, Alert, Picker } from 'react-native';
 import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
+import Icon from 'react-native-vector-icons/Feather';
 // CUSTOM COMPONENT
 import Header from '../component/header';
 import Loading from '../component/loader';
 // REDUX
 import config from '../config/config.js'
-import { GetWallet } from '../redux/Actions/Actions';
+import { GetWallet, GetTransactions } from '../redux/Actions/Actions';
 import { store } from '../redux/Store';
 // PAYU
 import paytm from '@philly25/react-native-paytm';
@@ -27,12 +28,18 @@ export class addMoney extends Component {
         this.state = {
             addMoney: null,
             order_id: null,
+            text: 'Add Money',
+            color: '#f44336'
         }
     }
     
     // INITIATE PAYTM PAYMENT
     startPayment(){
         if (this.state.addMoney != null){
+            this.setState({
+                text: 'Please Wait...',
+                color: '#bdbdbd'
+            });
             fetch(config.domain + "api/payment.php", {
                     method: 'POST',
                     headers: new Headers({
@@ -69,17 +76,40 @@ export class addMoney extends Component {
                     console.log(options);
                     PayuMoney.pay(options).then((d) => {
                         this._getWalletBalance();
+                        this.setState({
+                            text: 'Done',
+                            color: '#4caf50'
+                        });
+                        setTimeout(() => {
+                            this.setState({
+                                text: 'Add Money',
+                                color: '#f44336'
+                            });
+                        }, 3000);
+                        Alert.alert('Transactions Successful', 'We have added the balance to your Wallet, Keep gaming..');
                     }).catch(e => {
                         console.log(e); //In case of failture
                         Alert.alert('Error', 'Unable to complete transaction, please check your bills. In case of any query you can contact us');
+                        this.setState({
+                            text: 'Try Again',
+                            color: '#f44336'
+                        });
                     });
                 })
                 .catch((error) => {
                     console.error(error);
                     Alert.alert('Error', 'Unable to initiate transaction, please try again');
+                    this.setState({
+                        text: 'Try Again',
+                        color: '#f44336'
+                    });
                 });
         } else {
             ToastAndroid.show('Please enter Amount', ToastAndroid.LONG);
+            this.setState({
+                text: 'Try Again',
+                color: '#f44336'
+            });
         }
     }
     // GET WALLET BALANCE
@@ -119,8 +149,8 @@ export class addMoney extends Component {
                     onChangeText={(text) => this.setState({ addMoney: text })}
                     placeholder='Amount to Add'
                 />
-                <TouchableOpacity style={styles.button} onPress={() => this.startPayment()}>
-                    <Text style={{color: '#fff',fontSize: 18}}>Add Money</Text>
+                <TouchableOpacity style={[styles.button, {backgroundColor: this.state.color}]} onPress={() => this.startPayment()}>
+                    <Text style={{color: '#fff',fontSize: 18}}>{this.state.text}</Text>
                 </TouchableOpacity>
             </View>
         );
@@ -129,13 +159,14 @@ export class addMoney extends Component {
 
 // WITHDRAW MONEY TAB
 export class withdrawMoney extends Component {
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.emitter = null;
         this.state = {
             withdrawAmount: null,
             withdrawMethod: 'paytm',
             color: store.getState().wallet <= 0 ? '#bdbdbd' : '#f44336',
+            text: 'Withdraw',
             action: store.getState().wallet <= 0 ? null : () => this._withdrawMoney()
         }
     }
@@ -149,39 +180,74 @@ export class withdrawMoney extends Component {
     }
     _withdrawMoney(){
         if (this.state.withdrawAmount != null) {
-            if (+store.getState().wallet >= +this.state.withdrawAmount) {
-                fetch(config.domain + "api/payment.php", {
-                    method: 'POST',
-                    headers: new Headers({
-                        'Accept': 'application/json',
-                        "Accept-Encoding": "gzip, deflate",
-                        'Content-Type': 'application/json'
-                    }),
-                    body: JSON.stringify({
-                        action: "withdraw",
-                        user: store.getState().user,
-                        amount: this.state.withdrawAmount,
-                        gateway: this.state.withdrawMethod
-                    })
-
-                })
-                .then((response) => response.json())
-                .then((data) => {
-                    if (data.status == 'success'){
-                        Alert.alert('Request Recieved', 'We got your withdraw request for ₹'+this.state.withdrawAmount+', we will proccess it shortly. \n\nRequest ID: '+ data.txnid);
-                        this._getWalletBalance();
-                    } else if (data.status == 'not-enough') {
-                        Alert.alert('Not enough Balance', 'We could not complete your request. Reach support team if you think this is a mistake');
-                    }else {
-                        ToastAndroid.show('Error submitting request! Try again later', ToastAndroid.LONG);
-                    }
-                })
-                .catch((error) => {
-                    console.error(error);
-                    ToastAndroid.show('Error submitting request! Try again later', ToastAndroid.LONG);
+            if (store.getState().userData.doctype != null) {
+                this.setState({
+                    text: 'Please Wait...',
+                    color: '#bdbdbd'
                 });
+                if (+store.getState().wallet >= +this.state.withdrawAmount) {
+                    fetch(config.domain + "api/payment.php", {
+                            method: 'POST',
+                            headers: new Headers({
+                                'Accept': 'application/json',
+                                "Accept-Encoding": "gzip, deflate",
+                                'Content-Type': 'application/json'
+                            }),
+                            body: JSON.stringify({
+                                action: "withdraw",
+                                user: store.getState().user,
+                                amount: this.state.withdrawAmount,
+                                gateway: this.state.withdrawMethod
+                            })
+
+                        })
+                        .then((response) => response.json())
+                        .then((data) => {
+                            if (data.status == 'success') {
+                                Alert.alert('Request Recieved', 'We got your withdraw request for ₹' + this.state.withdrawAmount + ', we will proccess it shortly. \n\nRequest ID: ' + data.txnid);
+                                this._getWalletBalance();
+                                this.setState({
+                                    text: 'Done',
+                                    color: '#4caf50'
+                                });
+                                setTimeout(() => {
+                                    this.setState({
+                                        text: 'Withdraw',
+                                        color: '#f44336'
+                                    });
+                                }, 3000);
+                            } else if (data.status == 'not-enough') {
+                                Alert.alert('Not enough Balance', 'We could not complete your request. Reach support team if you think this is a mistake');
+                                this.setState({
+                                    text: 'Try Again',
+                                    color: '#f44336'
+                                })
+                            } else {
+                                ToastAndroid.show('Error submitting request! Try again later', ToastAndroid.LONG);
+                                this.setState({
+                                    text: 'Try Again',
+                                    color: '#f44336'
+                                })
+                            }
+                        })
+                        .catch((error) => {
+                            console.error(error);
+                            ToastAndroid.show('Error submitting request! Try again later', ToastAndroid.LONG);
+                            this.setState({
+                                text: 'Try Again',
+                                color: '#f44336'
+                            })
+                        });
+                } else {
+                    ToastAndroid.show('Not enough Balance!', ToastAndroid.LONG);
+                    this.setState({
+                        text: 'Try Again',
+                        color: '#f44336'
+                    })
+                }
             } else {
-                ToastAndroid.show('Not enough Balance!', ToastAndroid.LONG);
+                ToastAndroid.show('Please Complete KYC to withdraw funds', ToastAndroid.LONG);
+                this.props.screenProps.nav.navigate("Kyc");
             }
         } else {
             ToastAndroid.show('Please enter Amount', ToastAndroid.LONG);
@@ -235,27 +301,106 @@ export class withdrawMoney extends Component {
                     placeholder='Amount to Withdraw'
                 />
                 <TouchableOpacity style={[styles.button, {backgroundColor: this.state.color}]} onPress={this.state.action}>
-                    <Text style={{ color: '#fff', fontSize: 18 }}>Withdraw Money</Text>
+                    <Text style={{ color: '#fff', fontSize: 18 }}>{this.state.text}</Text>
                 </TouchableOpacity>
             </View>
         );
     }
 }
 
+// TRANSACTIONS TAB
+export class Transactions extends Component {
+    constructor(){
+        super();
+        this.state = {
+            transactions: store.getState().transactions
+        }
+    }
+    componentDidMount() {
+        store.subscribe(() => {
+            this.setState({
+                transactions: store.getState().transactions
+            })
+        });
+        fetch(config.domain + "api/payment.php", {
+            method: 'POST',
+            headers: new Headers({
+                'Accept': 'application/json',
+                "Accept-Encoding": "gzip, deflate",
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                action: "transactions",
+                user: store.getState().user
+            })
+
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            store.dispatch(GetTransactions(data));
+        })
+        .catch((error) => {
+            console.error(error);
+            ToastAndroid.show('Error Fetching Wallet & Balance', ToastAndroid.LONG);
+        });
+    }
+    render() {
+        let TranList = this.state.transactions.map((tr, id) => {
+            if (tr.status == 'SUCCESS') {
+                icon = 'check';
+                iconColor = '#4caf50';
+            } else if (tr.status == 'PENDING') {
+                icon = 'watch';
+                iconColor = '#ffc107';
+            } else {
+                icon = 'x';
+                iconColor = '#f44336';
+            }
+            if (tr.type == 'CREDIT') {
+                iconMode = 'plus-circle';
+                iconModeColor = '#4caf50';
+            } else {
+                iconMode = 'minus-circle';
+                iconModeColor = '#f44336';
+            }
+            return(
+                <View style={styles.tranCon} key={id}>
+                    <Icon name={icon} size={30} color={iconColor}/>
+                    <Text style={{marginLeft:5}}>{tr.id}</Text>
+                    <Icon style={styles.iconRight} name={iconMode} size={30} color={iconModeColor}/>
+                </View>
+            );
+        })
+        return(
+            <ScrollView style={{marginVertical:10}}>
+                {TranList}
+            </ScrollView>
+        )
+    }
+}
+
 // TAB COMBINED COMPONENET
 const tab = createMaterialTopTabNavigator({
     Add: addMoney,
-    Withdraw: withdrawMoney
-},{
+    Withdraw: withdrawMoney,
+    Transactions: Transactions
+ },{
+    initialRouteName: "Add",
     tabBarOptions: {
         style: {
-            backgroundColor: '#23283a',
-            color: '#fff'        
+            backgroundColor: '#10102d',
+            color: '#fff'  
+        },
+        labelStyle: {
+            fontSize: 12,
+            fontWeight: 'bold'
+        },
+        tabStyle: {
+            paddingHorizontal: 0
         }
     }
 });
 export const Tabs = createAppContainer(tab);
-
 
 // ACTUALL WALLET SCREEN
 export default class WalletScreen extends Component {
@@ -322,7 +467,7 @@ export default class WalletScreen extends Component {
                     <Image style={styles.icon} source={require('../images/wallet.png')} />
                     <Text style={styles.moneyText}>₹ {this.state.balance}</Text>
                 </View>
-                <Tabs />
+                <Tabs screenProps={{ nav: this.props.navigation }}/>
             </Screen>
         );
     }
@@ -330,7 +475,7 @@ export default class WalletScreen extends Component {
 
 const styles = StyleSheet.create({
     header: {
-        backgroundColor: '#23283a',
+        backgroundColor: '#10102d',
         height: 150,
         justifyContent: 'center',
         alignItems: 'center',
@@ -379,5 +524,20 @@ const styles = StyleSheet.create({
         justifyContent: 'center',
         backgroundColor: '#f44336',
         marginHorizontal: 20
+    },
+    tranCon: {
+        borderRadius: 5,
+        flexDirection: 'row',
+        flexWrap: 'wrap',
+        alignItems: 'center',
+        backgroundColor: '#fff',
+        margin:5,
+        marginHorizontal: 10,
+        padding: 10,
+        elevation: 3
+    },
+    iconRight: {
+        position: 'absolute',
+        right: 10
     }
 });

@@ -22,48 +22,46 @@ export default class matchDetails extends Component {
         const time = data.matchschedule.split(' ')[1]+" "+data.matchschedule.split(' ')[2];
         const date = data.matchschedule.split(' ')[0].split('/')[1]+"/"+data.matchschedule.split(' ')[0].split('/')[0]+"/"+data.matchschedule.split(' ')[0].split('/')[2];
         return(
-            <Screen style={{flex: 1}}>
-                <ImageBackground source={{uri: data.banner, isStatic: true}} style={styles.imgBg}>
-                    <View style={styles.overlay}></View>
-                    <View style={styles.header}>
-                        <TouchableOpacity style={styles.icon} onPress={() => this.props.navigation.goBack()}>
-                            <Icon name="arrow-left" color='#fff' size={25}/>
-                        </TouchableOpacity>
-                        <Title styleName='bold' style={{color: '#fff'}}>Match Details #{data.id}</Title>
-                    </View>
-                    <View style={styles.headerCon}>
-                        <View style={{flexDirection: 'row'}}>
-                            <Image source={require('../images/circular-clock.png')} style={{width:50,height:50,resizeMode:'contain'}}/>
-                            <View style={{marginLeft:10}}>
-                                <Title style={{color: '#fff'}}>{time}</Title>
-                                <Title style={{color: '#fff',fontSize:15}}>{date}</Title>
+            <Screen style={{backgroundColor: '#fff'}}>
+                <ScrollView>
+                    <Image source={{uri: data.banner, isStatic: true}} style={styles.imgBg} />
+                    <View style={styles.container}>
+                        <View>
+                            <Title style={{fontWeight:'bold'}}>Match #{data.id}</Title>
+                            <Subtitle>Date: {data.matchschedule}</Subtitle>
+                        </View>
+                        <Title style={styles.subText}>Match Details:</Title>
+                        <View style={styles.items}>
+                            <View style={styles.item}>
+                                <Text style={styles.gridText}>Type: {data.matchtype}</Text>
+                            </View>
+                            <View style={styles.item}>
+                                <Text style={styles.gridText}>Mode: {data.type}</Text>
+                            </View>
+                            <View style={styles.item}>
+                                <Text style={styles.gridText}>Map: {data.map}</Text>
                             </View>
                         </View>
-                        <View style={{flexDirection: 'row',marginTop: 15}}>
-                                <Title style={{color: '#fff',fontSize:19}}>{data.totalplayerjoined}/{data.totalplayer} Joined</Title>
+
+                        <Title style={styles.subText}>Prize Details:</Title>
+                        <View style={styles.items}>
+                            <View style={styles.item}>
+                                <Text style={styles.gridText}>Per Kill: ₹{data.perkill} </Text>
+                            </View>
+                            <View style={styles.item}>
+                                <Text style={styles.gridText}>Win: ₹{data.winprice}</Text>
+                            </View>
+                            <View style={styles.item}>
+                                <Text style={styles.gridText}>Entry Fee: ₹{data.entryfee}</Text>
+                            </View>
+                        </View>
+
+                        <Title style={styles.subText}>Rules:</Title>
+                        <View>
+                            <Text style={{marginHorizontal: 20,color: '#212121'}}>{data.rule}</Text>
                         </View>
                     </View>
-                    
-                </ImageBackground>
-                <View style={styles.container}>
-                    <View style={styles.grid}>
-                        <Title style={styles.subText}>Match Details:</Title>
-                        <Title style={styles.gridText}>Type: {data.matchtype}</Title>
-                        <Title style={styles.gridText}>Mode: {data.type}</Title>
-                        <Title style={styles.gridText}>Map: {data.map}</Title>
-                    </View>
-                    <View style={styles.grid}>
-                        <Title style={styles.subText}>Prize Details:</Title>
-                        <Title style={styles.gridText}>Per Kill: ₹{data.perkill} </Title>
-                        <Title style={styles.gridText}>Win: ₹{data.winprice}</Title>
-                        <Title style={styles.gridText}>Entry Fee: ₹{data.entryfee}</Title>
-                    </View>
-                    <View syle={styles.grid}>
-                        <Title style={styles.subText}>Room ID & Password:</Title>
-                        <Text selectable={true} style={{marginHorizontal: 20,marginVertical:5,color: '#212121'}} onPress={() => {Clipboard.setString(data.roomid); ToastAndroid.show('Room ID Copied!', ToastAndroid.SHORT);}}>Room ID: {data.roomid}</Text>
-                        <Text selectable={true} style={{marginHorizontal: 20,marginVertical:5,color: '#212121'}} onPress={() => {Clipboard.setString(data.roompassword); ToastAndroid.show('Room Password Copied!', ToastAndroid.SHORT);}}>Password: {data.roompassword}</Text>
-                    </View>
-                </View>
+                </ScrollView>
                 <View style={styles.btnCon}>
                     <TouchableOpacity style={styles.button} onPress={() => Linking.openURL('market://details?id=com.tencent.ig')}>
                         <Text style={{color: '#f44336',fontSize: 18}}>Launch PUBGM</Text>
@@ -83,65 +81,31 @@ const styles = StyleSheet.create({
     imgBg: {
         width: '100%',
         resizeMode: 'cover',
-        flexGrow: 1
-    },
-    header: {
-        height: 55,
-        backgroundColor: 'transparent',
-        color:'#fff',
-        shadowOpacity: 0.30,
-        shadowRadius: 10,
-        elevation: 4,
-        flexDirection: 'row',
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center',
-    },
-    headerCon: {
-        flexGrow: 1,
-        justifyContent: 'center',
-        alignContent: 'center',
-        alignItems: 'center',
-        marginBottom: 20
-    },
-    icon: {
-        position: 'absolute',
-        left: 20
-    },
-    overlay:{
-        position: 'absolute',
-        height: '100%',
-        width: '100%',
-        backgroundColor: 'rgba(0,0,0,0.5)'
+        height: 200,
     },
     container: {
-        width: '100%',
-        height: '55%',
         backgroundColor: '#fff',
+        padding: 20,
+        flex: 1
+    },
+    subText: {
+        marginVertical: 3,
+        color: '#f44336'
+    },
+    items: {
+        width: '100%',
+        flex: 1,
         flexDirection: 'row',
-        flexWrap: "wrap",
-        paddingVertical:20
+        flexWrap: 'wrap',
     },
-    grid: {
-        width: '50%',
-    },
-    imgIcon: {
-        width:40,
-        height:40,
-        resizeMode:'contain'
+    item: {
+        padding: 10,
+        margin: 5,
+        borderRadius: 5,
+        elevation: 2
     },
     gridText: {
         color: '#212121',
-        width: '100%',
-        marginVertical: 3,
-        marginHorizontal: 20,
-        fontSize: 15
-    },
-    subText: {
-        width: '100%',
-        marginVertical: 3,
-        marginHorizontal: 20,
-        color: '#f44336'
     },
     btnCon: {
         width: '100%',
