@@ -43,7 +43,6 @@ export default class AccountScreen extends Component{
     }
     render(){
         if (store.getState().userData.doctype == null) {
-            console.log('Complete KYC');
             KYC =   <TouchableOpacity onPress={() => this.props.navigation.navigate('Kyc')} style={styles.listItem}>
                         <Image style={styles.listIcon} source={require('../images/contract.png')} />
                         <Text style={styles.listLabel}>Complete KYC</Text>

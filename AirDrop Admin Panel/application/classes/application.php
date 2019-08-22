@@ -289,6 +289,7 @@
         }
 
       }
+
       // PAY U SPECIFIC
       function generatePayUHash($amnt, $email){
         $user = $this->get_user($email);
@@ -358,7 +359,6 @@
             }
           }
       }
-      
       function get_wallet($user){
         if ($res = mysqli_query($this->db, "SELECT * FROM wallet WHERE user='$user'")){
           $row = mysqli_fetch_assoc($res);
@@ -389,6 +389,7 @@
           error_log("MYSQL ERROR: ".mysqli_error($this->db));
         }
       }
+
       // MATCHES API
       function get_upcoming_matches(){
         if ($row = mysqli_query($this->db, "SELECT * FROM matches WHERE matchstatus='Upcoming'")) {
@@ -456,7 +457,6 @@
           error_log("MYSQL ERROR: ".mysqli_error($this->db));
         }
       }
-
       function get_user_transactions($user) {
         if ($row = mysqli_query($this->db, "SELECT * FROM transactions WHERE user='$user'")) {
           $array = array();

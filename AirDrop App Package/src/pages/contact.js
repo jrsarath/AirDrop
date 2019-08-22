@@ -14,8 +14,37 @@ export default class ContactScreen extends Component {
             email: store.getState().user,
             subject: null,
             body: null,
+            color: '#f44336',
             button: 'Submit'
         }
+    }
+    sendMail(){
+        fetch(config.domain + "api/extras.php", {
+            method: 'POST',
+            headers: new Headers({
+                'Accept': 'application/json',
+                "Accept-Encoding": "gzip, deflate",
+                'Content-Type': 'application/json'
+            }),
+            body: JSON.stringify({
+                action: "contactMail",
+                user: store.getState().user,
+                subject: this.state.subject,
+                body: this.state.body
+            })
+        })
+        .then((response) => response.json())
+        .then((data) => {
+            if (subject.status == 'success') {
+
+            } else {
+
+            }
+        })
+        .catch((error) => {
+            console.error(error);
+            ToastAndroid.show('Error sending support request', ToastAndroid.LONG);
+        });
     }
     render() {
         return (
@@ -48,7 +77,7 @@ export default class ContactScreen extends Component {
                             placeholder='Your Message'
                             numberOfLines={4}
                         />
-                        <TouchableOpacity style={styles.button} onPress={() => null}>
+                        <TouchableOpacity style={[styles.button, {backgroundColor: this.state.color}]} onPress={() => {this.sendMail()}}>
                             <Text style={{color: '#fff',fontSize: 18}}>{this.state.button}</Text>
                         </TouchableOpacity>
                     </View>
