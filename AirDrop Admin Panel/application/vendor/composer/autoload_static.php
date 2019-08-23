@@ -30,6 +30,7 @@ class ComposerStaticInit2bfeb575426ef51e6a14df0a4a3df44f
             'Psr\\Log\\' => 8,
             'Psr\\Http\\Message\\' => 17,
             'Psr\\Cache\\' => 10,
+            'PHPMailer\\PHPMailer\\' => 20,
         ),
         'M' => 
         array (
@@ -91,6 +92,10 @@ class ComposerStaticInit2bfeb575426ef51e6a14df0a4a3df44f
         'Psr\\Cache\\' => 
         array (
             0 => __DIR__ . '/..' . '/psr/cache/src',
+        ),
+        'PHPMailer\\PHPMailer\\' => 
+        array (
+            0 => __DIR__ . '/..' . '/phpmailer/phpmailer/src',
         ),
         'Monolog\\' => 
         array (
@@ -168,45 +173,12 @@ class ComposerStaticInit2bfeb575426ef51e6a14df0a4a3df44f
         ),
     );
 
-    public static $classMap = array (
-        'AuthType' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/AuthType/AuthType.php',
-        'AuthType_Basic' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/AuthType/Basic.php',
-        'AuthType_Oauth' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/AuthType/Oauth.php',
-        'AuthType_TokenRequest' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/AuthType/TokenRequest.php',
-        'OauthCacheFile' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/Oauth/Cache/OauthCacheFile.php',
-        'OauthCacheInterface' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/Oauth/Cache/OauthCacheInterface.php',
-        'OauthCacheMemcached' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/Oauth/Cache/OauthCacheMemcached.php',
-        'OauthGrantType' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/Oauth/OauthGrantType.php',
-        'OauthResultClientCredentials' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/Oauth/OauthResultClientCredentials.php',
-        'OpenPayU' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/OpenPayU.php',
-        'OpenPayU_Configuration' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/Configuration.php',
-        'OpenPayU_Exception' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/OpenPayUException.php',
-        'OpenPayU_Exception_Authorization' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/OpenPayUException.php',
-        'OpenPayU_Exception_Configuration' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/OpenPayUException.php',
-        'OpenPayU_Exception_Network' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/OpenPayUException.php',
-        'OpenPayU_Exception_Request' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/OpenPayUException.php',
-        'OpenPayU_Exception_ServerError' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/OpenPayUException.php',
-        'OpenPayU_Exception_ServerMaintenance' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/OpenPayUException.php',
-        'OpenPayU_Http' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/Http.php',
-        'OpenPayU_HttpCurl' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/HttpCurl.php',
-        'OpenPayU_Oauth' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/Oauth/Oauth.php',
-        'OpenPayU_Order' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/v2/Order.php',
-        'OpenPayU_Refund' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/v2/Refund.php',
-        'OpenPayU_Result' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/Result.php',
-        'OpenPayU_Retrieve' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/v2/Retrieve.php',
-        'OpenPayU_Token' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/v2/Token.php',
-        'OpenPayU_Util' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/Util.php',
-        'OpenPayuOrderStatus' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/OpenPayuOrderStatus.php',
-        'ResultError' => __DIR__ . '/..' . '/openpayu/openpayu/lib/OpenPayU/ResultError.php',
-    );
-
     public static function getInitializer(ClassLoader $loader)
     {
         return \Closure::bind(function () use ($loader) {
             $loader->prefixLengthsPsr4 = ComposerStaticInit2bfeb575426ef51e6a14df0a4a3df44f::$prefixLengthsPsr4;
             $loader->prefixDirsPsr4 = ComposerStaticInit2bfeb575426ef51e6a14df0a4a3df44f::$prefixDirsPsr4;
             $loader->prefixesPsr0 = ComposerStaticInit2bfeb575426ef51e6a14df0a4a3df44f::$prefixesPsr0;
-            $loader->classMap = ComposerStaticInit2bfeb575426ef51e6a14df0a4a3df44f::$classMap;
 
         }, null, ClassLoader::class);
     }

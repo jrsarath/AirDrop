@@ -15,8 +15,8 @@ export default class Login extends Component {
         super();
         GoogleSignin.configure();
         this.state = {
-            inputEmail: null,
-            inputPass: null,
+            inputEmail: '',
+            inputPass: '',
             button: 'Login'
         }
     }
@@ -40,7 +40,7 @@ export default class Login extends Component {
         }
     };
     login(){
-        if (this.state.inputEmail != null && this.state.inputPass != null){
+        if (this.state.inputEmail != '' && this.state.inputPass != ''){
             this.setState({
                 button: 'Please Wait..'
             });
@@ -69,8 +69,7 @@ export default class Login extends Component {
                                 gamertag: responseText.data[0].gamertag,
                                 refercode: responseText.data[0].refercode,
                                 doctype: responseText.data[0].doctype,
-                                docfront: responseText.data[0].docfront,
-                                docback: responseText.data[0].docback,
+                                docverified: responseText.data[0].docverified
                             }
                             //password: md5(this.state.inputPass)
                         }));

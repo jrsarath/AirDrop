@@ -5,6 +5,7 @@ import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen } from '@sho
 import { createStackNavigator } from 'react-navigation';
 import Icon from 'react-native-vector-icons/Feather';
 import RNRestart from 'react-native-restart';
+import Modal from "react-native-modal";
 // CUSTOM COMPONENT
 import Header from '../component/header';
 import Loading from '../component/loader';
@@ -17,12 +18,14 @@ export default class AccountScreen extends Component{
     constructor(){
         super();
         this.state = {
+            modal: false,
             name: store.getState().userData.name,
             gamertag: store.getState().userData.gamertag,
             balance: store.getState().wallet
-        }
+        };
     }
     componentDidMount() {
+        //this._showKycModal();
         store.subscribe(() => {
             this.setState({
                 name: store.getState().userData.name,
@@ -30,6 +33,13 @@ export default class AccountScreen extends Component{
                 balance: store.getState().wallet
             })
         })
+    }
+    _showKycModal() {
+        if (store.getState().userData.docverified == 'false') {
+            this.setState({
+                modal: true
+            })
+        }
     }
     _logout() {
         persistor.purge()
@@ -42,14 +52,22 @@ export default class AccountScreen extends Component{
         });
     }
     render(){
-        if (store.getState().userData.doctype == null) {
+        if (store.getState().userData.docverified == 'false') {
             KYC =   <TouchableOpacity onPress={() => this.props.navigation.navigate('Kyc')} style={styles.listItem}>
                         <Image style={styles.listIcon} source={require('../images/contract.png')} />
                         <Text style={styles.listLabel}>Complete KYC</Text>
                         <Icon style={styles.listIndc} name='chevron-right' size={20} color='#616161' />
                     </TouchableOpacity>
+        } else if (store.getState().userData.docverified == 'pending') {
+            KYC = <TouchableOpacity style={[styles.listItem, {backgroundColor:'#fff59d'}]}>
+                        <Image style={styles.listIcon} source={require('../images/hourglass.png')} />
+                        <Text style={styles.listLabel}>KYC is being processed</Text>
+                    </TouchableOpacity>
         } else {
-            KYC = null;
+            KYC = <TouchableOpacity style={[styles.listItem, {backgroundColor:'#a5d6a7'}]}>
+                      <Image style={styles.listIcon} source={require('../images/check.png')} />
+                      <Text style={styles.listLabel}>KYC Verified</Text>
+                  </TouchableOpacity>
         }
         
         return(
@@ -144,7 +162,18 @@ export default class AccountScreen extends Component{
                         </TouchableOpacity>
                     </View>
                 </ScrollView>
-             </Screen>
+                <View style={styles.modalParent}>
+                    <Modal style={styles.con} onBackdropPress={() => this.setState({ modal: false })} isVisible={this.state.modal} useNativeDriver={true}>
+                        <View style={styles.modal}>
+                            <TouchableOpacity style={styles.close} onPress={() => this.setState({ modal: false })}>
+                                <Icon name='x-circle' color='#212121' size={25} />
+                            </TouchableOpacity>
+                            <Title style={{margin:0,padding:0,marginBottom:10}}>Please complete KYC</Title>
+                            
+                        </View>
+                    </Modal>
+                </View>
+            </Screen>
         )
     }
 }
@@ -216,5 +245,36 @@ const styles = StyleSheet.create({
     listIndc: {
         position: 'absolute',
         right: 15
+    },
+    modalParent: {
+        flex: 1,
+    },
+    con: {
+        justifyContent: 'center',
+        alignContent: 'center',
+        alignItems: 'center',
+    },
+    modal: {
+        backgroundColor: '#fff',
+        borderRadius: 5,
+        width: '85%',
+        height: 120,
+        padding: 15,
+    },
+    modalContent: {
+        flexDirection: 'row',
+        alignContent: 'center',
+        alignItems: 'center',
+        marginBottom: 10,
+    },
+    roomText: {
+        color: '#212121',
+        marginLeft: 10
+    },
+    close: {
+       position: 'absolute',
+       margin: 10,
+       zIndex: 99,
+       right: 0,
     }
 });

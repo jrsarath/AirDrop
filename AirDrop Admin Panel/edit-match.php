@@ -155,7 +155,7 @@
                         <div class="col-12">
                              <div class="form-group">
                                 <label>Rules*</label>
-                                <textarea class="form-control" name="rule" rows="4" maxlength="140" required><? echo $row["rule"]?></textarea>
+                                <textarea class="form-control" name="rule" rows="4" required><? echo $row["rule"]?></textarea>
                              </div>
                         </div>
                         <div class="col-12 mb-5 mt-3">

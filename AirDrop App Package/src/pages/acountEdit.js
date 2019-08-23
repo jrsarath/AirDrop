@@ -22,9 +22,9 @@ export default class AccountEdit extends Component {
             btnPassword: 'Update Password',
             btnProfileColor: '#f44336',
             btnPasswordColor: '#f44336',
-            name: null,
-            gamertag: null,
-            phone: null,
+            name: '',
+            gamertag: '',
+            phone: '',
             bank: null,
             bankHolder: null,
             bankName:null,
@@ -76,7 +76,7 @@ export default class AccountEdit extends Component {
             });
     }
     updateProfile(){
-        if (this.state.name != null && this.state.gamertag != null) {
+        if (this.state.name != '' && this.state.gamertag != '' && this.state.phone != '') {
             this.setState({
                 btnProfile: 'Please Wait...',
                 btnProfileColor: '#bdbdbd'
@@ -122,8 +122,7 @@ export default class AccountEdit extends Component {
                                 gamertag: this.state.gamertag,
                                 refercode: store.getState().userData.refercode,
                                 doctype: store.getState().userData.doctype,
-                                docfront: store.getState().userData.docfront,
-                                docback: store.getState().userData.docback,
+                                docverified: store.getState().userData.docverified,
                             }
                         }));
                     } else {
@@ -143,7 +142,7 @@ export default class AccountEdit extends Component {
                     });
                 });
         } else {
-            ToastAndroid.show('Please Enter All Info', ToastAndroid.LONG);
+            ToastAndroid.show('Please Enter All Required Info', ToastAndroid.LONG);
             this.setState({
                 btnProfile: 'Try Again',
                 btnProfileColor: '#f44336',

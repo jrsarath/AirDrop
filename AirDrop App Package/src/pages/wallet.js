@@ -26,7 +26,7 @@ export class addMoney extends Component {
         super();
         this.emitter = null;
         this.state = {
-            addMoney: null,
+            addMoney: '',
             order_id: null,
             text: 'Add Money',
             color: '#f44336'
@@ -35,7 +35,7 @@ export class addMoney extends Component {
     
     // INITIATE PAYTM PAYMENT
     startPayment(){
-        if (this.state.addMoney != null){
+        if (this.state.addMoney != ''){
             this.setState({
                 text: 'Please Wait...',
                 color: '#bdbdbd'
@@ -163,7 +163,7 @@ export class withdrawMoney extends Component {
         super(props);
         this.emitter = null;
         this.state = {
-            withdrawAmount: null,
+            withdrawAmount: '',
             withdrawMethod: 'paytm',
             color: store.getState().wallet <= 0 ? '#bdbdbd' : '#f44336',
             text: 'Withdraw',
@@ -179,13 +179,13 @@ export class withdrawMoney extends Component {
         })
     }
     _withdrawMoney(){
-        if (this.state.withdrawAmount != null) {
-            if (store.getState().userData.doctype != null) {
+        if (this.state.withdrawAmount != '') {
+            if (store.getState().userData.docverified == "true") {
                 this.setState({
                     text: 'Please Wait...',
                     color: '#bdbdbd'
                 });
-                if (+store.getState().wallet >= +this.state.withdrawAmount) {
+                if ((+store.getState().wallet - 10) >= +this.state.withdrawAmount) {
                     fetch(config.domain + "api/payment.php", {
                             method: 'POST',
                             headers: new Headers({
@@ -245,6 +245,8 @@ export class withdrawMoney extends Component {
                         color: '#f44336'
                     })
                 }
+            } else if (store.getState().userData.docverified == "pending") {
+                Alert.alert('KYC Pending', 'We are currently proccessing your KYC request. Kindly wait and try again after some time.');
             } else {
                 ToastAndroid.show('Please Complete KYC to withdraw funds', ToastAndroid.LONG);
                 this.props.screenProps.nav.navigate("Kyc");

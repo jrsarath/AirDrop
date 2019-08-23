@@ -18,6 +18,8 @@ export default class KycScreen extends Component {
         this.state = {
             docFrontMod: false,
             docBack: false,
+            docOneDefault: true,
+            docTwoDefault: true,
             doctype: 'Aadhaar Card',
             docfront: 'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAQsAAAC9CAMAAACTb6i8AAAASFBMVEX///+ZmZmVlZWlpaXPz8/V1dWenp6Tk5O8vLz7+/vl5eWzs7Pb29ucnJysrKzh4eHu7u7Dw8P29vbKysqjo6OwsLDw8PC5ublfOHHXAAAEEklEQVR4nO3d2ZaqMBRFUQxNBLFBUf//T28ZQg6QBAQHcA/s9SalpcyBGBoxCBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgjtvdsxXLrjbe2ZdveQ4rB0Qj7Wnm1XsVxc4pPM155xu3QViU9rz7ndVS0WYtnUgpGtPetW8eeFnaNlO3/447Vn3UpZJAs/aQILEywoWFCwoGBBMbFI54uehIVFlMy3bSKSqH4aDhb5vNsm8qqfh4PFcd4tVnHUzwMLjhZyjnhaXLI5urC0OM3yPCdYmGBBwYLaj8Urj6K4dz//XiyiUn72YkoaZNvtw+JVmpG7LF++e+3C4tYaqwrf3u09WNy7w/a7+357sHhWFn9vk+pQpHi677cDi6za0DhlaZqd+o4B7cBCPUIU1Y1C3Xg777gDi89cHcL6Vng4+HaebtAibd9Ua06aK/XPhHPtuTmLWyIP1+aE+2d1YXbdVWsPuQsLNZSQTQxlIcypFOqg/S6WCz2qamKk59baUj3+7HzwtizMALOJ8VQfqbfmPdwDjE1ZNMbaDQx9FEGNKbLqj+6Tj7ZkoSmst0lSTQiLIqxYPMcjN2RRryse3SUj0xupQi82vlOPtmNRU+T2CjRqHWvznqu4GQui+FsQ+jCkd2/OViyaFA6M20VvosqLfzffRizaFA6M4PY4heHz0bfDcxsWXQoXxnCbsLApzIfHGIwtWLgoBjDS4mR/mmzAwk3Ri5Em4m8t2p3K38JH0YORqpGo6GKwt/BTeDEqChuDu0UfhQejprAwmFv0UzgxiKKLwdtiiMKBoSmEA4O1xTCFhaEp5DG4iC4GZ4tvKDoYRBHYGIwtvqNoYaTVOcOyOnDUxeBrUVMMv94aIwtaFBYGW4vvKWjHln6DFOYPl9axZq4WrxEUhNGh6GDwtHjfR1HUX+u0KNoYPC3C8zgKwhDdzdMGBk+Lw1gKgyGsDTXCYGwxisJg2FutBoOvxUiKYYwTW4vRFIMY1XuIocUEiq8wGFpMoiAM6yCiweBnMflFDmLws/CcoPlF9UerD4OfxQ/fmRjA2JXFAMa+LIKr8GGwtAjzeHr5W68m4/Z/yXla/HYhITOWcExnaDFbsGBqcZVDs/NTrK5zEMRlMl+lmXsWFgsFCwoWFCwoWFCwoFhYxOXZ09N8O/utpyTTr8zKwaJnrCVKfZ8jHSWbfAFjDhZFzxi8/kodnYUkei5r0B8Hi6hnDC701zFD0pn8JuFgkZb+i0LVC0Em6inTd4xysPhbY+SeaN1w11N+uHYxD4tlggUFCwoWFCyo/9kC141X4fcEqPV+ZyIdfnFL1zfunjH/t3rXrFjld2mK4Re2Rvi9IoQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEJr9A9cjUy5bAbYVQAAAABJRU5ErkJggg==',
             docback: 'data:image/jpg;base64,iVBORw0KGgoAAAANSUhEUgAAAQsAAAC9CAMAAACTb6i8AAAASFBMVEX///+ZmZmVlZWlpaXPz8/V1dWenp6Tk5O8vLz7+/vl5eWzs7Pb29ucnJysrKzh4eHu7u7Dw8P29vbKysqjo6OwsLDw8PC5ublfOHHXAAAEEklEQVR4nO3d2ZaqMBRFUQxNBLFBUf//T28ZQg6QBAQHcA/s9SalpcyBGBoxCBBCCCGEEEIIIYQQQgghhBBCCCGEEEIIIYQQQgjtvdsxXLrjbe2ZdveQ4rB0Qj7Wnm1XsVxc4pPM155xu3QViU9rz7ndVS0WYtnUgpGtPetW8eeFnaNlO3/447Vn3UpZJAs/aQILEywoWFCwoGBBMbFI54uehIVFlMy3bSKSqH4aDhb5vNsm8qqfh4PFcd4tVnHUzwMLjhZyjnhaXLI5urC0OM3yPCdYmGBBwYLaj8Urj6K4dz//XiyiUn72YkoaZNvtw+JVmpG7LF++e+3C4tYaqwrf3u09WNy7w/a7+357sHhWFn9vk+pQpHi677cDi6za0DhlaZqd+o4B7cBCPUIU1Y1C3Xg777gDi89cHcL6Vng4+HaebtAibd9Ua06aK/XPhHPtuTmLWyIP1+aE+2d1YXbdVWsPuQsLNZSQTQxlIcypFOqg/S6WCz2qamKk59baUj3+7HzwtizMALOJ8VQfqbfmPdwDjE1ZNMbaDQx9FEGNKbLqj+6Tj7ZkoSmst0lSTQiLIqxYPMcjN2RRryse3SUj0xupQi82vlOPtmNRU+T2CjRqHWvznqu4GQui+FsQ+jCkd2/OViyaFA6M20VvosqLfzffRizaFA6M4PY4heHz0bfDcxsWXQoXxnCbsLApzIfHGIwtWLgoBjDS4mR/mmzAwk3Ri5Em4m8t2p3K38JH0YORqpGo6GKwt/BTeDEqChuDu0UfhQejprAwmFv0UzgxiKKLwdtiiMKBoSmEA4O1xTCFhaEp5DG4iC4GZ4tvKDoYRBHYGIwtvqNoYaTVOcOyOnDUxeBrUVMMv94aIwtaFBYGW4vvKWjHln6DFOYPl9axZq4WrxEUhNGh6GDwtHjfR1HUX+u0KNoYPC3C8zgKwhDdzdMGBk+Lw1gKgyGsDTXCYGwxisJg2FutBoOvxUiKYYwTW4vRFIMY1XuIocUEiq8wGFpMoiAM6yCiweBnMflFDmLws/CcoPlF9UerD4OfxQ/fmRjA2JXFAMa+LIKr8GGwtAjzeHr5W68m4/Z/yXla/HYhITOWcExnaDFbsGBqcZVDs/NTrK5zEMRlMl+lmXsWFgsFCwoWFCwoWFCwoFhYxOXZ09N8O/utpyTTr8zKwaJnrCVKfZ8jHSWbfAFjDhZFzxi8/kodnYUkei5r0B8Hi6hnDC701zFD0pn8JuFgkZb+i0LVC0Em6inTd4xysPhbY+SeaN1w11N+uHYxD4tlggUFCwoWFCyo/9kC141X4fcEqPV+ZyIdfnFL1zfunjH/t3rXrFjld2mK4Re2Rvi9IoQQQgghhBBCCCGEEEIIIYQQQgghhBBCCCGEEEJr9A9cjUy5bAbYVQAAAABJRU5ErkJggg==',
@@ -25,8 +27,50 @@ export default class KycScreen extends Component {
             text: 'Submit KYC'
         }
     }
-    submit_kyc(){
-
+    submit_kyc() {
+        if (this.state.docOneDefault == true && this.state.docTwoDefault == true) {
+            fetch(config.domain + "api/user.php", {
+                    method: 'POST',
+                    headers: new Headers({
+                        'Accept': 'application/json',
+                        "Accept-Encoding": "gzip, deflate",
+                        'Content-Type': 'application/json'
+                    }),
+                    body: JSON.stringify({
+                        action: "kyc",
+                        user: store.getState().user,
+                        doctype: this.state.doctype,
+                        docback: this.state.docback,
+                        docfront: this.state.docfront
+                    })
+                })
+                .then((response) => response.json())
+                .then((data) => {
+                    if (data.status == 'success') {
+                        ToastAndroid.show('KYC Submitted successfully', ToastAndroid.LONG);
+                        store.dispatch(SignIn({
+                            email: store.getState().user,
+                            userData: {
+                                name: store.getState().userData.name,
+                                phone: store.getState().userData.phone,
+                                gamertag: store.getState().userData.gamertag,
+                                refercode: store.getState().userData.refercode,
+                                doctype: store.getState().userData.doctype,
+                                docverified: 'pending',
+                            }
+                        }));
+                        this.props.navigation.goBack();
+                    } else {
+                        ToastAndroid.show('Error sending support request', ToastAndroid.LONG);
+                    }
+                })
+                .catch((error) => {
+                    console.error(error);
+                    ToastAndroid.show('Error submitting KYC, Try again later', ToastAndroid.LONG);
+                });
+        } else {
+            ToastAndroid.show('Please capture both Front and Back side of the Document', ToastAndroid.LONG);
+        }
     }
     takePicture = async(mode) => {
         if (this.camera) {
@@ -35,12 +79,14 @@ export default class KycScreen extends Component {
             if (!this.state.docBack) {
                 this.setState({
                     docfront: "data:image/jpg;base64,"+data.base64,
-                    docFrontMod: false
+                    docFrontMod: false,
+                    docOneDefault: true
                 });
             } else {
                 this.setState({
                     docback: "data:image/jpg;base64," + data.base64,
                     docFrontMod: false,
+                    docTwoDefault: true
                 });
             }
             
@@ -78,7 +124,7 @@ export default class KycScreen extends Component {
                         <Text style={{ fontSize:15,color: '#fff' }}> Capture Document Backside </Text>
                     </TouchableOpacity>
 
-                    <TouchableOpacity style={[styles.button, {backgroundColor: this.state.color}]} onPress={() => {this.submit_kyc()}}>
+                    <TouchableOpacity style={[styles.button, {backgroundColor: this.state.color,marginBottom:20}]} onPress={() => {this.submit_kyc()}}>
                         <Text style={{ color: '#fff', fontSize: 18 }}>{this.state.text}</Text>
                     </TouchableOpacity>
                 </ScrollView>

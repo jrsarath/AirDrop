@@ -5,31 +5,47 @@
    * Copyright © 2019, JR Sarath - Noobs Labs
    * GNU GENERAL PUBLIC LICENSE Version 3
    */
-  require __DIR__ .'/database.php';
-  require $_SERVER["DOCUMENT_ROOT"].'/application/vendor/paytm/lib/config_paytm.php';
-  require $_SERVER["DOCUMENT_ROOT"].'/application/vendor/paytm/lib/encdec_paytm.php';
+   require __DIR__ .'/database.php';
+   require $_SERVER["DOCUMENT_ROOT"].'/application/vendor/autoload.php';
+   require $_SERVER["DOCUMENT_ROOT"].'/application/vendor/paytm/lib/config_paytm.php';
+   require $_SERVER["DOCUMENT_ROOT"].'/application/vendor/paytm/lib/encdec_paytm.php';
+   use PHPMailer\PHPMailer\PHPMailer;
+   use PHPMailer\PHPMailer\Exception;
 
-  class App {
-    public $db;
-    public $dbHelper;
-    public $version = "1.0";
-    // PAYMENT GATEWAY CONFIGS
-    public $PAY_ENV_TEST = true;
-    public $PAY_KEY;
-    public $PAY_SALT;
+   class App {
+     public $db;
+     public $dbHelper;
+     public $version = "1.0";
+     // PAYMENT GATEWAY CONFIGS
+     public $PAY_ENV_TEST = true;
+     public $PAY_KEY;
+     public $PAY_SALT;
+     public $mailer;
 
-    function __construct(){
-      $database = new DB();
-      $this->db = $database->connect();
-      $this->dbHelper = $database;
-      if ($this->PAY_ENV_TEST == true){
-        $this->PAY_KEY = 'rjQUPktU';
-        $this->PAY_SALT = 'e5iIg1jwi8';
-      } else {
-        $this->PAY_KEY = 'MfaUR5to';
-        $this->PAY_SALT = '9KfDBmH40i';
-      }
-    }
+     function __construct(){
+       $database = new DB();
+       $this->db = $database->connect();
+       $this->dbHelper = $database;
+       // MAIL CONFIG
+       $this->mailer = new PHPMailer(true);
+       // kTG^5F}yO6.g
+       /*$this->mailer->SMTPDebug = 2;
+       $this->mailer->isSMTP();
+       $this->mailer->Host       = 'mail.gamesetter.in';
+       $this->mailer->SMTPAuth   = true;
+       $this->mailer->Username   = 'no-reply@gamesetter.in';
+       $this->mailer->Password   = 'k3bqjznBrf';
+       $this->mailer->SMTPSecure = 'ssl';                                  // Enable TLS encryption, `ssl` also accepted
+       $this->mailer->Port       = 465;*/
+       // PAYMENT GATEWAY CONFIG
+       if ($this->PAY_ENV_TEST == true){
+         $this->PAY_KEY = 'rjQUPktU';
+         $this->PAY_SALT = 'e5iIg1jwi8';
+       } else {
+         $this->PAY_KEY = 'MfaUR5to';
+         $this->PAY_SALT = '9KfDBmH40i';
+       }
+     }
 
     /**
     * INTERNAL APPLICATION FUNCTIONS
@@ -218,6 +234,14 @@
           error_log("MYSQL ERROR: ".mysqli_error($this->db));
         }
       }
+      function update_kyc($user,$doctype,$docfront,$docback){
+        if (mysqli_query($this->db, "UPDATE users SET doctype='$doctype',docfront='$docfront',docback='$docback',docverified='pending'")) {
+          return true;
+        } else {
+          error_log("MYSQL ERROR: ".mysqli_error($this->db));
+          return false;
+        }
+      }
 
       // WALLET API
       // PAYTM SPECIFIC
@@ -371,7 +395,7 @@
       function withdraw($amount, $user, $gateway){
         if ($res = mysqli_query($this->db, "SELECT * FROM wallet WHERE user='$user'")){
           $row = mysqli_fetch_assoc($res);
-          if (+$row["balance"] >= +$amount) {
+          if ((+$row["balance"] - 10) >= +$amount) {
             $txn = "WITHD-".time();
             if (mysqli_query($this->db, "INSERT INTO withdraw(user,amount,gateway,txnid) VALUES('$user', '$amount', '$gateway','$txn')")){
               $amnt = +$amount;
@@ -437,7 +461,7 @@
               mysqli_query($this->db, "INSERT INTO transactions(id,amount,user,number,type,status) VALUES('$order_id', '$amount', '$user','null','MATCH-MONEY','SUCCESS')");
               return array("status" => 'success');
             } else {
-              error_log("MYSQL ERROR: ".mysqli_error($this->db)); 
+              error_log("MYSQL ERROR: ".mysqli_error($this->db));
             }
           } else {
             return array("status" => 'duplicate');
@@ -466,6 +490,30 @@
           return $array;
         } else {
           error_log("MYSQL ERROR: ".mysqli_error($this->db));
+        }
+      }
+
+      // MISC
+      function contact_email($email,$subject,$body){
+        try {
+          $user = $this->get_user($email);
+          $this->mailer->setFrom('no-reply@gamesetter.in', 'Game Setter - support bot');
+          $this->mailer->addAddress('no-reply@gamesetter.in');
+          $this->mailer->addReplyTo($email);
+          $this->mailer->Subject = 'Support mail from - '.$user["name"].", ".$email;
+          $this->mailer->isHTML(true);
+          $this->mailer->Body    = '
+            <b>User : </b>'.$email.'<br>
+            <b>Subject : </b>'.$subject.'<br>
+            <b>Message : </b>'.$body.'<br><br><hr>
+            This is auto-generated mail, Please do not reply back to this email.
+            '
+          ;
+          $this->mailer->send();
+          return true;
+        } catch (Exception $e) {
+          error_log("Mailer Error: ".$this->mailer->ErrorInfo);
+          return false;
         }
       }
   }

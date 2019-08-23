@@ -1,0 +1,13 @@
+[22-Aug-2019 23:33:26 Etc/GMT] PHP Fatal error:  Uncaught Error: Call to undefined method App::contact_email() in /home/gamesetter/public_html/manage/api/extras.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/gamesetter/public_html/manage/api/extras.php on line 16
+[22-Aug-2019 23:33:41 Etc/GMT] PHP Fatal error:  Uncaught Error: Call to undefined method App::contact_email() in /home/gamesetter/public_html/manage/api/extras.php:16
+Stack trace:
+#0 {main}
+  thrown in /home/gamesetter/public_html/manage/api/extras.php on line 16
+[22-Aug-2019 23:35:03 Etc/GMT] PHP Fatal error:  Uncaught Error: Class 'PHPMailer\PHPMailer\PHPMailer' not found in /home/gamesetter/public_html/manage/application/classes/application.php:30
+Stack trace:
+#0 /home/gamesetter/public_html/manage/api/extras.php(10): App->__construct()
+#1 {main}
+  thrown in /home/gamesetter/public_html/manage/application/classes/application.php on line 30

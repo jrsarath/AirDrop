@@ -12,17 +12,17 @@ export default class Signup extends Component {
     constructor() {
         super();
         this.state = {
-            inputName: null,
-            inputPhone: null,
-            inputGamertag: null,
-            inputEmail: null,
-            inputPass: null,
-            inputReferrer: null,
+            inputName: '',
+            inputPhone: '',
+            inputGamertag: '',
+            inputEmail: '',
+            inputPass: '',
+            inputReferrer: '',
             button: "Create Account"
         }
     }
     signup(){
-        if (this.state.inputName != null && this.state.inputPhone != null && this.state.inputGamertag != null && this.state.inputEmail != null && this.state.inputPass != null){
+        if (this.state.inputName != '' && this.state.inputPhone != '' && this.state.inputGamertag != '' && this.state.inputEmail != '' && this.state.inputPass != ''){
             this.setState({
                 button: 'Please Wait..'
             });

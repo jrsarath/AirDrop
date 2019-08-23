@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground } from 'react-native';
+import { StatusBar, StyleSheet, TouchableOpacity, View, ScrollView, ActivityIndicator, TextInput, ToastAndroid, ImageBackground, Alert } from 'react-native';
 import { Row, Title, Text, Subtitle, Image, Caption, Button, Screen, NavigationBar } from '@shoutem/ui';
 // CUSTOM COMPONENET 
 import Header from '../component/headerBack';
@@ -19,32 +19,62 @@ export default class ContactScreen extends Component {
         }
     }
     sendMail(){
-        fetch(config.domain + "api/extras.php", {
-            method: 'POST',
-            headers: new Headers({
-                'Accept': 'application/json',
-                "Accept-Encoding": "gzip, deflate",
-                'Content-Type': 'application/json'
-            }),
-            body: JSON.stringify({
-                action: "contactMail",
-                user: store.getState().user,
-                subject: this.state.subject,
-                body: this.state.body
+        if (this.state.subject != null && this.state.body != null) {
+            this.setState({
+                button: 'Please Wait..',
+                color: '#bdbdbd'
+            });
+            fetch(config.domain + "api/extras.php", {
+                method: 'POST',
+                headers: new Headers({
+                    'Accept': 'application/json',
+                    "Accept-Encoding": "gzip, deflate",
+                    'Content-Type': 'application/json'
+                }),
+                body: JSON.stringify({
+                    action: "contactMail",
+                    email: store.getState().user,
+                    subject: this.state.subject,
+                    body: this.state.body
+                })
             })
-        })
-        .then((response) => response.json())
-        .then((data) => {
-            if (subject.status == 'success') {
-
-            } else {
-
-            }
-        })
-        .catch((error) => {
-            console.error(error);
-            ToastAndroid.show('Error sending support request', ToastAndroid.LONG);
-        });
+            .then((response) => response.json())
+            .then((data) => {
+                if (data.status == 'success') {
+                    Alert.alert('Request Recieved', 'We got your support request, We will reach back to you shortly');
+                    this.setState({
+                        button: 'Done',
+                        color: '#4caf50'
+                    });
+                    setTimeout(() => {
+                        this.setState({
+                            button: 'Submit',
+                            color: '#f44336'
+                        });
+                    }, 3000);
+                } else {
+                    ToastAndroid.show('Error sending support request', ToastAndroid.LONG);
+                    this.setState({
+                        button: 'Try Again',
+                        color: '#f44336'
+                    })
+                }
+            })
+            .catch((error) => {
+                console.error(error);
+                ToastAndroid.show('Error sending support request', ToastAndroid.LONG);
+                this.setState({
+                    button: 'Try Again',
+                    color: '#f44336'
+                })
+            });
+        } else {
+            ToastAndroid.show('Please Fill Subject & Message', ToastAndroid.LONG);
+            this.setState({
+                button: 'Try Again',
+                color: '#f44336'
+            })
+        }
     }
     render() {
         return (

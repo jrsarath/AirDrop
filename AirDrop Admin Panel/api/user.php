@@ -32,13 +32,13 @@
                 }
                 break;
             case "forgot":
-                
+
                 break;
             case 'profile':
                 echo json_encode($app->get_user($data["user"]));
                 break;
             case "update_profile":
-                $return = $app->update_user($data["user"],$data["name"],$data["gamertag"],$data["bank"],$data["paytm"],$data["googlepay"],$data["amazonpay"]);           
+                $return = $app->update_user($data["user"],$data["name"],$data["gamertag"],$data["bank"],$data["paytm"],$data["googlepay"],$data["amazonpay"]);
                 if ($return == true){
                     echo json_encode(array('status' =>  'success' ));
                 } else {
@@ -46,11 +46,18 @@
                 }
                 break;
             case "update_password":
-                $return = $app->update_password($data["user"],$data["password"]);           
+                $return = $app->update_password($data["user"],$data["password"]);
                 if ($return == true){
                     echo json_encode(array('status' =>  'success' ));
                 } else {
                     echo json_encode(array('status' =>  $return ));
+                }
+                break;
+            case "kyc":
+                if ($app->update_kyc($data['user'],$data['doctype'],$data['docfront'],$data['docback'])){
+                  echo json_encode(array('status' =>  'success' ));
+                } else {
+                  echo json_encode(array('status' => 'false' ));
                 }
                 break;
             default:
@@ -60,4 +67,3 @@
         header('HTTP/1.0 403 Forbidden');
     }
 ?>
-                

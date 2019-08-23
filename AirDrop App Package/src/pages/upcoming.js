@@ -21,7 +21,7 @@ export default class UpcomingScreen extends Component {
         }
     }
     componentDidMount(){
-        this._getWalletBalance(); // UPDATE WALLET BALANCE ON STORE (DRAWER PURPOSE)
+        this._getWalletBalance(); // UPDATE WALLET BALANCE ON STORE (HEADER PURPOSE)
         this.props.navigation.addListener('willFocus', (route) => {
             this._getUpcomingMatches()
         });        
