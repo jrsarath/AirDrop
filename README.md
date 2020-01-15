@@ -1,4 +1,4 @@
-## AirDrop
+# AirDrop
 **A COMPLETE PUBGM TOURNAMENT MANAGEMENT SOLUTION**  
 
 First of all It's open-source, I'll highly appreciate if you use this for non-commercial purposes  
@@ -13,13 +13,13 @@ Feel free to open a issue for Suggestions, Feature Request, Feedbacks & Bugs
 
 Made with :heart: in Kolkata
 
-## Documentions
+# Documentions
 
 ### Setup Android App
 
 ### Setup Admin Panel
 
-## License
+# License
 MIT License
 
 Copyright (c) 2019 jrsarath
