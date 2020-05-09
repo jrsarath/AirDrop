@@ -1,0 +1,22 @@
+[25-Oct-2019 12:56:18 Asia/Kolkata] 10
+[25-Oct-2019 16:10:28 Asia/Kolkata] PHP Notice:  Undefined index: user in /home/gamesetter/public_html/manage/api/matches.php on line 22
+[25-Oct-2019 16:27:20 Asia/Kolkata] PHP Notice:  Undefined index: user in /home/gamesetter/public_html/manage/api/matches.php on line 22
+[25-Oct-2019 16:30:04 Asia/Kolkata] PHP Notice:  Undefined index: user in /home/gamesetter/public_html/manage/api/matches.php on line 22
+[25-Oct-2019 16:38:44 Asia/Kolkata] PHP Notice:  Undefined variable: app in /home/gamesetter/public_html/manage/application/classes/application.php on line 500
+[25-Oct-2019 16:38:44 Asia/Kolkata] PHP Notice:  Trying to get property 'db' of non-object in /home/gamesetter/public_html/manage/application/classes/application.php on line 500
+[25-Oct-2019 16:38:44 Asia/Kolkata] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/gamesetter/public_html/manage/application/classes/application.php on line 500
+[25-Oct-2019 16:38:44 Asia/Kolkata] PHP Notice:  Undefined variable: app in /home/gamesetter/public_html/manage/application/classes/application.php on line 507
+[25-Oct-2019 16:38:44 Asia/Kolkata] PHP Notice:  Trying to get property 'db' of non-object in /home/gamesetter/public_html/manage/application/classes/application.php on line 507
+[25-Oct-2019 16:38:44 Asia/Kolkata] PHP Warning:  mysqli_error() expects parameter 1 to be mysqli, null given in /home/gamesetter/public_html/manage/application/classes/application.php on line 507
+[25-Oct-2019 16:38:44 Asia/Kolkata] SQL Error: 
+[25-Oct-2019 11:08:45 Etc/GMT] PHP Fatal error:  Uncaught Error: Class 'App' not found in /home/gamesetter/public_html/manage/api/payment.php:10
+Stack trace:
+#0 {main}
+  thrown in /home/gamesetter/public_html/manage/api/payment.php on line 10
+[25-Oct-2019 16:39:08 Asia/Kolkata] PHP Notice:  Undefined variable: app in /home/gamesetter/public_html/manage/application/classes/application.php on line 500
+[25-Oct-2019 16:39:08 Asia/Kolkata] PHP Notice:  Trying to get property 'db' of non-object in /home/gamesetter/public_html/manage/application/classes/application.php on line 500
+[25-Oct-2019 16:39:08 Asia/Kolkata] PHP Warning:  mysqli_query() expects parameter 1 to be mysqli, null given in /home/gamesetter/public_html/manage/application/classes/application.php on line 500
+[25-Oct-2019 16:39:08 Asia/Kolkata] PHP Notice:  Undefined variable: app in /home/gamesetter/public_html/manage/application/classes/application.php on line 507
+[25-Oct-2019 16:39:08 Asia/Kolkata] PHP Notice:  Trying to get property 'db' of non-object in /home/gamesetter/public_html/manage/application/classes/application.php on line 507
+[25-Oct-2019 16:39:08 Asia/Kolkata] PHP Warning:  mysqli_error() expects parameter 1 to be mysqli, null given in /home/gamesetter/public_html/manage/application/classes/application.php on line 507
+[25-Oct-2019 16:39:08 Asia/Kolkata] SQL Error: 

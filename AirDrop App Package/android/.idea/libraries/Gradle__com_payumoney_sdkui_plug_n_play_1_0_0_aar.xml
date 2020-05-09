@@ -1,0 +1,15 @@
+<component name="libraryTable">
+  <library name="Gradle: com.payumoney.sdkui:plug-n-play:1.0.0@aar">
+    <ANNOTATIONS>
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2371fc3ceeff5e9dcd88aa969ba79b70/annotations.zip!/" />
+    </ANNOTATIONS>
+    <CLASSES>
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2371fc3ceeff5e9dcd88aa969ba79b70/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/2371fc3ceeff5e9dcd88aa969ba79b70/jars/classes.jar!/" />
+    </CLASSES>
+    <JAVADOC />
+    <SOURCES>
+      <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.payumoney.sdkui/plug-n-play/1.0.0/6331a453c0516b3dd16c3f8b9c5dec67aa7d5ada/plug-n-play-1.0.0-sources.jar!/" />
+    </SOURCES>
+  </library>
+</component>

@@ -1,0 +1,4 @@
+[25-Oct-2019 15:18:40 Asia/Kolkata] PHP Fatal error:  Uncaught Error: Using $this when not in object context in /home/gamesetter/public_html/manage/account-details.php:88
+Stack trace:
+#0 {main}
+  thrown in /home/gamesetter/public_html/manage/account-details.php on line 88

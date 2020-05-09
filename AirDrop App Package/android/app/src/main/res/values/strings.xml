@@ -1,0 +1,4 @@
+<resources>
+    <string name="app_name">GameSetter</string>
+    <string name="freshchat_file_provider_authority">com.gamesetter.provider</string>
+</resources>
