@@ -15,7 +15,7 @@
     "@shoutem/ui": "^0.24.1",
     "js-md5": "^0.7.3",
     "react": "16.8.6",
-    "react-native": "0.60.4",
+    "react-native": "0.62.3",
     "react-native-app-link": "^1.0.0",
     "react-native-camera": "^3.1.1",
     "react-native-custom-icon": "0.0.3",
